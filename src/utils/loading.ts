@@ -1,4 +1,3 @@
-import { nextTick } from 'vue';
 import '/@/theme/loading.scss';
 
 /**

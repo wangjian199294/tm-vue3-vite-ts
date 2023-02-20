@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts" name="pagesFormRules">
-import { defineAsyncComponent, reactive, ref } from 'vue';
+// import { defineAsyncComponent, reactive, ref } from 'vue';
 import { ElMessage } from 'element-plus';
 
 // 引入组件

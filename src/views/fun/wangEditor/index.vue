@@ -13,11 +13,6 @@
 </template>
 
 <script setup lang="ts" name="funWangEditor">
-import { defineAsyncComponent, reactive } from 'vue';
-
-// 引入组件
-const Editor = defineAsyncComponent(() => import('/@/components/editor/index.vue'));
-
 // 定义变量内容
 const state = reactive({
 	editor: {

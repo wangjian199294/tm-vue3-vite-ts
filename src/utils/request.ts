@@ -1,5 +1,12 @@
+/*
+ * @Author: wj
+ * @Date: 2022-12-08 09:11:32
+ * @LastEditors: wj_advance
+ * @LastEditTime: 2023-02-20 09:07:05
+ * @FilePath: /tm-vue3-vite-ts/src/utils/request.ts
+ * @Description:
+ */
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import { ElMessage, ElMessageBox } from 'element-plus';
 import { Session } from '/@/utils/storage';
 
 // 配置新建一个 axios 实例
@@ -35,8 +42,8 @@ service.interceptors.response.use(
 				Session.clear(); // 清除浏览器全部临时缓存
 				window.location.href = '/'; // 去登录页
 				ElMessageBox.alert('你已被登出，请重新登录', '提示', {})
-					.then(() => {})
-					.catch(() => {});
+					.then(() => { })
+					.catch(() => { });
 			}
 			return Promise.reject(service.interceptors.response);
 		} else {

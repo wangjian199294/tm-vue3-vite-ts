@@ -1,4 +1,3 @@
-import { defineStore } from 'pinia';
 
 /**
  * 路由列表

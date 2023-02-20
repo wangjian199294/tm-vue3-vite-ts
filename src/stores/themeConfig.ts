@@ -1,5 +1,3 @@
-import { defineStore } from 'pinia';
-
 /**
  * 布局配置
  * 修复：https://gitee.com/lyt-top/vue-next-admin/issues/I567R1，感谢@lanbao123

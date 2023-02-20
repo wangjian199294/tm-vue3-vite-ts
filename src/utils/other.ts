@@ -1,4 +1,3 @@
-import { nextTick, defineAsyncComponent } from 'vue';
 import type { App } from 'vue';
 import * as svg from '@element-plus/icons-vue';
 import router from '/@/router/index';

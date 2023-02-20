@@ -1,5 +1,4 @@
 import { RouteRecordRaw } from 'vue-router';
-import { storeToRefs } from 'pinia';
 import pinia from '/@/stores/index';
 import { useUserInfo } from '/@/stores/userInfo';
 import { useRequestOldRoutes } from '/@/stores/requestOldRoutes';
@@ -10,6 +9,7 @@ import { formatTwoStageRoutes, formatFlatteningRoutes, router } from '/@/router/
 import { useRoutesList } from '/@/stores/routesList';
 import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes';
 import { useMenuApi } from '/@/api/menu/index';
+import { storeToRefs } from 'pinia';
 
 // 后端控制路由
 
