@@ -1,3 +1,11 @@
+/*
+ * @Author: wj
+ * @Date: 2023-03-17 15:40:30
+ * @LastEditors: wj_advance
+ * @LastEditTime: 2023-03-19 17:49:29
+ * @FilePath: /tm-vue3-vite-ts/.prettierrc.js
+ * @Description:
+ */
 module.exports = {
 	// 一行最多多少个字符
 	printWidth: 150,
@@ -6,7 +14,7 @@ module.exports = {
 	// 使用制表符而不是空格缩进行
 	useTabs: true,
 	// 在语句末尾打印分号
-	semi: true,
+	semi: false,
 	// 使用单引号而不是双引号
 	singleQuote: true,
 	// 更改引用对象属性的时间 可选值"<as-needed|consistent|preserve>"

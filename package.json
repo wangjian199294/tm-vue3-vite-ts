@@ -7,7 +7,9 @@
 	"scripts": {
 		"dev": "vite --force",
 		"build": "vite build",
-		"lint-fix": "eslint --fix --ext .js --ext .jsx --ext .vue src/"
+		"eslint": "eslint --fix --ext .js --ext .jsx --ext .vue src/,.ts src",
+		"prepare": "husky install",
+		"lint": "lint-staged"
 	},
 	"dependencies": {
 		"@element-plus/icons-vue": "^2.0.10",
@@ -38,6 +40,7 @@
 		"vue-router": "^4.1.6"
 	},
 	"devDependencies": {
+		"@commitlint/config-conventional": "^17.4.4",
 		"@types/node": "^18.11.9",
 		"@types/nprogress": "^0.2.0",
 		"@types/sortablejs": "^1.15.0",
@@ -45,8 +48,11 @@
 		"@typescript-eslint/parser": "^5.45.0",
 		"@vitejs/plugin-vue": "^3.2.0",
 		"@vue/compiler-sfc": "^3.2.45",
+		"commitlint": "^17.4.4",
 		"eslint": "^8.28.0",
 		"eslint-plugin-vue": "^9.8.0",
+		"husky": "^8.0.3",
+		"lint-staged": "^13.2.0",
 		"prettier": "^2.8.0",
 		"sass": "^1.56.1",
 		"typescript": "^4.9.3",
@@ -83,5 +89,13 @@
 	"repository": {
 		"type": "git",
 		"url": "https://gitee.com/lyt-top/vue-next-admin.git"
+	},
+	"lint-staged": {
+		"src/**": "eslint"
+	},
+	"commitlint": {
+		"extends": [
+			"@commitlint/config-conventional"
+		]
 	}
 }

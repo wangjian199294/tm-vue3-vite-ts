@@ -2,7 +2,7 @@
  * @Author: wj
  * @Date: 2022-12-08 09:11:32
  * @LastEditors: wj_advance
- * @LastEditTime: 2023-02-20 09:10:12
+ * @LastEditTime: 2023-03-19 17:31:15
  * @FilePath: /tm-vue3-vite-ts/vite.config.ts
  * @Description:
  */
@@ -128,7 +128,9 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 				},
 			},
 		},
-		css: { preprocessorOptions: { css: { charset: false } } },
+		css: {
+			preprocessorOptions: { css: { charset: false } }
+		},
 		define: {
 			__VUE_I18N_LEGACY_API__: JSON.stringify(false),
 			__VUE_I18N_FULL_INSTALL__: JSON.stringify(false),
