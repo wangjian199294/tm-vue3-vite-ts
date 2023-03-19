@@ -1,7 +1,7 @@
 // https://pinia.vuejs.org/
 
 // 创建
-const pinia = createPinia();
+const pinia = createPinia()
 
 // 导出
-export default pinia;
+export default pinia

@@ -30,13 +30,13 @@
 </template>
 
 <script setup lang="ts" name="pagesSteps">
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 // 定义变量内容
-const stepsActive = ref(1);
+const stepsActive = ref(1)
 
 // 下一步点击
 const onNextSteps = () => {
-	if (stepsActive.value++ > 2) stepsActive.value = 1;
-};
+	if (stepsActive.value++ > 2) stepsActive.value = 1
+}
 </script>

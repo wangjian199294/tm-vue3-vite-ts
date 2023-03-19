@@ -64,7 +64,7 @@
 </template>
 
 <script setup lang="ts" name="systemEditDic">
-import { reactive } from 'vue';
+import { reactive } from 'vue'
 
 // 定义变量内容
 const state = reactive({
@@ -74,55 +74,55 @@ const state = reactive({
 		fieldName: '', // 字段名
 		status: true, // 字典状态
 		list: [] as ListType[], // 子集字段 + 属性值
-		describe: '', // 字典描述
-	},
-});
+		describe: '' // 字典描述
+	}
+})
 
 // 打开弹窗
 const openDialog = (row: RowDicType) => {
 	if (row.fieldName === 'SYS_UERINFO') {
 		row.list = [
 			{ id: Math.random(), label: 'sex', value: '1' },
-			{ id: Math.random(), label: 'sex', value: '0' },
-		];
+			{ id: Math.random(), label: 'sex', value: '0' }
+		]
 	} else {
 		row.list = [
 			{ id: Math.random(), label: 'role', value: 'admin' },
 			{ id: Math.random(), label: 'role', value: 'common' },
 			{ id: Math.random(), label: 'roleName', value: '超级管理员' },
-			{ id: Math.random(), label: 'roleName', value: '普通用户' },
-		];
+			{ id: Math.random(), label: 'roleName', value: '普通用户' }
+		]
 	}
-	state.ruleForm = row;
-	state.isShowDialog = true;
-};
+	state.ruleForm = row
+	state.isShowDialog = true
+}
 // 关闭弹窗
 const closeDialog = () => {
-	state.isShowDialog = false;
-};
+	state.isShowDialog = false
+}
 // 取消
 const onCancel = () => {
-	closeDialog();
-};
+	closeDialog()
+}
 // 新增
 const onSubmit = () => {
-	closeDialog();
-};
+	closeDialog()
+}
 // 新增行
 const onAddRow = () => {
 	state.ruleForm.list.push({
 		id: Math.random(),
 		label: '',
-		value: '',
-	});
-};
+		value: ''
+	})
+}
 // 删除行
 const onDelRow = (k: number) => {
-	state.ruleForm.list.splice(k, 1);
-};
+	state.ruleForm.list.splice(k, 1)
+}
 
 // 暴露变量
 defineExpose({
-	openDialog,
-});
+	openDialog
+})
 </script>

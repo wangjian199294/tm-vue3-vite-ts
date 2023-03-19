@@ -4,11 +4,11 @@
  */
 export const useRequestOldRoutes = defineStore('requestOldRoutes', {
 	state: (): RequestOldRoutesState => ({
-		requestOldRoutes: [],
+		requestOldRoutes: []
 	}),
 	actions: {
 		async setRequestOldRoutes(routes: Array<string>) {
-			this.requestOldRoutes = routes;
-		},
-	},
-});
+			this.requestOldRoutes = routes
+		}
+	}
+})

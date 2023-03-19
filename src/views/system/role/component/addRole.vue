@@ -51,7 +51,7 @@
 </template>
 
 <script setup lang="ts" name="systemAddRole">
-import { reactive } from 'vue';
+import { reactive } from 'vue'
 
 // 定义变量内容
 const state = reactive({
@@ -61,32 +61,32 @@ const state = reactive({
 		roleSign: '', // 角色标识
 		sort: 0, // 排序
 		status: true, // 角色状态
-		describe: '', // 角色描述
+		describe: '' // 角色描述
 	},
 	menuData: [] as TreeType[],
 	menuProps: {
 		children: 'children',
-		label: 'label',
-	},
-});
+		label: 'label'
+	}
+})
 
 // 打开弹窗
 const openDialog = () => {
-	state.isShowDialog = true;
-	getMenuData();
-};
+	state.isShowDialog = true
+	getMenuData()
+}
 // 关闭弹窗
 const closeDialog = () => {
-	state.isShowDialog = false;
-};
+	state.isShowDialog = false
+}
 // 取消
 const onCancel = () => {
-	closeDialog();
-};
+	closeDialog()
+}
 // 新增
 const onSubmit = () => {
-	closeDialog();
-};
+	closeDialog()
+}
 // 获取菜单结构数据
 const getMenuData = () => {
 	state.menuData = [
@@ -100,21 +100,21 @@ const getMenuData = () => {
 					children: [
 						{
 							id: 111,
-							label: '菜单新增',
+							label: '菜单新增'
 						},
 						{
 							id: 112,
-							label: '菜单修改',
+							label: '菜单修改'
 						},
 						{
 							id: 113,
-							label: '菜单删除',
+							label: '菜单删除'
 						},
 						{
 							id: 114,
-							label: '菜单查询',
-						},
-					],
+							label: '菜单查询'
+						}
+					]
 				},
 				{
 					id: 12,
@@ -122,21 +122,21 @@ const getMenuData = () => {
 					children: [
 						{
 							id: 121,
-							label: '角色新增',
+							label: '角色新增'
 						},
 						{
 							id: 122,
-							label: '角色修改',
+							label: '角色修改'
 						},
 						{
 							id: 123,
-							label: '角色删除',
+							label: '角色删除'
 						},
 						{
 							id: 124,
-							label: '角色查询',
-						},
-					],
+							label: '角色查询'
+						}
+					]
 				},
 				{
 					id: 13,
@@ -144,23 +144,23 @@ const getMenuData = () => {
 					children: [
 						{
 							id: 131,
-							label: '用户新增',
+							label: '用户新增'
 						},
 						{
 							id: 132,
-							label: '用户修改',
+							label: '用户修改'
 						},
 						{
 							id: 133,
-							label: '用户删除',
+							label: '用户删除'
 						},
 						{
 							id: 134,
-							label: '用户查询',
-						},
-					],
-				},
-			],
+							label: '用户查询'
+						}
+					]
+				}
+			]
 		},
 		{
 			id: 2,
@@ -172,13 +172,13 @@ const getMenuData = () => {
 					children: [
 						{
 							id: 211,
-							label: '页面权限',
+							label: '页面权限'
 						},
 						{
 							id: 212,
-							label: '页面权限',
-						},
-					],
+							label: '页面权限'
+						}
+					]
 				},
 				{
 					id: 22,
@@ -186,19 +186,19 @@ const getMenuData = () => {
 					children: [
 						{
 							id: 221,
-							label: '页面权限',
-						},
-					],
-				},
-			],
-		},
-	];
-};
+							label: '页面权限'
+						}
+					]
+				}
+			]
+		}
+	]
+}
 
 // 暴露变量
 defineExpose({
-	openDialog,
-});
+	openDialog
+})
 </script>
 
 <style scoped lang="scss">

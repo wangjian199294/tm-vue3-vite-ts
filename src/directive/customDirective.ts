@@ -1,4 +1,4 @@
-import type { App } from 'vue';
+import type { App } from 'vue'
 
 /**
  * 按钮波浪指令
@@ -8,28 +8,28 @@ import type { App } from 'vue';
 export function wavesDirective(app: App) {
 	app.directive('waves', {
 		mounted(el, binding) {
-			el.classList.add('waves-effect');
-			binding.value && el.classList.add(`waves-${binding.value}`);
+			el.classList.add('waves-effect')
+			binding.value && el.classList.add(`waves-${binding.value}`)
 			function setConvertStyle(obj: { [key: string]: unknown }) {
-				let style: string = '';
+				let style: string = ''
 				for (let i in obj) {
-					if (obj.hasOwnProperty(i)) style += `${i}:${obj[i]};`;
+					if (obj.hasOwnProperty(i)) style += `${i}:${obj[i]};`
 				}
-				return style;
+				return style
 			}
 			function onCurrentClick(e: { [key: string]: unknown }) {
-				let elDiv = document.createElement('div');
-				elDiv.classList.add('waves-ripple');
-				el.appendChild(elDiv);
+				let elDiv = document.createElement('div')
+				elDiv.classList.add('waves-ripple')
+				el.appendChild(elDiv)
 				let styles = {
 					left: `${e.layerX}px`,
 					top: `${e.layerY}px`,
 					opacity: 1,
 					transform: `scale(${(el.clientWidth / 100) * 10})`,
 					'transition-duration': `750ms`,
-					'transition-timing-function': `cubic-bezier(0.250, 0.460, 0.450, 0.940)`,
-				};
-				elDiv.setAttribute('style', setConvertStyle(styles));
+					'transition-timing-function': `cubic-bezier(0.250, 0.460, 0.450, 0.940)`
+				}
+				elDiv.setAttribute('style', setConvertStyle(styles))
 				setTimeout(() => {
 					elDiv.setAttribute(
 						'style',
@@ -37,20 +37,20 @@ export function wavesDirective(app: App) {
 							opacity: 0,
 							transform: styles.transform,
 							left: styles.left,
-							top: styles.top,
+							top: styles.top
 						})
-					);
+					)
 					setTimeout(() => {
-						elDiv && el.removeChild(elDiv);
-					}, 750);
-				}, 450);
+						elDiv && el.removeChild(elDiv)
+					}, 750)
+				}, 450)
 			}
-			el.addEventListener('mousedown', onCurrentClick, false);
+			el.addEventListener('mousedown', onCurrentClick, false)
 		},
 		unmounted(el) {
-			el.addEventListener('mousedown', () => {});
-		},
-	});
+			el.addEventListener('mousedown', () => {})
+		}
+	})
 }
 
 /**
@@ -63,45 +63,45 @@ export function wavesDirective(app: App) {
 export function dragDirective(app: App) {
 	app.directive('drag', {
 		mounted(el, binding) {
-			if (!binding.value) return false;
+			if (!binding.value) return false
 
-			const dragDom = document.querySelector(binding.value[0]) as HTMLElement;
-			const dragHeader = document.querySelector(binding.value[1]) as HTMLElement;
+			const dragDom = document.querySelector(binding.value[0]) as HTMLElement
+			const dragHeader = document.querySelector(binding.value[1]) as HTMLElement
 
-			dragHeader.onmouseover = () => (dragHeader.style.cursor = `move`);
+			dragHeader.onmouseover = () => (dragHeader.style.cursor = `move`)
 
 			function down(e: any, type: string) {
 				// 鼠标按下，计算当前元素距离可视区的距离
-				const disX = type === 'pc' ? e.clientX - dragHeader.offsetLeft : e.touches[0].clientX - dragHeader.offsetLeft;
-				const disY = type === 'pc' ? e.clientY - dragHeader.offsetTop : e.touches[0].clientY - dragHeader.offsetTop;
+				const disX = type === 'pc' ? e.clientX - dragHeader.offsetLeft : e.touches[0].clientX - dragHeader.offsetLeft
+				const disY = type === 'pc' ? e.clientY - dragHeader.offsetTop : e.touches[0].clientY - dragHeader.offsetTop
 
 				// body当前宽度
-				const screenWidth = document.body.clientWidth;
+				const screenWidth = document.body.clientWidth
 				// 可见区域高度(应为body高度，可某些环境下无法获取)
-				const screenHeight = document.documentElement.clientHeight;
+				const screenHeight = document.documentElement.clientHeight
 
 				// 对话框宽度
-				const dragDomWidth = dragDom.offsetWidth;
+				const dragDomWidth = dragDom.offsetWidth
 				// 对话框高度
-				const dragDomheight = dragDom.offsetHeight;
+				const dragDomheight = dragDom.offsetHeight
 
-				const minDragDomLeft = dragDom.offsetLeft;
-				const maxDragDomLeft = screenWidth - dragDom.offsetLeft - dragDomWidth;
+				const minDragDomLeft = dragDom.offsetLeft
+				const maxDragDomLeft = screenWidth - dragDom.offsetLeft - dragDomWidth
 
-				const minDragDomTop = dragDom.offsetTop;
-				const maxDragDomTop = screenHeight - dragDom.offsetTop - dragDomheight;
+				const minDragDomTop = dragDom.offsetTop
+				const maxDragDomTop = screenHeight - dragDom.offsetTop - dragDomheight
 
 				// 获取到的值带px 正则匹配替换
-				let styL: any = getComputedStyle(dragDom).left;
-				let styT: any = getComputedStyle(dragDom).top;
+				let styL: any = getComputedStyle(dragDom).left
+				let styT: any = getComputedStyle(dragDom).top
 
 				// 注意在ie中 第一次获取到的值为组件自带50% 移动之后赋值为px
 				if (styL.includes('%')) {
-					styL = +document.body.clientWidth * (+styL.replace(/\%/g, '') / 100);
-					styT = +document.body.clientHeight * (+styT.replace(/\%/g, '') / 100);
+					styL = +document.body.clientWidth * (+styL.replace(/\%/g, '') / 100)
+					styT = +document.body.clientHeight * (+styT.replace(/\%/g, '') / 100)
 				} else {
-					styL = +styL.replace(/\px/g, '');
-					styT = +styT.replace(/\px/g, '');
+					styL = +styL.replace(/\px/g, '')
+					styT = +styT.replace(/\px/g, '')
 				}
 
 				return {
@@ -112,32 +112,32 @@ export function dragDirective(app: App) {
 					minDragDomTop,
 					maxDragDomTop,
 					styL,
-					styT,
-				};
+					styT
+				}
 			}
 
 			function move(e: any, type: string, obj: any) {
-				let { disX, disY, minDragDomLeft, maxDragDomLeft, minDragDomTop, maxDragDomTop, styL, styT } = obj;
+				let { disX, disY, minDragDomLeft, maxDragDomLeft, minDragDomTop, maxDragDomTop, styL, styT } = obj
 
 				// 通过事件委托，计算移动的距离
-				let left = type === 'pc' ? e.clientX - disX : e.touches[0].clientX - disX;
-				let top = type === 'pc' ? e.clientY - disY : e.touches[0].clientY - disY;
+				let left = type === 'pc' ? e.clientX - disX : e.touches[0].clientX - disX
+				let top = type === 'pc' ? e.clientY - disY : e.touches[0].clientY - disY
 
 				// 边界处理
 				if (-left > minDragDomLeft) {
-					left = -minDragDomLeft;
+					left = -minDragDomLeft
 				} else if (left > maxDragDomLeft) {
-					left = maxDragDomLeft;
+					left = maxDragDomLeft
 				}
 
 				if (-top > minDragDomTop) {
-					top = -minDragDomTop;
+					top = -minDragDomTop
 				} else if (top > maxDragDomTop) {
-					top = maxDragDomTop;
+					top = maxDragDomTop
 				}
 
 				// 移动当前元素
-				dragDom.style.cssText += `;left:${left + styL}px;top:${top + styT}px;`;
+				dragDom.style.cssText += `;left:${left + styL}px;top:${top + styT}px;`
 			}
 
 			/**
@@ -147,15 +147,15 @@ export function dragDirective(app: App) {
 			 * onmouseup 鼠标抬起触发事件
 			 */
 			dragHeader.onmousedown = (e) => {
-				const obj = down(e, 'pc');
+				const obj = down(e, 'pc')
 				document.onmousemove = (e) => {
-					move(e, 'pc', obj);
-				};
+					move(e, 'pc', obj)
+				}
 				document.onmouseup = () => {
-					document.onmousemove = null;
-					document.onmouseup = null;
-				};
-			};
+					document.onmousemove = null
+					document.onmouseup = null
+				}
+			}
 
 			/**
 			 * 移动端
@@ -164,15 +164,15 @@ export function dragDirective(app: App) {
 			 * ontouchend 当移走手指时，触发ontouchend
 			 */
 			dragHeader.ontouchstart = (e) => {
-				const obj = down(e, 'app');
+				const obj = down(e, 'app')
 				document.ontouchmove = (e) => {
-					move(e, 'app', obj);
-				};
+					move(e, 'app', obj)
+				}
 				document.ontouchend = () => {
-					document.ontouchmove = null;
-					document.ontouchend = null;
-				};
-			};
-		},
-	});
+					document.ontouchmove = null
+					document.ontouchend = null
+				}
+			}
+		}
+	})
 }

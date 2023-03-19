@@ -24,21 +24,21 @@
 </template>
 
 <script setup lang="ts" name="funCropper">
-import { defineAsyncComponent, ref, reactive } from 'vue';
+import { defineAsyncComponent, ref, reactive } from 'vue'
 
 // 引入组件
-const CropperDialog = defineAsyncComponent(() => import('/@/components/cropper/index.vue'));
+const CropperDialog = defineAsyncComponent(() => import('/@/components/cropper/index.vue'))
 
 // 定义变量内容
-const cropperDialogRef = ref();
+const cropperDialogRef = ref()
 const state = reactive({
-	cropperImg: 'https://img2.baidu.com/it/u=1978192862,2048448374&fm=253&fmt=auto&app=138&f=JPEG?w=504&h=500',
-});
+	cropperImg: 'https://img2.baidu.com/it/u=1978192862,2048448374&fm=253&fmt=auto&app=138&f=JPEG?w=504&h=500'
+})
 
 // 打开裁剪弹窗
 const onCropperDialogOpen = () => {
-	cropperDialogRef.value.openDialog(state.cropperImg);
-};
+	cropperDialogRef.value.openDialog(state.cropperImg)
+}
 </script>
 
 <style scoped lang="scss">

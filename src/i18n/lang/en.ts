@@ -73,12 +73,12 @@ export default {
 		tools: 'tools',
 		layoutLinkView: 'LinkView',
 		layoutIframeViewOne: 'IframeViewOne',
-		layoutIframeViewTwo: 'IframeViewTwo',
+		layoutIframeViewTwo: 'IframeViewTwo'
 	},
 	staticRoutes: {
 		signIn: 'signIn',
 		notFound: 'notFound',
-		noPower: 'noPower',
+		noPower: 'noPower'
 	},
 	user: {
 		title0: 'Component size',
@@ -106,7 +106,7 @@ export default {
 		logOutMessage: 'This operation will log out. Do you want to continue?',
 		logOutConfirm: 'determine',
 		logOutCancel: 'cancel',
-		logOutExit: 'Exiting',
+		logOutExit: 'Exiting'
 	},
 	tagsView: {
 		refresh: 'refresh',
@@ -114,17 +114,17 @@ export default {
 		closeOther: 'closeOther',
 		closeAll: 'closeAll',
 		fullscreen: 'fullscreen',
-		closeFullscreen: 'closeFullscreen',
+		closeFullscreen: 'closeFullscreen'
 	},
 	notFound: {
 		foundTitle: 'Wrong address input, please re-enter the address~',
 		foundMsg: 'You can check the web address first, and then re-enter or give us feedback.',
-		foundBtn: 'Back to home page',
+		foundBtn: 'Back to home page'
 	},
 	noAccess: {
 		accessTitle: 'You are not authorized to operate~',
 		accessMsg: 'Contact information: add QQ group discussion 665452019',
-		accessBtn: 'Reauthorization',
+		accessBtn: 'Reauthorization'
 	},
 	layout: {
 		configTitle: 'Layout configuration',
@@ -178,7 +178,7 @@ export default {
 		copyText: 'replication configuration',
 		resetText: 'restore default',
 		copyTextSuccess: 'Copy succeeded!',
-		copyTextError: 'Copy failed!',
+		copyTextError: 'Copy failed!'
 	},
 	upgrade: {
 		title: 'New version',
@@ -186,6 +186,6 @@ export default {
 		desc: 'Prompt: Update will restore the default configuration',
 		btnOne: 'Cruel refusal',
 		btnTwo: 'Update now',
-		btnTwoLoading: 'Updating',
-	},
-};
+		btnTwoLoading: 'Updating'
+	}
+}

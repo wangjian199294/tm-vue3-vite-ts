@@ -11,32 +11,32 @@
 </template>
 
 <script setup lang="ts" name="chartHead">
-import { reactive, onBeforeMount, onUnmounted } from 'vue';
-import { formatDate } from '/@/utils/formatTime';
+import { reactive, onBeforeMount, onUnmounted } from 'vue'
+import { formatDate } from '/@/utils/formatTime'
 
 // 定义变量内容
 const state = reactive({
 	time: {
 		txt: '',
-		fun: 0,
-	},
-});
+		fun: 0
+	}
+})
 
 // 初始化时间
 const initTime = () => {
-	state.time.txt = formatDate(new Date(), 'YYYY-mm-dd HH:MM:SS WWW QQQQ');
+	state.time.txt = formatDate(new Date(), 'YYYY-mm-dd HH:MM:SS WWW QQQQ')
 	state.time.fun = window.setInterval(() => {
-		state.time.txt = formatDate(new Date(), 'YYYY-mm-dd HH:MM:SS WWW QQQQ');
-	}, 1000);
-};
+		state.time.txt = formatDate(new Date(), 'YYYY-mm-dd HH:MM:SS WWW QQQQ')
+	}, 1000)
+}
 // 页面加载前
 onBeforeMount(() => {
-	initTime();
-});
+	initTime()
+})
 // 页面卸载时
 onUnmounted(() => {
-	window.clearInterval(state.time.fun);
-});
+	window.clearInterval(state.time.fun)
+})
 </script>
 
 <style scoped lang="scss">

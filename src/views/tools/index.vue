@@ -193,7 +193,7 @@
 </template>
 
 <script setup lang="ts" name="tools">
-import { reactive } from 'vue';
+import { reactive } from 'vue'
 import {
 	verifyNumberPercentage,
 	verifyNumberPercentageFloat,
@@ -217,8 +217,8 @@ import {
 	verifyFullName,
 	verifyPostalCode,
 	verifyUrl,
-	verifyCarNum,
-} from '/@/utils/toolsValidate';
+	verifyCarNum
+} from '/@/utils/toolsValidate'
 
 // 定义变量内容
 const state = reactive({
@@ -264,22 +264,22 @@ const state = reactive({
 		a20: '',
 		a21: '',
 		a22: '',
-		a23: '',
+		a23: ''
 	},
 	rules: {
 		a1: [
 			{
 				required: true,
 				message: '请输入小数或整数进行测试',
-				trigger: 'change',
-			},
+				trigger: 'change'
+			}
 		],
 		a2: [
 			{
 				required: true,
 				message: '请输入正整数进行测试',
-				trigger: 'change',
-			},
+				trigger: 'change'
+			}
 		],
 		a3: [{ required: true, message: '请输入内容进行测试', trigger: 'change' }],
 		a4: [{ required: true, message: '请输入内容进行测试', trigger: 'change' }],
@@ -288,8 +288,8 @@ const state = reactive({
 			{
 				required: true,
 				message: '请输入小数或整数进行测试',
-				trigger: 'change',
-			},
+				trigger: 'change'
+			}
 		],
 		a7: [{ required: true, message: '请输入内容进行测试', trigger: 'change' }],
 		a8: [{ required: true, message: '请输入金额进行测试', trigger: 'change' }],
@@ -297,15 +297,15 @@ const state = reactive({
 			{
 				required: true,
 				message: '请输入手机号进行测试',
-				trigger: 'change',
-			},
+				trigger: 'change'
+			}
 		],
 		a10: [
 			{
 				required: true,
 				message: '请输入国内电话号码进行测试',
-				trigger: 'change',
-			},
+				trigger: 'change'
+			}
 		],
 		a11: [{ required: true, message: '请输入账号进行测试', trigger: 'change' }],
 		a12: [{ required: true, message: '请输入密码进行测试', trigger: 'change' }],
@@ -315,144 +315,144 @@ const state = reactive({
 			{
 				required: true,
 				message: '请输入IP地址进行测试',
-				trigger: 'change',
-			},
+				trigger: 'change'
+			}
 		],
 		a16: [{ required: true, message: '请输入邮箱进行测试', trigger: 'change' }],
 		a17: [
 			{
 				required: true,
 				message: '请输入身份证进行测试',
-				trigger: 'change',
-			},
+				trigger: 'change'
+			}
 		],
 		a18: [{ required: true, message: '请输入姓名进行测试', trigger: 'change' }],
 		a19: [
 			{
 				required: true,
 				message: '请输入邮政编码进行测试',
-				trigger: 'change',
-			},
+				trigger: 'change'
+			}
 		],
 		a20: [{ required: true, message: '请输入内容进行测试', trigger: 'change' }],
 		a21: [
 			{
 				required: true,
 				message: '请输入车牌号进行测试',
-				trigger: 'change',
-			},
+				trigger: 'change'
+			}
 		],
 		a22: [{ required: true, message: '请输入数字进行测试', trigger: 'change' }],
-		a23: [{ required: true, message: '请输入数字进行测试', trigger: 'change' }],
-	},
-});
+		a23: [{ required: true, message: '请输入数字进行测试', trigger: 'change' }]
+	}
+})
 
 // 验证百分比（不可以小数）
 const onVerifyNumberPercentage = (val: string) => {
-	state.ruleForm.a22 = verifyNumberPercentage(val);
-};
+	state.ruleForm.a22 = verifyNumberPercentage(val)
+}
 // 验证百分比（可以小数）
 const onVerifyNumberPercentageFloat = (val: string) => {
-	state.ruleForm.a23 = verifyNumberPercentageFloat(val);
-};
+	state.ruleForm.a23 = verifyNumberPercentageFloat(val)
+}
 // 小数或整数
 const onVerifyNumberIntegerAndFloat = (val: string) => {
-	state.ruleForm.a1 = verifyNumberIntegerAndFloat(val);
-};
+	state.ruleForm.a1 = verifyNumberIntegerAndFloat(val)
+}
 // 正整数
 const onVerifiyNumberInteger = (val: string) => {
-	state.ruleForm.a2 = verifiyNumberInteger(val);
-};
+	state.ruleForm.a2 = verifiyNumberInteger(val)
+}
 // 去掉中文及空格
 const onVerifyCnAndSpace = (val: string) => {
-	state.ruleForm.a3 = verifyCnAndSpace(val);
-};
+	state.ruleForm.a3 = verifyCnAndSpace(val)
+}
 // 去掉英文及空格
 const onVerifyEnAndSpace = (val: string) => {
-	state.ruleForm.a4 = verifyEnAndSpace(val);
-};
+	state.ruleForm.a4 = verifyEnAndSpace(val)
+}
 // 禁止输入空格
 const onVerifyAndSpace = (val: string) => {
-	state.ruleForm.a5 = verifyAndSpace(val);
-};
+	state.ruleForm.a5 = verifyAndSpace(val)
+}
 // 金额用 `,` 区分开
 const onVerifyNumberComma = (val: string) => {
-	state.ruleForm.a6 = verifyNumberComma(val);
-};
+	state.ruleForm.a6 = verifyNumberComma(val)
+}
 // 匹配文字变色（搜索时）
 const onVerifyTextColor = (val: string) => {
-	state.ruleForm.a7 = verifyAndSpace(val);
-	if (state.ruleForm.a7 === '') state.text = `世间美好，与你环环相扣，祝你开心每一天！`;
-	else state.text = verifyTextColor(state.ruleForm.a7, state.text);
-};
+	state.ruleForm.a7 = verifyAndSpace(val)
+	if (state.ruleForm.a7 === '') state.text = `世间美好，与你环环相扣，祝你开心每一天！`
+	else state.text = verifyTextColor(state.ruleForm.a7, state.text)
+}
 // 数字转中文大写
 const onVerifyNumberCnUppercase = (val: string) => {
-	state.ruleForm.a8 = verifyNumberIntegerAndFloat(val);
-	if (state.ruleForm.a8 === '') state.cnText = '';
-	else state.cnText = verifyNumberCnUppercase(state.ruleForm.a8);
-};
+	state.ruleForm.a8 = verifyNumberIntegerAndFloat(val)
+	if (state.ruleForm.a8 === '') state.cnText = ''
+	else state.cnText = verifyNumberCnUppercase(state.ruleForm.a8)
+}
 // 手机号码
 const onVerifyPhone = (val: string) => {
-	state.phone = verifyPhone(val);
-};
+	state.phone = verifyPhone(val)
+}
 // 国内电话号码
 const onVerifyTelPhone = (val: string) => {
-	state.telePhone = verifyTelPhone(val);
-};
+	state.telePhone = verifyTelPhone(val)
+}
 // 登录账号
 const onVerifyAccount = (val: string) => {
-	state.ruleForm.a11 = verifyCnAndSpace(val);
-	state.account = verifyAccount(state.ruleForm.a11);
-};
+	state.ruleForm.a11 = verifyCnAndSpace(val)
+	state.account = verifyAccount(state.ruleForm.a11)
+}
 // 密码
 const onVerifyPassword = (val: string) => {
-	state.ruleForm.a12 = verifyCnAndSpace(val);
-	state.password = verifyPassword(state.ruleForm.a12);
-};
+	state.ruleForm.a12 = verifyCnAndSpace(val)
+	state.password = verifyPassword(state.ruleForm.a12)
+}
 // 强密码
 const onVerifyPasswordPowerful = (val: string) => {
-	state.ruleForm.a13 = verifyCnAndSpace(val);
-	state.passwordPowerful = verifyPasswordPowerful(state.ruleForm.a13);
-};
+	state.ruleForm.a13 = verifyCnAndSpace(val)
+	state.passwordPowerful = verifyPasswordPowerful(state.ruleForm.a13)
+}
 // 密码强度
 const onVerifyPasswordStrength = (val: string) => {
-	state.ruleForm.a14 = verifyCnAndSpace(val);
-	state.passwordStrength = verifyPasswordStrength(state.ruleForm.a14);
-};
+	state.ruleForm.a14 = verifyCnAndSpace(val)
+	state.passwordStrength = verifyPasswordStrength(state.ruleForm.a14)
+}
 // IP地址
 const onVerifyIPAddress = (val: string) => {
-	state.iPAddress = verifyIPAddress(val);
-};
+	state.iPAddress = verifyIPAddress(val)
+}
 // 邮箱
 const onVerifyEmail = (val: string) => {
-	state.ruleForm.a16 = verifyCnAndSpace(val);
-	state.email = verifyEmail(state.ruleForm.a16);
-};
+	state.ruleForm.a16 = verifyCnAndSpace(val)
+	state.email = verifyEmail(state.ruleForm.a16)
+}
 // 身份证
 const onVerifyIDCard = (val: string) => {
-	state.ruleForm.a17 = verifyCnAndSpace(val);
-	state.idCard = verifyIdCard(state.ruleForm.a17);
-};
+	state.ruleForm.a17 = verifyCnAndSpace(val)
+	state.idCard = verifyIdCard(state.ruleForm.a17)
+}
 // 姓名
 const onVerifyFullName = (val: string) => {
-	state.ruleForm.a18 = verifyAndSpace(val);
-	state.fullName = verifyFullName(state.ruleForm.a18);
-};
+	state.ruleForm.a18 = verifyAndSpace(val)
+	state.fullName = verifyFullName(state.ruleForm.a18)
+}
 // 邮政编码
 const onVerifyPostalCode = (val: string) => {
-	state.ruleForm.a19 = verifiyNumberInteger(val);
-	state.postalCode = verifyPostalCode(state.ruleForm.a19);
-};
+	state.ruleForm.a19 = verifiyNumberInteger(val)
+	state.postalCode = verifyPostalCode(state.ruleForm.a19)
+}
 // url
 const onVerifyUrl = (val: string) => {
-	state.ruleForm.a20 = verifyAndSpace(val);
-	state.url = verifyUrl(state.ruleForm.a20);
-};
+	state.ruleForm.a20 = verifyAndSpace(val)
+	state.url = verifyUrl(state.ruleForm.a20)
+}
 // 车牌号
 const onVerifyCarNum = (val: string) => {
-	state.ruleForm.a21 = verifyAndSpace(val);
-	state.carNum = verifyCarNum(state.ruleForm.a21);
-};
+	state.ruleForm.a21 = verifyAndSpace(val)
+	state.carNum = verifyCarNum(state.ruleForm.a21)
+}
 </script>
 
 <style scoped lang="scss">

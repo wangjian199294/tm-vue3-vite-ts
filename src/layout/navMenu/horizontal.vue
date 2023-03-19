@@ -31,111 +31,111 @@
 </template>
 
 <script setup lang="ts" name="navMenuHorizontal">
-import { defineAsyncComponent, reactive, computed, onMounted, nextTick, onBeforeMount, ref } from 'vue';
-import { useRoute, onBeforeRouteUpdate, RouteRecordRaw } from 'vue-router';
-import { storeToRefs } from 'pinia';
-import { useRoutesList } from '/@/stores/routesList';
-import { useThemeConfig } from '/@/stores/themeConfig';
-import other from '/@/utils/other';
-import mittBus from '/@/utils/mitt';
+import { defineAsyncComponent, reactive, computed, onMounted, nextTick, onBeforeMount, ref } from 'vue'
+import { useRoute, onBeforeRouteUpdate, RouteRecordRaw } from 'vue-router'
+import { storeToRefs } from 'pinia'
+import { useRoutesList } from '/@/stores/routesList'
+import { useThemeConfig } from '/@/stores/themeConfig'
+import other from '/@/utils/other'
+import mittBus from '/@/utils/mitt'
 
 // 引入组件
-const SubItem = defineAsyncComponent(() => import('/@/layout/navMenu/subItem.vue'));
+const SubItem = defineAsyncComponent(() => import('/@/layout/navMenu/subItem.vue'))
 
 // 定义父组件传过来的值
 const props = defineProps({
 	// 菜单列表
 	menuList: {
 		type: Array<RouteRecordRaw>,
-		default: () => [],
-	},
-});
+		default: () => []
+	}
+})
 
 // 定义变量内容
-const elMenuHorizontalScrollRef = ref();
-const stores = useRoutesList();
-const storesThemeConfig = useThemeConfig();
-const { routesList } = storeToRefs(stores);
-const { themeConfig } = storeToRefs(storesThemeConfig);
-const route = useRoute();
+const elMenuHorizontalScrollRef = ref()
+const stores = useRoutesList()
+const storesThemeConfig = useThemeConfig()
+const { routesList } = storeToRefs(stores)
+const { themeConfig } = storeToRefs(storesThemeConfig)
+const route = useRoute()
 const state = reactive({
-	defaultActive: '' as string | undefined,
-});
+	defaultActive: '' as string | undefined
+})
 
 // 获取父级菜单数据
 const menuLists = computed(() => {
-	return <RouteItems>props.menuList;
-});
+	return <RouteItems>props.menuList
+})
 // 设置横向滚动条可以鼠标滚轮滚动
 const onElMenuHorizontalScroll = (e: WheelEventType) => {
-	const eventDelta = e.wheelDelta || -e.deltaY * 40;
-	elMenuHorizontalScrollRef.value.$refs.wrapRef.scrollLeft = elMenuHorizontalScrollRef.value.$refs.wrapRef.scrollLeft + eventDelta / 4;
-};
+	const eventDelta = e.wheelDelta || -e.deltaY * 40
+	elMenuHorizontalScrollRef.value.$refs.wrapRef.scrollLeft = elMenuHorizontalScrollRef.value.$refs.wrapRef.scrollLeft + eventDelta / 4
+}
 // 初始化数据，页面刷新时，滚动条滚动到对应位置
 const initElMenuOffsetLeft = () => {
 	nextTick(() => {
-		let els = <HTMLElement>document.querySelector('.el-menu.el-menu--horizontal li.is-active');
-		if (!els) return false;
-		elMenuHorizontalScrollRef.value.$refs.wrapRef.scrollLeft = els.offsetLeft;
-	});
-};
+		let els = <HTMLElement>document.querySelector('.el-menu.el-menu--horizontal li.is-active')
+		if (!els) return false
+		elMenuHorizontalScrollRef.value.$refs.wrapRef.scrollLeft = els.offsetLeft
+	})
+}
 // 路由过滤递归函数
 const filterRoutesFun = <T extends RouteItem>(arr: T[]): T[] => {
 	return arr
 		.filter((item: T) => !item.meta?.isHide)
 		.map((item: T) => {
-			item = Object.assign({}, item);
-			if (item.children) item.children = filterRoutesFun(item.children);
-			return item;
-		});
-};
+			item = Object.assign({}, item)
+			if (item.children) item.children = filterRoutesFun(item.children)
+			return item
+		})
+}
 // 传送当前子级数据到菜单中
 const setSendClassicChildren = (path: string) => {
-	const currentPathSplit = path.split('/');
-	let currentData: MittMenu = { children: [] };
+	const currentPathSplit = path.split('/')
+	let currentData: MittMenu = { children: [] }
 	filterRoutesFun(routesList.value).map((v, k) => {
 		if (v.path === `/${currentPathSplit[1]}`) {
-			v['k'] = k;
-			currentData['item'] = { ...v };
-			currentData['children'] = [{ ...v }];
-			if (v.children) currentData['children'] = v.children;
+			v['k'] = k
+			currentData['item'] = { ...v }
+			currentData['children'] = [{ ...v }]
+			if (v.children) currentData['children'] = v.children
 		}
-	});
-	return currentData;
-};
+	})
+	return currentData
+}
 // 设置页面当前路由高亮
 const setCurrentRouterHighlight = (currentRoute: RouteToFrom) => {
-	const { path, meta } = currentRoute;
+	const { path, meta } = currentRoute
 	if (themeConfig.value.layout === 'classic') {
-		state.defaultActive = `/${path?.split('/')[1]}`;
+		state.defaultActive = `/${path?.split('/')[1]}`
 	} else {
-		const pathSplit = meta?.isDynamic ? meta.isDynamicPath!.split('/') : path!.split('/');
-		if (pathSplit.length >= 4 && meta?.isHide) state.defaultActive = pathSplit.splice(0, 3).join('/');
-		else state.defaultActive = path;
+		const pathSplit = meta?.isDynamic ? meta.isDynamicPath!.split('/') : path!.split('/')
+		if (pathSplit.length >= 4 && meta?.isHide) state.defaultActive = pathSplit.splice(0, 3).join('/')
+		else state.defaultActive = path
 	}
-};
+}
 // 打开外部链接
 const onALinkClick = (val: RouteItem) => {
-	other.handleOpenLink(val);
-};
+	other.handleOpenLink(val)
+}
 // 页面加载前
 onBeforeMount(() => {
-	setCurrentRouterHighlight(route);
-});
+	setCurrentRouterHighlight(route)
+})
 // 页面加载时
 onMounted(() => {
-	initElMenuOffsetLeft();
-});
+	initElMenuOffsetLeft()
+})
 // 路由更新时
 onBeforeRouteUpdate((to) => {
 	// 修复：https://gitee.com/lyt-top/vue-next-admin/issues/I3YX6G
-	setCurrentRouterHighlight(to);
+	setCurrentRouterHighlight(to)
 	// 修复经典布局开启切割菜单时，点击tagsView后左侧导航菜单数据不变的问题
-	let { layout, isClassicSplitMenu } = themeConfig.value;
+	let { layout, isClassicSplitMenu } = themeConfig.value
 	if (layout === 'classic' && isClassicSplitMenu) {
-		mittBus.emit('setSendClassicChildren', setSendClassicChildren(to.path));
+		mittBus.emit('setSendClassicChildren', setSendClassicChildren(to.path))
 	}
-});
+})
 </script>
 
 <style scoped lang="scss">

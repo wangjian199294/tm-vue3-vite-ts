@@ -22,12 +22,12 @@
 </template>
 
 <script setup lang="ts" name="funSplitpanes">
-import { ref } from 'vue';
-import { Splitpanes, Pane } from 'splitpanes';
-import 'splitpanes/dist/splitpanes.css';
+import { ref } from 'vue'
+import { Splitpanes, Pane } from 'splitpanes'
+import 'splitpanes/dist/splitpanes.css'
 
 // 定义变量内容
-const paneSize = ref(50);
+const paneSize = ref(50)
 </script>
 
 <style scoped lang="scss">

@@ -52,13 +52,13 @@
 </template>
 
 <script setup lang="ts" name="pagesLazyImg">
-import { reactive, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
-import other from '/@/utils/other';
-import { filterList } from './mock';
+import { reactive, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import other from '/@/utils/other'
+import { filterList } from './mock'
 
 // 定义变量内容
-const router = useRouter();
+const router = useRouter()
 const state = reactive({
 	tableData: {
 		data: filterList,
@@ -66,30 +66,30 @@ const state = reactive({
 		loading: false,
 		param: {
 			pageNum: 1,
-			pageSize: 10,
-		},
-	},
-});
+			pageSize: 10
+		}
+	}
+})
 
 // 当前列表项点击
 const onTableItemClick = (v: FilterListType) => {
 	router.push({
 		path: '/pages/filteringDetails',
-		query: { id: v.id },
-	});
-};
+		query: { id: v.id }
+	})
+}
 // 分页点击
 const onHandleSizeChange = (val: number) => {
-	state.tableData.param.pageSize = val;
-};
+	state.tableData.param.pageSize = val
+}
 // 分页点击
 const onHandleCurrentChange = (val: number) => {
-	state.tableData.param.pageNum = val;
-};
+	state.tableData.param.pageNum = val
+}
 // 页面加载时
 onMounted(() => {
-	other.lazyImg('[data-lazy-img-list]', state.tableData.data);
-});
+	other.lazyImg('[data-lazy-img-list]', state.tableData.data)
+})
 </script>
 
 <style scoped lang="scss">

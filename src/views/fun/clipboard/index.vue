@@ -18,13 +18,13 @@
 </template>
 
 <script setup lang="ts" name="funClipboard">
-import { reactive } from 'vue';
-import commonFunction from '/@/utils/commonFunction';
+import { reactive } from 'vue'
+import commonFunction from '/@/utils/commonFunction'
 
 // 定义变量内容
-const { copyText } = commonFunction();
+const { copyText } = commonFunction()
 const state = reactive({
 	copyVal: 'https://gitee.com/lyt-top/vue-next-admin',
-	shearVal: '',
-});
+	shearVal: ''
+})
 </script>

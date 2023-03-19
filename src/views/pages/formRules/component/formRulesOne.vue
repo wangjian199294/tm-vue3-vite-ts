@@ -32,15 +32,15 @@
 </template>
 
 <script setup lang="ts" name="pagesFormRulesOne">
-import { reactive, onMounted } from 'vue';
+import { reactive, onMounted } from 'vue'
 
 // 定义父组件传过来的值
 const props = defineProps({
 	data: {
 		type: Object,
-		default: () => {},
-	},
-});
+		default: () => {}
+	}
+})
 
 // 定义变量内容
 const state = reactive({
@@ -49,16 +49,16 @@ const state = reactive({
 		name: { required: true, message: '请输入姓名', trigger: 'blur' },
 		email: { required: true, message: '请输入用户邮箱', trigger: 'blur' },
 		autograph: { required: true, message: '请输入登陆账户名', trigger: 'blur' },
-		occupation: { required: true, message: '请选择职务', trigger: 'change' },
-	},
-});
+		occupation: { required: true, message: '请选择职务', trigger: 'change' }
+	}
+})
 
 // 赋值回显
 const initForm = () => {
-	state.form = props.data as TableRulesOneProps;
-};
+	state.form = props.data as TableRulesOneProps
+}
 // 页面加载时
 onMounted(() => {
-	initForm();
-});
+	initForm()
+})
 </script>

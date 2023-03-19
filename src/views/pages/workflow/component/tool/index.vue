@@ -10,16 +10,16 @@
 </template>
 
 <script setup lang="ts" name="pagesWorkflowTool">
-import { computed, reactive } from 'vue';
-import { storeToRefs } from 'pinia';
-import { useThemeConfig } from '/@/stores/themeConfig';
+import { computed, reactive } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useThemeConfig } from '/@/stores/themeConfig'
 
 // 定义子组件向父组件传值/事件
-const emit = defineEmits(['tool']);
+const emit = defineEmits(['tool'])
 
 // 定义变量内容
-const storesThemeConfig = useThemeConfig();
-const { themeConfig } = storeToRefs(storesThemeConfig);
+const storesThemeConfig = useThemeConfig()
+const { themeConfig } = storeToRefs(storesThemeConfig)
 const state = reactive({
 	toolList: [
 		{ icon: 'ele-Help', title: '帮助', fnName: 'help' },
@@ -27,19 +27,19 @@ const state = reactive({
 		{ icon: 'ele-Check', title: '提交', fnName: 'submit' },
 		{ icon: 'ele-DocumentCopy', title: '复制', fnName: 'copy' },
 		{ icon: 'ele-Delete', title: '删除', fnName: 'del' },
-		{ icon: 'ele-FullScreen', title: '全屏', fnName: 'fullscreen' },
-	],
-});
+		{ icon: 'ele-FullScreen', title: '全屏', fnName: 'fullscreen' }
+	]
+})
 
 // 设置 tool 标题
 const setToolTitle = computed(() => {
-	let { globalTitle } = themeConfig.value;
-	return `${globalTitle}工作流`;
-});
+	let { globalTitle } = themeConfig.value
+	return `${globalTitle}工作流`
+})
 // 顶部工具栏
 const onToolClick = (fnName: string) => {
-	emit('tool', fnName);
-};
+	emit('tool', fnName)
+}
 </script>
 
 <style scoped lang="scss">

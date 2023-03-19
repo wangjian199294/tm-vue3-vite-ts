@@ -52,12 +52,12 @@
 </template>
 
 <script setup lang="ts" name="pagesListAdapt">
-import { reactive } from 'vue';
-import { useRouter } from 'vue-router';
-import { filterList } from './mock';
+import { reactive } from 'vue'
+import { useRouter } from 'vue-router'
+import { filterList } from './mock'
 
 // 定义变量内容
-const router = useRouter();
+const router = useRouter()
 const state = reactive({
 	tableData: {
 		data: filterList,
@@ -65,26 +65,26 @@ const state = reactive({
 		loading: false,
 		param: {
 			pageNum: 1,
-			pageSize: 10,
-		},
-	},
-});
+			pageSize: 10
+		}
+	}
+})
 
 // 当前列表项点击
 const onTableItemClick = (v: FilterListType) => {
 	router.push({
 		path: '/pages/filteringDetails',
-		query: { id: v.id },
-	});
-};
+		query: { id: v.id }
+	})
+}
 // 分页点击
 const onHandleSizeChange = (val: number) => {
-	state.tableData.param.pageSize = val;
-};
+	state.tableData.param.pageSize = val
+}
 // 分页点击
 const onHandleCurrentChange = (val: number) => {
-	state.tableData.param.pageNum = val;
-};
+	state.tableData.param.pageNum = val
+}
 </script>
 
 <style scoped lang="scss">

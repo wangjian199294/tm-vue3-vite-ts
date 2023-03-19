@@ -13,7 +13,7 @@
 				:key="key"
 				:ref="
 					(el) => {
-						if (el) dlRefs[key] = el;
+						if (el) dlRefs[key] = el
 					}
 				"
 				class="filtering-list-flex"
@@ -85,13 +85,13 @@
 </template>
 
 <script setup lang="ts" name="pagesFiltering">
-import { ref, reactive, onMounted, nextTick } from 'vue';
-import { useRouter } from 'vue-router';
-import { filtering, filterList } from './mock';
+import { ref, reactive, onMounted, nextTick } from 'vue'
+import { useRouter } from 'vue-router'
+import { filtering, filterList } from './mock'
 
 // 定义变量内容
-const dlRefs = ref<RefType[]>([]);
-const router = useRouter();
+const dlRefs = ref<RefType[]>([])
+const router = useRouter()
 const state = reactive({
 	filtering,
 	tableData: {
@@ -100,69 +100,69 @@ const state = reactive({
 		loading: false,
 		param: {
 			pageNum: 1,
-			pageSize: 10,
-		},
-	},
-});
+			pageSize: 10
+		}
+	}
+})
 
 // 页面加载时
 onMounted(() => {
-	initBtnToggle();
+	initBtnToggle()
 	window.onresize = () => {
-		initBtnToggle();
-	};
-});
+		initBtnToggle()
+	}
+})
 // 初始化 `收起、展开` 按钮
 const initBtnToggle = () => {
 	nextTick(() => {
-		const els = dlRefs.value;
+		const els = dlRefs.value
 		els.map((v: any, k: number) => {
-			v.scrollHeight < v.lastChild.scrollHeight ? (state.filtering[k].isShowMore = true) : (state.filtering[k].isShowMore = false);
-		});
-	});
-};
+			v.scrollHeight < v.lastChild.scrollHeight ? (state.filtering[k].isShowMore = true) : (state.filtering[k].isShowMore = false)
+		})
+	})
+}
 // 过滤当前选中的数据
 const onSelItem = (val: FilteringRowType, v: FilteringChilType) => {
-	val.children.map((v: FilteringChilType) => (v.active = false));
-	v.active = true;
-	let arr = [];
+	val.children.map((v: FilteringChilType) => (v.active = false))
+	v.active = true
+	let arr = []
 	state.filtering.map((item: FilteringRowType) => {
 		item.children.map((chil: FilteringChilType) => {
 			if (chil.active) {
 				arr.push({
 					...item,
-					children: [{ ...chil }],
-				});
+					children: [{ ...chil }]
+				})
 			}
-		});
-	});
-	state.tableData.loading = true;
+		})
+	})
+	state.tableData.loading = true
 	setTimeout(() => {
-		state.tableData.loading = false;
-	}, 500);
-};
+		state.tableData.loading = false
+	}, 500)
+}
 // 当前列表项点击
 const onTableItemClick = (v: FilterListType) => {
 	if (v.id === 1) {
 		router.push({
 			path: '/pages/filtering/details',
-			query: { id: v.id },
-		});
+			query: { id: v.id }
+		})
 	} else {
 		router.push({
 			path: '/pages/filtering/details1',
-			query: { id: v.id },
-		});
+			query: { id: v.id }
+		})
 	}
-};
+}
 // 分页点击
 const onHandleSizeChange = (val: number) => {
-	state.tableData.param.pageSize = val;
-};
+	state.tableData.param.pageSize = val
+}
 // 分页点击
 const onHandleCurrentChange = (val: number) => {
-	state.tableData.param.pageNum = val;
-};
+	state.tableData.param.pageNum = val
+}
 </script>
 
 <style scoped lang="scss">

@@ -26,10 +26,10 @@
 </template>
 
 <script setup lang="ts" name="makeSelector">
-import { defineAsyncComponent, reactive } from 'vue';
+import { defineAsyncComponent, reactive } from 'vue'
 
 // 引入组件
-const IconSelector = defineAsyncComponent(() => import('/@/components/iconSelector/index.vue'));
+const IconSelector = defineAsyncComponent(() => import('/@/components/iconSelector/index.vue'))
 
 // 定义变量内容
 const state = reactive({
@@ -40,79 +40,79 @@ const state = reactive({
 			a2: '输入框前置内容，只能字体图标',
 			a3: 'string',
 			a4: '',
-			a5: 'ele-Pointer',
+			a5: 'ele-Pointer'
 		},
 		{
 			a1: 'placeholder',
 			a2: '输入框占位文本',
 			a3: 'string',
 			a4: '',
-			a5: '请输入内容搜索图标或者选择图标',
+			a5: '请输入内容搜索图标或者选择图标'
 		},
 		{
 			a1: 'size',
 			a2: '尺寸',
 			a3: 'string',
 			a4: 'large / default / small',
-			a5: 'default',
+			a5: 'default'
 		},
 		{
 			a1: 'title',
 			a2: '弹窗标题',
 			a3: 'string',
 			a4: '',
-			a5: '请选择图标',
+			a5: '请选择图标'
 		},
 		{
 			a1: 'type',
 			a2: 'icon 图标类型',
 			a3: 'string',
 			a4: 'ali / ele / awe / all',
-			a5: 'ele',
+			a5: 'ele'
 		},
 		{
 			a1: 'disabled',
 			a2: '禁用',
 			a3: 'boolean',
 			a4: 'true',
-			a5: 'false',
+			a5: 'false'
 		},
 		{
 			a1: 'clearable',
 			a2: '是否可清空',
 			a3: 'boolean',
 			a4: 'false',
-			a5: 'true',
+			a5: 'true'
 		},
 		{
 			a1: 'emptyDescription',
 			a2: '自定义空状态描述文字',
 			a3: 'String',
 			a4: '',
-			a5: '无相关图标',
-		},
+			a5: '无相关图标'
+		}
 	],
 	tableData1: [
 		{
 			a1: 'get',
 			a2: '获取当前点击的 icon 图标',
 			a3: 'function',
-			a4: '(icon: string)',
+			a4: '(icon: string)'
 		},
 		{
 			a1: 'clear',
 			a2: '清空当前点击的 icon 图标',
 			a3: 'function',
-			a4: '(icon: string)',
-		},
-	],
-});
+			a4: '(icon: string)'
+		}
+	]
+})
 // 获取当前点击的 icon 图标
 const onGetIcon = (icon: string) => {
-	console.log(icon);
-};
+	console.log(icon)
+}
 // 清空当前点击的 icon 图标
 const onClearIcon = (icon: string) => {
-	console.log(icon);
-};
+	console.log(icon)
+}
 </script>

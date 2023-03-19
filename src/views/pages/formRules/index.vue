@@ -20,52 +20,52 @@
 
 <script setup lang="ts" name="pagesFormRules">
 // import { defineAsyncComponent, reactive, ref } from 'vue';
-import { ElMessage } from 'element-plus';
+import { ElMessage } from 'element-plus'
 
 // 引入组件
-const FormRulesOne = defineAsyncComponent(() => import('/@/views/pages/formRules/component/formRulesOne.vue'));
-const FormRulesTwo = defineAsyncComponent(() => import('/@/views/pages/formRules/component/formRulesTwo.vue'));
-const FormRulesThree = defineAsyncComponent(() => import('/@/views/pages/formRules/component/formRulesThree.vue'));
+const FormRulesOne = defineAsyncComponent(() => import('/@/views/pages/formRules/component/formRulesOne.vue'))
+const FormRulesTwo = defineAsyncComponent(() => import('/@/views/pages/formRules/component/formRulesTwo.vue'))
+const FormRulesThree = defineAsyncComponent(() => import('/@/views/pages/formRules/component/formRulesThree.vue'))
 
 // 定义变量内容
-const pagesFormRulesOneRef = ref();
-const pagesFormRulesTwoRef = ref();
-const pagesFormRulesThreeRef = ref();
+const pagesFormRulesOneRef = ref()
+const pagesFormRulesTwoRef = ref()
+const pagesFormRulesThreeRef = ref()
 const state = reactive({
 	formRulesOneData: {
 		name: 'lyt',
 		email: 'lyt123@.com',
 		autograph: 'lyt123456',
-		occupation: '1',
-	},
-});
+		occupation: '1'
+	}
+})
 
 // 表单组件验证
 const formRulesValidate = (pageRef: RefType, sonRef: string) => {
 	return new Promise((resolve) => {
 		pageRef.value.$refs[sonRef].validate((valid: boolean) => {
-			if (valid) resolve(valid);
-		});
-	});
-};
+			if (valid) resolve(valid)
+		})
+	})
+}
 // 表单组件重置
 const formRulesResetFields = () => {
-	pagesFormRulesOneRef.value.$refs.formRulesOneRef.resetFields();
-	pagesFormRulesTwoRef.value.$refs.formRulesTwoRef.resetFields();
-	pagesFormRulesThreeRef.value.$refs.formRulesThreeRef.resetFields();
-};
+	pagesFormRulesOneRef.value.$refs.formRulesOneRef.resetFields()
+	pagesFormRulesTwoRef.value.$refs.formRulesTwoRef.resetFields()
+	pagesFormRulesThreeRef.value.$refs.formRulesThreeRef.resetFields()
+}
 // 验证表单
 const onSubmitForm = () => {
 	Promise.all([
 		formRulesValidate(pagesFormRulesOneRef, 'formRulesOneRef'),
 		formRulesValidate(pagesFormRulesTwoRef, 'formRulesTwoRef'),
-		formRulesValidate(pagesFormRulesThreeRef, 'formRulesThreeRef'),
+		formRulesValidate(pagesFormRulesThreeRef, 'formRulesThreeRef')
 	]).then(() => {
-		ElMessage.success('表单全部验证成功');
-	});
-};
+		ElMessage.success('表单全部验证成功')
+	})
+}
 // 重置表单
 const onResetForm = () => {
-	formRulesResetFields();
-};
+	formRulesResetFields()
+}
 </script>

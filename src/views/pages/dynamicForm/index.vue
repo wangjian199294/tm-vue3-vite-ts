@@ -112,13 +112,13 @@
 </template>
 
 <script setup lang="ts" name="pagesDynamicForm">
-import { reactive, ref } from 'vue';
-import { ElMessage } from 'element-plus';
-import type { FormInstance } from 'element-plus';
-import { formData } from './mock';
+import { reactive, ref } from 'vue'
+import { ElMessage } from 'element-plus'
+import type { FormInstance } from 'element-plus'
+import { formData } from './mock'
 
 // 定义变量内容
-const formRulesOneRef = ref<FormInstance>();
+const formRulesOneRef = ref<FormInstance>()
 const state = reactive({
 	formData,
 	form: {
@@ -130,39 +130,39 @@ const state = reactive({
 			{
 				year: '',
 				month: '',
-				day: '',
-			},
+				day: ''
+			}
 		],
-		remarks: '',
-	},
-});
+		remarks: ''
+	}
+})
 
 // 新增行
 const onAddRow = () => {
 	state.form.list.push({
 		year: '',
 		month: '',
-		day: '',
-	});
-};
+		day: ''
+	})
+}
 // 删除行
 const onDelRow = (k: number) => {
-	state.form.list.splice(k, 1);
-};
+	state.form.list.splice(k, 1)
+}
 // 表单验证
 const onSubmitForm = (formEl: FormInstance | undefined) => {
-	if (!formEl) return;
+	if (!formEl) return
 	formEl.validate((valid: boolean) => {
 		if (valid) {
-			ElMessage.success('验证成功');
+			ElMessage.success('验证成功')
 		} else {
-			return false;
+			return false
 		}
-	});
-};
+	})
+}
 // 重置表单
 const onResetForm = (formEl: FormInstance | undefined) => {
-	if (!formEl) return;
-	formEl.resetFields();
-};
+	if (!formEl) return
+	formEl.resetFields()
+}
 </script>

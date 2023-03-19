@@ -1,4 +1,4 @@
-import request from '/@/utils/request';
+import request from '/@/utils/request'
 
 /**
  * 登录api接口集合
@@ -8,10 +8,10 @@ import request from '/@/utils/request';
 export function useLoginApi() {
 	return {
 		signIn: (params: object) => {
-			return request.post('/user/signIn', params);
+			return request.post('/user/signIn', params)
 		},
 		signOut: (params: object) => {
-			return request.post('/user/signOut', params);
-		},
-	};
+			return request.post('/user/signOut', params)
+		}
+	}
 }

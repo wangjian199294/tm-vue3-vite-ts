@@ -89,7 +89,7 @@
 </template>
 
 <script setup lang="ts" name="systemAddUser">
-import { reactive, onMounted } from 'vue';
+import { reactive, onMounted } from 'vue'
 
 // 定义变量内容
 const state = reactive({
@@ -105,27 +105,27 @@ const state = reactive({
 		password: '', // 账户密码
 		overdueTime: '', // 账户过期
 		status: true, // 用户状态
-		describe: '', // 用户描述
+		describe: '' // 用户描述
 	},
-	deptData: [] as DeptTreeType[], // 部门数据
-});
+	deptData: [] as DeptTreeType[] // 部门数据
+})
 
 // 打开弹窗
 const openDialog = () => {
-	state.isShowDialog = true;
-};
+	state.isShowDialog = true
+}
 // 关闭弹窗
 const closeDialog = () => {
-	state.isShowDialog = false;
-};
+	state.isShowDialog = false
+}
 // 取消
 const onCancel = () => {
-	closeDialog();
-};
+	closeDialog()
+}
 // 新增
 const onSubmit = () => {
-	closeDialog();
-};
+	closeDialog()
+}
 // 初始化部门数据
 const initTableData = () => {
 	state.deptData.push({
@@ -142,7 +142,7 @@ const initTableData = () => {
 				status: true,
 				sort: Math.random(),
 				describe: '总部',
-				id: Math.random(),
+				id: Math.random()
 			},
 			{
 				deptName: '资本控股',
@@ -150,18 +150,18 @@ const initTableData = () => {
 				status: true,
 				sort: Math.random(),
 				describe: '分部',
-				id: Math.random(),
-			},
-		],
-	});
-};
+				id: Math.random()
+			}
+		]
+	})
+}
 // 页面加载时
 onMounted(() => {
-	initTableData();
-});
+	initTableData()
+})
 
 // 暴露变量
 defineExpose({
-	openDialog,
-});
+	openDialog
+})
 </script>

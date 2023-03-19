@@ -18,22 +18,22 @@
 </template>
 
 <script setup lang="ts" name="pagesIocnfont">
-import { reactive, onMounted } from 'vue';
-import initIconfont from '/@/utils/getStyleSheets';
+import { reactive, onMounted } from 'vue'
+import initIconfont from '/@/utils/getStyleSheets'
 
 // 定义变量内容
 const state = reactive({
-	sheetsIconList: [],
-});
+	sheetsIconList: []
+})
 
 // 初始化获取 css 样式，这里使用阿里的图标(记得加上前缀 `iconfont`)，其它第三方请自行做判断
 const initGetStyleSheets = () => {
-	initIconfont.ali().then((res: any) => (state.sheetsIconList = res));
-};
+	initIconfont.ali().then((res: any) => (state.sheetsIconList = res))
+}
 // 页面加载时
 onMounted(() => {
-	initGetStyleSheets();
-});
+	initGetStyleSheets()
+})
 </script>
 
 <style scoped lang="scss">

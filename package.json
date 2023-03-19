@@ -91,7 +91,9 @@
 		"url": "https://gitee.com/lyt-top/vue-next-admin.git"
 	},
 	"lint-staged": {
-		"src/**": "eslint"
+		"src/**": "eslint",
+		"*.js": "eslint --cache --fix",
+		"*.{js,css,md,ts}": "prettier --write"
 	},
 	"commitlint": {
 		"extends": [

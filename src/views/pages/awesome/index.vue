@@ -18,22 +18,22 @@
 </template>
 
 <script setup lang="ts" name="pagesAwesome">
-import { reactive, onMounted } from 'vue';
-import initIconfont from '/@/utils/getStyleSheets';
+import { reactive, onMounted } from 'vue'
+import initIconfont from '/@/utils/getStyleSheets'
 
 // 定义变量内容
 const state = reactive({
-	sheetsIconList: [],
-});
+	sheetsIconList: []
+})
 
 // 初始化获取 css 样式，这里使用fontawesome的图标(记得加上前缀 `fa`)，其它第三方请自行做判断
 const initGetStyleSheets = () => {
-	initIconfont.awe().then((res: any) => (state.sheetsIconList = res));
-};
+	initIconfont.awe().then((res: any) => (state.sheetsIconList = res))
+}
 // 页面加载时
 onMounted(() => {
-	initGetStyleSheets();
-});
+	initGetStyleSheets()
+})
 </script>
 
 <style scoped lang="scss">

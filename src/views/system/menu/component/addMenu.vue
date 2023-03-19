@@ -146,18 +146,18 @@
 </template>
 
 <script setup lang="ts" name="systemAddMenu">
-import { defineAsyncComponent, reactive, onMounted } from 'vue';
-import { storeToRefs } from 'pinia';
-import { useRoutesList } from '/@/stores/routesList';
-import { i18n } from '/@/i18n/index';
+import { defineAsyncComponent, reactive, onMounted } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useRoutesList } from '/@/stores/routesList'
+import { i18n } from '/@/i18n/index'
 // import { setBackEndControlRefreshRoutes } from "/@/router/backEnd";
 
 // 引入组件
-const IconSelector = defineAsyncComponent(() => import('/@/components/iconSelector/index.vue'));
+const IconSelector = defineAsyncComponent(() => import('/@/components/iconSelector/index.vue'))
 
 // 定义变量内容
-const stores = useRoutesList();
-const { routesList } = storeToRefs(stores);
+const stores = useRoutesList()
+const { routesList } = storeToRefs(stores)
 const state = reactive({
 	isShowDialog: false,
 	// 参数请参考 `/src/router/route.ts` 中的 `dynamicRoutes` 路由菜单格式
@@ -178,52 +178,52 @@ const state = reactive({
 			isAffix: false, // 是否固定
 			isLink: '', // 外链/内嵌时链接地址（http:xxx.com），开启外链条件，`1、isLink: 链接地址不为空`
 			isIframe: false, // 是否内嵌，开启条件，`1、isIframe:true 2、isLink：链接地址不为空`
-			roles: '', // 权限标识，取角色管理
+			roles: '' // 权限标识，取角色管理
 		},
-		btnPower: '', // 菜单类型为按钮时，权限标识
+		btnPower: '' // 菜单类型为按钮时，权限标识
 	},
-	menuData: [] as RouteItems, // 上级菜单数据
-});
+	menuData: [] as RouteItems // 上级菜单数据
+})
 
 // 获取 pinia 中的路由
 const getMenuData = (routes: RouteItems) => {
-	const arr: RouteItems = [];
+	const arr: RouteItems = []
 	routes.map((val: RouteItem) => {
-		val['title'] = i18n.global.t(val.meta?.title as string);
-		arr.push({ ...val });
-		if (val.children) getMenuData(val.children);
-	});
-	return arr;
-};
+		val['title'] = i18n.global.t(val.meta?.title as string)
+		arr.push({ ...val })
+		if (val.children) getMenuData(val.children)
+	})
+	return arr
+}
 // 打开弹窗
 const openDialog = () => {
-	state.isShowDialog = true;
-};
+	state.isShowDialog = true
+}
 // 关闭弹窗
 const closeDialog = () => {
-	state.isShowDialog = false;
-};
+	state.isShowDialog = false
+}
 // 是否内嵌下拉改变
 const onSelectIframeChange = () => {
-	if (state.ruleForm.meta.isIframe) state.ruleForm.isLink = true;
-	else state.ruleForm.isLink = false;
-};
+	if (state.ruleForm.meta.isIframe) state.ruleForm.isLink = true
+	else state.ruleForm.isLink = false
+}
 // 取消
 const onCancel = () => {
-	closeDialog();
-};
+	closeDialog()
+}
 // 新增
 const onSubmit = () => {
-	closeDialog(); // 关闭弹窗
+	closeDialog() // 关闭弹窗
 	// setBackEndControlRefreshRoutes() // 刷新菜单，未进行后端接口测试
-};
+}
 // 页面加载时
 onMounted(() => {
-	state.menuData = getMenuData(routesList.value);
-});
+	state.menuData = getMenuData(routesList.value)
+})
 
 // 暴露变量
 defineExpose({
-	openDialog,
-});
+	openDialog
+})
 </script>

@@ -15,7 +15,7 @@ export const formData = [
 		sm: 12,
 		md: 8,
 		lg: 6,
-		xl: 4,
+		xl: 4
 	},
 	{
 		label: '邮箱',
@@ -32,7 +32,7 @@ export const formData = [
 		sm: 12,
 		md: 8,
 		lg: 6,
-		xl: 4,
+		xl: 4
 	},
 	{
 		label: '登陆时间',
@@ -49,7 +49,7 @@ export const formData = [
 		sm: 12,
 		md: 8,
 		lg: 6,
-		xl: 4,
+		xl: 4
 	},
 	{
 		label: '职务',
@@ -64,23 +64,23 @@ export const formData = [
 		options: [
 			{
 				label: '计算机 / 互联网 / 通信',
-				value: '1',
+				value: '1'
 			},
 			{
 				label: '生产 / 工艺 / 制造',
-				value: '2',
+				value: '2'
 			},
 			{
 				label: '医疗 / 护理 / 制药',
-				value: '3',
-			},
+				value: '3'
+			}
 		],
 		isShow: true,
 		xs: 24,
 		sm: 12,
 		md: 8,
 		lg: 6,
-		xl: 4,
+		xl: 4
 	},
 	{
 		label: '',
@@ -97,7 +97,7 @@ export const formData = [
 		sm: 24,
 		md: 24,
 		lg: 24,
-		xl: 24,
+		xl: 24
 	},
 	{
 		label: '备注',
@@ -114,6 +114,6 @@ export const formData = [
 		sm: 24,
 		md: 24,
 		lg: 24,
-		xl: 24,
-	},
-];
+		xl: 24
+	}
+]

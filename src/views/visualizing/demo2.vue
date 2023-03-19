@@ -229,26 +229,26 @@
 </template>
 
 <script setup lang="ts" name="visualizingLinkDemo2">
-import { reactive, onMounted, onUnmounted, ref } from 'vue';
-import * as echarts from 'echarts';
-import 'echarts-gl';
-import { formatDate } from '/@/utils/formatTime';
-import { NextLoading } from '/@/utils/loading';
-import { dropdownList, skyList, dBtnList, earth3DBtnList, chartData4List } from './mock/demo2';
-import worldImg from './images/world.jpg';
-import bathymetryImg from './images/bathymetry.jpg';
+import { reactive, onMounted, onUnmounted, ref } from 'vue'
+import * as echarts from 'echarts'
+import 'echarts-gl'
+import { formatDate } from '/@/utils/formatTime'
+import { NextLoading } from '/@/utils/loading'
+import { dropdownList, skyList, dBtnList, earth3DBtnList, chartData4List } from './mock/demo2'
+import worldImg from './images/world.jpg'
+import bathymetryImg from './images/bathymetry.jpg'
 
 // 定义变量内容
-const rightChartData1 = ref();
-const rightChartData2 = ref();
-const rightChartData3 = ref();
-const rightChartData4 = ref();
-const rightChartData5 = ref();
-const rightChartData6 = ref();
+const rightChartData1 = ref()
+const rightChartData2 = ref()
+const rightChartData3 = ref()
+const rightChartData4 = ref()
+const rightChartData5 = ref()
+const rightChartData6 = ref()
 const state = reactive<Demo2State>({
 	time: {
 		txt: '',
-		fun: 0,
+		fun: 0
 	},
 	dropdownList,
 	dropdownActive: '请选择',
@@ -259,22 +259,22 @@ const state = reactive<Demo2State>({
 	earth3DBtnList,
 	chartData4List,
 	myCharts: [],
-	the3DEarth: null,
-});
+	the3DEarth: null
+})
 
 // 初始化时间
 const initTime = () => {
-	state.time.txt = formatDate(new Date(), 'YYYY-mm-dd HH:MM:SS WWW QQQQ ZZZ');
+	state.time.txt = formatDate(new Date(), 'YYYY-mm-dd HH:MM:SS WWW QQQQ ZZZ')
 	state.time.fun = window.setInterval(() => {
-		state.time.txt = formatDate(new Date(), 'YYYY-mm-dd HH:MM:SS WWW QQQQ ZZZ');
-	}, 1000);
-};
+		state.time.txt = formatDate(new Date(), 'YYYY-mm-dd HH:MM:SS WWW QQQQ ZZZ')
+	}, 1000)
+}
 // 近30天预警总数
 const initRightChartData1 = () => {
-	const myChart = echarts.init(rightChartData1.value);
+	const myChart = echarts.init(rightChartData1.value)
 	const option = {
 		tooltip: {
-			trigger: 'item',
+			trigger: 'item'
 		},
 		series: [
 			{
@@ -284,35 +284,35 @@ const initRightChartData1 = () => {
 				center: ['50%', '50%'],
 				roseType: 'area',
 				itemStyle: {
-					borderRadius: 5,
+					borderRadius: 5
 				},
 				data: [
 					{ name: '天气预警', value: 100 },
 					{ name: '病虫害预警', value: 50 },
 					{ name: '任务预警', value: 130 },
-					{ name: '监测设备预警', value: 62 },
+					{ name: '监测设备预警', value: 62 }
 				],
 				label: {
-					color: '#c0d1f2',
-				},
-			},
-		],
-	};
-	myChart.setOption(option);
-	state.myCharts.push(myChart);
-};
+					color: '#c0d1f2'
+				}
+			}
+		]
+	}
+	myChart.setOption(option)
+	state.myCharts.push(myChart)
+}
 // 当前设备监测
 const initRightChartData4 = () => {
-	const myChart = echarts.init(rightChartData4.value);
+	const myChart = echarts.init(rightChartData4.value)
 	const option = {
 		grid: {
 			top: 10,
 			right: 10,
 			bottom: 20,
-			left: 30,
+			left: 30
 		},
 		tooltip: {
-			trigger: 'axis',
+			trigger: 'axis'
 		},
 		xAxis: {
 			type: 'category',
@@ -321,42 +321,42 @@ const initRightChartData4 = () => {
 			axisLine: {
 				lineStyle: {
 					color: 'rgba(22, 207, 208, 0.1)',
-					width: 1,
-				},
+					width: 1
+				}
 			},
 			axisTick: {
-				show: false,
+				show: false
 			},
 			axisLabel: {
 				interval: 0,
 				color: '#c0d1f2',
 				textStyle: {
-					fontSize: 10,
-				},
-			},
+					fontSize: 10
+				}
+			}
 		},
 		yAxis: [
 			{
 				type: 'value',
 				axisLabel: {
-					color: '#c0d1f2',
+					color: '#c0d1f2'
 				},
 				splitLine: {
 					show: true,
 					lineStyle: {
-						color: 'rgba(22, 207, 208, 0.3)',
-					},
+						color: 'rgba(22, 207, 208, 0.3)'
+					}
 				},
 				splitArea: {
 					show: true,
 					areaStyle: {
-						color: 'rgba(22, 207, 208, 0.02)',
-					},
+						color: 'rgba(22, 207, 208, 0.02)'
+					}
 				},
 				nameTextStyle: {
-					color: '#16cfd0',
-				},
-			},
+					color: '#16cfd0'
+				}
+			}
 		],
 		series: [
 			{
@@ -364,58 +364,58 @@ const initRightChartData4 = () => {
 				type: 'line',
 				smooth: true,
 				lineStyle: {
-					width: 0,
+					width: 0
 				},
 				areaStyle: {
 					opacity: 0.8,
 					color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
 						{
 							offset: 0,
-							color: 'rgba(128, 255, 165)',
+							color: 'rgba(128, 255, 165)'
 						},
 						{
 							offset: 1,
-							color: 'rgba(1, 191, 236)',
-						},
-					]),
+							color: 'rgba(1, 191, 236)'
+						}
+					])
 				},
 				emphasis: {
-					focus: 'series',
+					focus: 'series'
 				},
-				data: [140, 232, 101, 264, 90, 70],
-			},
-		],
-	};
-	myChart.setOption(option);
-	state.myCharts.push(myChart);
-};
+				data: [140, 232, 101, 264, 90, 70]
+			}
+		]
+	}
+	myChart.setOption(option)
+	state.myCharts.push(myChart)
+}
 // 近7天产品追溯扫码统计
 const initRightChartData3 = () => {
-	const myChart = echarts.init(rightChartData3.value);
+	const myChart = echarts.init(rightChartData3.value)
 	const option = {
 		grid: {
 			top: 10,
 			right: 0,
 			bottom: 20,
-			left: 30,
+			left: 30
 		},
 		tooltip: {
-			trigger: 'axis',
+			trigger: 'axis'
 		},
 		xAxis: {
 			data: ['1月', '2月', '3月', '4月', '5月', '6月'],
 			axisLine: {
 				lineStyle: {
 					color: 'rgba(22, 207, 208, 0.1)',
-					width: 1,
-				},
+					width: 1
+				}
 			},
 			axisTick: {
-				show: false,
+				show: false
 			},
 			axisLabel: {
-				color: '#c0d1f2',
-			},
+				color: '#c0d1f2'
+			}
 		},
 		yAxis: [
 			{
@@ -423,28 +423,28 @@ const initRightChartData3 = () => {
 				axisLine: {
 					show: true,
 					lineStyle: {
-						color: 'rgba(22, 207, 208, 0.1)',
-					},
+						color: 'rgba(22, 207, 208, 0.1)'
+					}
 				},
 				axisLabel: {
-					color: '#c0d1f2',
+					color: '#c0d1f2'
 				},
 				splitLine: {
 					show: true,
 					lineStyle: {
-						color: 'rgba(22, 207, 208, 0.3)',
-					},
+						color: 'rgba(22, 207, 208, 0.3)'
+					}
 				},
 				splitArea: {
 					show: true,
 					areaStyle: {
-						color: 'rgba(22, 207, 208, 0.02)',
-					},
+						color: 'rgba(22, 207, 208, 0.02)'
+					}
 				},
 				nameTextStyle: {
-					color: '#16cfd0',
-				},
-			},
+					color: '#16cfd0'
+				}
+			}
 		],
 		series: [
 			{
@@ -452,67 +452,67 @@ const initRightChartData3 = () => {
 				type: 'line',
 				data: [200, 85, 112, 275, 305, 415],
 				itemStyle: {
-					color: '#16cfd0',
-				},
+					color: '#16cfd0'
+				}
 			},
 			{
 				name: '最新成交价',
 				type: 'line',
 				data: [50, 85, 22, 155, 170, 25],
 				itemStyle: {
-					color: '#febb50',
-				},
-			},
-		],
-	};
-	myChart.setOption(option);
-	state.myCharts.push(myChart);
-};
+					color: '#febb50'
+				}
+			}
+		]
+	}
+	myChart.setOption(option)
+	state.myCharts.push(myChart)
+}
 // 当前任务统计
 const initRightChartData6 = () => {
-	const myChart = echarts.init(rightChartData6.value);
+	const myChart = echarts.init(rightChartData6.value)
 	const option = {
 		tooltip: {
 			trigger: 'axis',
 			axisPointer: {
-				type: 'shadow',
-			},
+				type: 'shadow'
+			}
 		},
 		grid: {
 			top: 20,
 			right: 50,
 			bottom: 0,
-			left: 80,
+			left: 80
 		},
 		xAxis: [
 			{
 				splitLine: {
-					show: false,
+					show: false
 				},
 				type: 'value',
-				show: false,
-			},
+				show: false
+			}
 		],
 		yAxis: [
 			{
 				splitLine: {
-					show: false,
+					show: false
 				},
 				axisLine: {
 					//y轴
-					show: false,
+					show: false
 				},
 				type: 'category',
 				axisTick: {
-					show: false,
+					show: false
 				},
 				inverse: true,
 				data: ['施肥任务完成率', '施药任务完成率', '农事任务完成率'],
 				axisLabel: {
 					color: '#A7D6F4',
-					fontSize: 12,
-				},
-			},
+					fontSize: 12
+				}
+			}
 		],
 		series: [
 			{
@@ -525,7 +525,7 @@ const initRightChartData6 = () => {
 					color: '#A7D6F4',
 					fontSize: 12,
 					distance: 15, // 距离
-					formatter: '{c}%', // 这里是数据展示的时候显示的数据
+					formatter: '{c}%' // 这里是数据展示的时候显示的数据
 				}, // 柱子上方的数值
 				itemStyle: {
 					barBorderRadius: [0, 20, 20, 0], // 圆角（左上、右上、右下、左下）
@@ -538,53 +538,53 @@ const initRightChartData6 = () => {
 						[
 							{
 								offset: 0,
-								color: '#51C5FD',
+								color: '#51C5FD'
 							},
 							{
 								offset: 1,
-								color: '#005BB1',
-							},
+								color: '#005BB1'
+							}
 						],
 						false
-					), // 渐变
+					) // 渐变
 				},
-				data: [75, 100, 60],
-			},
-		],
-	};
-	myChart.setOption(option);
-	state.myCharts.push(myChart);
-};
+				data: [75, 100, 60]
+			}
+		]
+	}
+	myChart.setOption(option)
+	state.myCharts.push(myChart)
+}
 // 近7天投入品记录
 const initRightChartData2 = () => {
-	const myChart = echarts.init(rightChartData2.value);
+	const myChart = echarts.init(rightChartData2.value)
 	const option = {
 		grid: {
 			top: 10,
 			right: 0,
 			bottom: 20,
-			left: 30,
+			left: 30
 		},
 		tooltip: {
 			trigger: 'axis',
 			axisPointer: {
-				type: 'shadow',
-			},
+				type: 'shadow'
+			}
 		},
 		xAxis: {
 			data: ['1月', '2月', '3月', '4月', '5月', '6月'],
 			axisLine: {
 				lineStyle: {
 					color: 'rgba(22, 207, 208, 0.5)',
-					width: 1,
-				},
+					width: 1
+				}
 			},
 			axisTick: {
-				show: false,
+				show: false
 			},
 			axisLabel: {
-				color: '#c0d1f2',
-			},
+				color: '#c0d1f2'
+			}
 		},
 		yAxis: [
 			{
@@ -592,57 +592,57 @@ const initRightChartData2 = () => {
 				axisLine: {
 					show: true,
 					lineStyle: {
-						color: 'rgba(22, 207, 208, 0.1)',
-					},
+						color: 'rgba(22, 207, 208, 0.1)'
+					}
 				},
 				axisLabel: {
-					color: '#c0d1f2',
+					color: '#c0d1f2'
 				},
 				splitLine: {
 					show: true,
 					lineStyle: {
-						color: 'rgba(22, 207, 208, 0.3)',
-					},
+						color: 'rgba(22, 207, 208, 0.3)'
+					}
 				},
 				splitArea: {
 					show: true,
 					areaStyle: {
-						color: 'rgba(22, 207, 208, 0.02)',
-					},
+						color: 'rgba(22, 207, 208, 0.02)'
+					}
 				},
 				nameTextStyle: {
-					color: '#16cfd0',
-				},
+					color: '#16cfd0'
+				}
 			},
 			{
 				type: 'value',
 				position: 'right',
 				axisLine: {
-					show: false,
+					show: false
 				},
 				axisLabel: {
 					show: true,
 					formatter: '{value}%',
 					textStyle: {
-						color: '#16cfd0',
-					},
+						color: '#16cfd0'
+					}
 				},
 				splitLine: {
-					show: false,
+					show: false
 				},
 				axisTick: {
-					show: false,
+					show: false
 				},
 				splitArea: {
 					show: true,
 					areaStyle: {
-						color: 'rgba(22, 207, 208, 0.02)',
-					},
+						color: 'rgba(22, 207, 208, 0.02)'
+					}
 				},
 				nameTextStyle: {
-					color: '#16cfd0',
-				},
-			},
+					color: '#16cfd0'
+				}
+			}
 		],
 		series: [
 			{
@@ -653,15 +653,15 @@ const initRightChartData2 = () => {
 				showAllSymbol: true,
 				symbol: 'circle',
 				itemStyle: {
-					color: '#058cff',
+					color: '#058cff'
 				},
 				lineStyle: {
-					color: '#058cff',
+					color: '#058cff'
 				},
 				areaStyle: {
-					color: 'rgba(5,140,255, 0.2)',
+					color: 'rgba(5,140,255, 0.2)'
 				},
-				data: [4.2, 3.8, 4.8, 3.5, 2.9, 2.8],
+				data: [4.2, 3.8, 4.8, 3.5, 2.9, 2.8]
 			},
 			{
 				name: '主营业务',
@@ -672,27 +672,27 @@ const initRightChartData2 = () => {
 						color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
 							{
 								offset: 0,
-								color: '#00FFE3',
+								color: '#00FFE3'
 							},
 							{
 								offset: 1,
-								color: '#4693EC',
-							},
-						]),
-					},
+								color: '#4693EC'
+							}
+						])
+					}
 				},
-				data: [4.2, 3.8, 4.8, 3.5, 2.9, 2.8],
-			},
-		],
-	};
-	myChart.setOption(option);
-	state.myCharts.push(myChart);
-};
+				data: [4.2, 3.8, 4.8, 3.5, 2.9, 2.8]
+			}
+		]
+	}
+	myChart.setOption(option)
+	state.myCharts.push(myChart)
+}
 // 3DEarth 地图
 const init3DEarth = (globeRadius: any) => {
-	let el = state.the3DEarth!;
-	el.style.height = `${rightChartData5.value.offsetHeight}px`;
-	const myChart = echarts.init(el);
+	let el = state.the3DEarth!
+	el.style.height = `${rightChartData5.value.offsetHeight}px`
+	const myChart = echarts.init(el)
 	const option = {
 		globe: {
 			baseTexture: worldImg,
@@ -700,22 +700,22 @@ const init3DEarth = (globeRadius: any) => {
 			shading: 'realistic',
 			light: {
 				ambient: {
-					intensity: 0.4,
+					intensity: 0.4
 				},
 				main: {
-					intensity: 0.4,
-				},
+					intensity: 0.4
+				}
 			},
 			viewControl: {
-				autoRotate: true,
+				autoRotate: true
 			},
 			postEffect: {
 				enable: true,
 				bloom: {
-					enable: true,
-				},
+					enable: true
+				}
 			},
-			globeRadius,
+			globeRadius
 		},
 		series: {
 			type: 'lines3D',
@@ -724,66 +724,66 @@ const init3DEarth = (globeRadius: any) => {
 			lineStyle: {
 				width: 1,
 				color: 'rgb(50, 50, 150)',
-				opacity: 0.1,
+				opacity: 0.1
 			},
-			data: [],
-		},
-	};
+			data: []
+		}
+	}
 	// 随机模拟攻击线
 	let rodamData: any = function () {
-		let longitude = 105.18;
-		let longitude2 = Math.random() * 360 - 180;
-		let latitude = 37.51;
-		let latitude2 = Math.random() * 180 - 90;
+		let longitude = 105.18
+		let longitude2 = Math.random() * 360 - 180
+		let latitude = 37.51
+		let latitude2 = Math.random() * 180 - 90
 		return {
 			coords: [
 				[longitude2, latitude2],
-				[longitude, latitude],
+				[longitude, latitude]
 			],
-			value: (Math.random() * 3000).toFixed(2),
-		};
-	};
-	for (let i = 0; i < 150; i++) {
-		option.series.data = option.series.data.concat(rodamData());
+			value: (Math.random() * 3000).toFixed(2)
+		}
 	}
-	myChart.setOption(option);
-};
+	for (let i = 0; i < 150; i++) {
+		option.series.data = option.series.data.concat(rodamData())
+	}
+	myChart.setOption(option)
+}
 // 监听地球大小变化
 const initAddEventListener3DEarth = () => {
-	let w = document.body.clientWidth;
-	let globeRadius = 0;
-	if (w >= 1920) globeRadius = 100;
-	else if (w > 1200 && w < 1920) globeRadius = 70;
-	else if (w > 992 && w < 1200) globeRadius = 60;
-	else if (w > 768 && w < 992) globeRadius = 40;
-	else if (w < 768) globeRadius = 20;
-	init3DEarth(globeRadius);
-};
+	let w = document.body.clientWidth
+	let globeRadius = 0
+	if (w >= 1920) globeRadius = 100
+	else if (w > 1200 && w < 1920) globeRadius = 70
+	else if (w > 992 && w < 1200) globeRadius = 60
+	else if (w > 768 && w < 992) globeRadius = 40
+	else if (w < 768) globeRadius = 20
+	init3DEarth(globeRadius)
+}
 // 批量设置 echarts resize
 const initEchartsResize = () => {
-	initAddEventListener3DEarth();
+	initAddEventListener3DEarth()
 	window.addEventListener('resize', () => {
 		for (let i = 0; i < state.myCharts.length; i++) {
-			state.myCharts[i].resize();
+			state.myCharts[i].resize()
 		}
-		initAddEventListener3DEarth();
-	});
-};
+		initAddEventListener3DEarth()
+	})
+}
 // 页面加载时
 onMounted(async () => {
-	NextLoading.done();
-	initTime();
-	await initRightChartData1();
-	await initRightChartData4();
-	await initRightChartData3();
-	await initRightChartData2();
-	await initRightChartData6();
-	await initEchartsResize();
-});
+	NextLoading.done()
+	initTime()
+	await initRightChartData1()
+	await initRightChartData4()
+	await initRightChartData3()
+	await initRightChartData2()
+	await initRightChartData6()
+	await initEchartsResize()
+})
 // 页面卸载时
 onUnmounted(() => {
-	window.clearInterval(state.time.fun);
-});
+	window.clearInterval(state.time.fun)
+})
 </script>
 
 <style scoped lang="scss">

@@ -7,7 +7,7 @@ export const filterList = [
 		collection: (Math.random() * 100).toFixed(2),
 		price: (Math.random() * 10).toFixed(2),
 		monSales: (Math.random() * 20).toFixed(2),
-		id: 1,
+		id: 1
 	},
 	{
 		img: 'http://news.sznews.com/pic/2021-03/09/78cf72b6-e2d9-459d-a368-470414a027f4679cf4ea-26fa-48c8-9fee-c2d092a91400.png',
@@ -16,7 +16,7 @@ export const filterList = [
 		collection: (Math.random() * 100).toFixed(2),
 		price: (Math.random() * 10).toFixed(2),
 		monSales: (Math.random() * 20).toFixed(2),
-		id: 2,
+		id: 2
 	},
 	{
 		img: 'http://news.sznews.com/pic/2021-03/09/1faf3c6e-1250-4e6b-b072-4a331553e027.jpg',
@@ -25,7 +25,7 @@ export const filterList = [
 		collection: (Math.random() * 100).toFixed(2),
 		price: (Math.random() * 10).toFixed(2),
 		monSales: (Math.random() * 20).toFixed(2),
-		id: 3,
+		id: 3
 	},
 	{
 		img: 'https://news.sznews.com/pic/2021-03/09/9fcf6dd4-1e80-4497-bdc9-83dc7246d170.jpg.2',
@@ -34,7 +34,7 @@ export const filterList = [
 		collection: (Math.random() * 100).toFixed(2),
 		price: (Math.random() * 10).toFixed(2),
 		monSales: (Math.random() * 20).toFixed(2),
-		id: 4,
+		id: 4
 	},
 	{
 		img: 'https://news.sznews.com/pic/2021-03/09/1bd78227-4126-4a43-bdf6-48ead6edd1bf.jpg.2',
@@ -43,7 +43,7 @@ export const filterList = [
 		collection: (Math.random() * 100).toFixed(2),
 		price: (Math.random() * 10).toFixed(2),
 		monSales: (Math.random() * 20).toFixed(2),
-		id: 5,
+		id: 5
 	},
 	{
 		img: 'http://news.sznews.com/pic/2021-03/08/9ea943a3-3ae8-4f49-8296-711ec36ef8c6_watermark.png',
@@ -52,7 +52,7 @@ export const filterList = [
 		collection: (Math.random() * 100).toFixed(2),
 		price: (Math.random() * 10).toFixed(2),
 		monSales: (Math.random() * 20).toFixed(2),
-		id: 6,
+		id: 6
 	},
 	{
 		img: 'https://news.sznews.com/pic/2021-03/08/a95ba232-1422-4f7e-b85f-c61d486c8659.jpg.2',
@@ -61,7 +61,7 @@ export const filterList = [
 		collection: (Math.random() * 100).toFixed(2),
 		price: (Math.random() * 10).toFixed(2),
 		monSales: (Math.random() * 20).toFixed(2),
-		id: 7,
+		id: 7
 	},
 	{
 		img: 'http://news.sznews.com/pic/2021-03/08/76816bf0-3899-4c7e-bc6e-079b5ba8725e.jpg',
@@ -70,7 +70,7 @@ export const filterList = [
 		collection: (Math.random() * 100).toFixed(2),
 		price: (Math.random() * 10).toFixed(2),
 		monSales: (Math.random() * 20).toFixed(2),
-		id: 8,
+		id: 8
 	},
 	{
 		img: 'https://news.sznews.com/pic/2021-03/08/28ed70d4-71f5-4abb-bf7b-0294bece9e43.jpg.2',
@@ -79,7 +79,7 @@ export const filterList = [
 		collection: (Math.random() * 100).toFixed(2),
 		price: (Math.random() * 10).toFixed(2),
 		monSales: (Math.random() * 20).toFixed(2),
-		id: 9,
+		id: 9
 	},
 	{
 		img: 'http://news.sznews.com/pic/2021-03/05/d13ae31f-fd45-431a-b48e-c5895bbc193e.png',
@@ -88,6 +88,6 @@ export const filterList = [
 		collection: (Math.random() * 100).toFixed(2),
 		price: (Math.random() * 10).toFixed(2),
 		monSales: (Math.random() * 20).toFixed(2),
-		id: 10,
-	},
-];
+		id: 10
+	}
+]

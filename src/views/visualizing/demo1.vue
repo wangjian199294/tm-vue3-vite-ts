@@ -89,62 +89,62 @@
 </template>
 
 <script setup lang="ts" name="visualizingLinkDemo1">
-import { reactive, onMounted, onUnmounted, ref } from 'vue';
-import * as echarts from 'echarts';
-import 'echarts/extension/bmap/bmap';
-import { formatDate } from '/@/utils/formatTime';
-import { NextLoading } from '/@/utils/loading';
-import { echartsMapList, echartsMapData, echartsMapImgs } from './mock/demo1';
+import { reactive, onMounted, onUnmounted, ref } from 'vue'
+import * as echarts from 'echarts'
+import 'echarts/extension/bmap/bmap'
+import { formatDate } from '/@/utils/formatTime'
+import { NextLoading } from '/@/utils/loading'
+import { echartsMapList, echartsMapData, echartsMapImgs } from './mock/demo1'
 
 // 定义变量内容
-const visualizingDemo1 = ref();
-const visualizingContentLeftTop = ref();
-const visualizingContentLeftBottom = ref();
-const visualizingContentCenterTop = ref();
-const visualizingContentCenterBottom = ref();
-const visualizingContentRightTop = ref();
-const visualizingContentRightBottom = ref();
+const visualizingDemo1 = ref()
+const visualizingContentLeftTop = ref()
+const visualizingContentLeftBottom = ref()
+const visualizingContentCenterTop = ref()
+const visualizingContentCenterBottom = ref()
+const visualizingContentRightTop = ref()
+const visualizingContentRightBottom = ref()
 const state = reactive({
 	echartsMapList,
 	echartsMapData,
 	echartsMapImgs,
 	time: {
 		txt: '',
-		fun: 0,
+		fun: 0
 	},
-	myCharts: [] as EmptyArrayType,
-});
+	myCharts: [] as EmptyArrayType
+})
 
 // 初始化时间
 const initTime = () => {
-	state.time.txt = formatDate(new Date(), 'YYYY-mm-dd HH:MM:SS WWW QQQQ ZZZ');
+	state.time.txt = formatDate(new Date(), 'YYYY-mm-dd HH:MM:SS WWW QQQQ ZZZ')
 	state.time.fun = window.setInterval(() => {
-		state.time.txt = formatDate(new Date(), 'YYYY-mm-dd HH:MM:SS WWW QQQQ ZZZ');
-	}, 1000);
-};
+		state.time.txt = formatDate(new Date(), 'YYYY-mm-dd HH:MM:SS WWW QQQQ ZZZ')
+	}, 1000)
+}
 // echartsMap 将坐标信息和对应物理量的值合在一起
 const convertData = (data: any) => {
-	let res = [];
+	let res = []
 	for (let i = 0; i < data.length; i++) {
-		let geoCoord = state.echartsMapData[data[i].name];
+		let geoCoord = state.echartsMapData[data[i].name]
 		if (geoCoord) {
 			res.push({
 				name: data[i].name,
-				value: geoCoord.concat(data[i].value),
-			});
+				value: geoCoord.concat(data[i].value)
+			})
 		}
 	}
-	return res;
-};
+	return res
+}
 // 初始化 echartsMap（地图上的点）
 const initEchartsMap = () => {
-	const myChart = echarts.init(<HTMLElement>visualizingDemo1.value);
+	const myChart = echarts.init(<HTMLElement>visualizingDemo1.value)
 	const option = {
 		tooltip: {
 			trigger: 'item',
 			formatter(params: any) {
 				// 自定义鼠标放入样式
-				let item = state.echartsMapImgs.find((v: any) => v.name === params.name);
+				let item = state.echartsMapImgs.find((v: any) => v.name === params.name)
 				let html = `<div style="width: 240px">
 							<div style="display: flex; align-items: center">
 								<img src="${item?.url}" style="width: 50px; height: 50px; border-radius: 100%; position: relative; border: 4px solid #ffffff; margin-left: -4px" />
@@ -171,16 +171,16 @@ const initEchartsMap = () => {
 								<div style="width: 61px"><i class="el-icon-chat-dot-round" style="margin-right: 5px"></i>概括：</div>
 								<div style="flex: 1; white-space: pre-wrap; word-break: break-all; margin-top: 5px; color: #333">${item?.dec}</div>
 							</div>
-						</div>`;
-				return html;
-			},
+						</div>`
+				return html
+			}
 		},
 		color: ['#ea7ccc'],
 		bmap: {
 			center: [114.064524, 22.549225],
 			zoom: 11,
 			roam: true,
-			mapStyle: {},
+			mapStyle: {}
 		},
 		series: [
 			{
@@ -189,21 +189,21 @@ const initEchartsMap = () => {
 				coordinateSystem: 'bmap',
 				data: convertData(state.echartsMapList),
 				symbolSize: function (val: any) {
-					return val[2] / 10;
+					return val[2] / 10
 				},
 				encode: {
-					value: 2,
+					value: 2
 				},
 				label: {
 					formatter: '{b}',
 					position: 'right',
-					show: false,
+					show: false
 				},
 				emphasis: {
 					label: {
-						show: true,
-					},
-				},
+						show: true
+					}
+				}
 			},
 			{
 				name: '门票收入',
@@ -212,51 +212,51 @@ const initEchartsMap = () => {
 				data: convertData(
 					state.echartsMapList
 						.sort(function (a: any, b: any) {
-							return b.value - a.value;
+							return b.value - a.value
 						})
 						.slice(0, 6)
 				),
 				symbolSize: function (val: any) {
-					return val[2] / 10;
+					return val[2] / 10
 				},
 				encode: {
-					value: 2,
+					value: 2
 				},
 				showEffectOn: 'render',
 				rippleEffect: {
-					brushType: 'stroke',
+					brushType: 'stroke'
 				},
 				hoverAnimation: true,
 				label: {
 					formatter: '{b}',
 					position: 'right',
-					show: true,
+					show: true
 				},
 				itemStyle: {
 					shadowBlur: 100,
-					shadowColor: '#333',
+					shadowColor: '#333'
 				},
-				zlevel: 1,
-			},
-		],
-	};
-	myChart.setOption(option);
-	state.myCharts.push(myChart);
+				zlevel: 1
+			}
+		]
+	}
+	myChart.setOption(option)
+	state.myCharts.push(myChart)
 
 	// 地图
-	const map = (<any>myChart).getModel().getComponent('bmap').getBMap();
+	const map = (<any>myChart).getModel().getComponent('bmap').getBMap()
 	// BMAP_NORMAL_MAP ：此地图类型展示普通街道视图
 	// BMAP_PERSPECTIVE_MAP ：此地图类型展示透视图像视图。（这个还不会用）
 	// BMAP_SATELLITE_MAP：卫星地图 （没有坐标， 绿绿的一片的卫星地图）
 	// BMAP_HYBRID_MAP：混合地图 （既有坐标，也是绿绿的一片的卫星地图）
 	// eslint-disable-next-line no-undef
-	map.setMapType(BMAP_SATELLITE_MAP);
+	map.setMapType(BMAP_SATELLITE_MAP)
 	// eslint-disable-next-line no-undef
-	let bdary = new BMap.Boundary();
+	let bdary = new BMap.Boundary()
 	// 获取行政区域
 	bdary.get('深圳', function (rs: any) {
 		// 行政区域的点有多少个
-		let count = rs.boundaries.length;
+		let count = rs.boundaries.length
 		for (let i = 0; i < count; i++) {
 			// eslint-disable-next-line no-undef
 			let ply = new BMap.Polygon(rs.boundaries[i], {
@@ -269,47 +269,47 @@ const initEchartsMap = () => {
 				// 设置多边形边线颜色
 				strokeColor: '#febb50',
 				// 设置多边形填充颜色
-				fillColor: '',
-			});
+				fillColor: ''
+			})
 			// 建立多边形覆盖物
 			// 添加覆盖物
-			map.addOverlay(ply);
+			map.addOverlay(ply)
 			// 调整视野
-			map.setViewport(ply.getPath());
+			map.setViewport(ply.getPath())
 		}
 		// 初始化地图，设置中心点坐标和地图级别
 		// new BMap.Point('深圳市', 11)
 		// eslint-disable-next-line no-undef
-		map.centerAndZoom(new BMap.Point(114.064524, 22.549225), 11);
-	});
-};
+		map.centerAndZoom(new BMap.Point(114.064524, 22.549225), 11)
+	})
+}
 // 产业概况
 const initVisualizingContentLeftTop = () => {
-	const myChart = echarts.init(visualizingContentLeftTop.value);
+	const myChart = echarts.init(visualizingContentLeftTop.value)
 	const option = {
 		grid: {
 			top: 50,
 			right: 0,
 			bottom: 50,
-			left: 30,
+			left: 30
 		},
 		tooltip: {
-			trigger: 'axis',
+			trigger: 'axis'
 		},
 		xAxis: {
 			data: ['1月', '2月', '3月', '4月', '5月', '6月'],
 			axisLine: {
 				lineStyle: {
 					color: 'rgba(22, 207, 208, 0.1)',
-					width: 1,
-				},
+					width: 1
+				}
 			},
 			axisTick: {
-				show: false,
+				show: false
 			},
 			axisLabel: {
-				color: '#16cfd0',
-			},
+				color: '#16cfd0'
+			}
 		},
 		yAxis: [
 			{
@@ -318,28 +318,28 @@ const initVisualizingContentLeftTop = () => {
 				axisLine: {
 					show: true,
 					lineStyle: {
-						color: 'rgba(22, 207, 208, 0.1)',
-					},
+						color: 'rgba(22, 207, 208, 0.1)'
+					}
 				},
 				axisLabel: {
-					color: '#16cfd0',
+					color: '#16cfd0'
 				},
 				splitLine: {
 					show: true,
 					lineStyle: {
-						color: 'rgba(22, 207, 208, 0.3)',
-					},
+						color: 'rgba(22, 207, 208, 0.3)'
+					}
 				},
 				splitArea: {
 					show: true,
 					areaStyle: {
-						color: 'rgba(22, 207, 208, 0.02)',
-					},
+						color: 'rgba(22, 207, 208, 0.02)'
+					}
 				},
 				nameTextStyle: {
-					color: '#16cfd0',
-				},
-			},
+					color: '#16cfd0'
+				}
+			}
 		],
 		series: [
 			{
@@ -347,34 +347,34 @@ const initVisualizingContentLeftTop = () => {
 				type: 'line',
 				data: [200, 85, 112, 275, 305, 415],
 				itemStyle: {
-					color: '#16cfd0',
-				},
+					color: '#16cfd0'
+				}
 			},
 			{
 				name: '最新成交价',
 				type: 'line',
 				data: [50, 85, 22, 155, 170, 25],
 				itemStyle: {
-					color: '#febb50',
-				},
-			},
-		],
-	};
-	myChart.setOption(option);
-	state.myCharts.push(myChart);
-};
+					color: '#febb50'
+				}
+			}
+		]
+	}
+	myChart.setOption(option)
+	state.myCharts.push(myChart)
+}
 // A级风景区对比
 const initVisualizingContentLeftBottom = () => {
-	const myChart = echarts.init(visualizingContentLeftBottom.value);
+	const myChart = echarts.init(visualizingContentLeftBottom.value)
 	const option = {
 		grid: {
 			top: 50,
 			right: 10,
 			bottom: 40,
-			left: 30,
+			left: 30
 		},
 		tooltip: {
-			trigger: 'axis',
+			trigger: 'axis'
 		},
 		xAxis: {
 			type: 'category',
@@ -383,43 +383,43 @@ const initVisualizingContentLeftBottom = () => {
 			axisLine: {
 				lineStyle: {
 					color: 'rgba(22, 207, 208, 0.1)',
-					width: 1,
-				},
+					width: 1
+				}
 			},
 			axisTick: {
-				show: false,
+				show: false
 			},
 			axisLabel: {
 				interval: 0,
 				color: '#16cfd0',
 				textStyle: {
-					fontSize: 10,
-				},
-			},
+					fontSize: 10
+				}
+			}
 		},
 		yAxis: [
 			{
 				type: 'value',
 				name: '销量',
 				axisLabel: {
-					color: '#16cfd0',
+					color: '#16cfd0'
 				},
 				splitLine: {
 					show: true,
 					lineStyle: {
-						color: 'rgba(22, 207, 208, 0.3)',
-					},
+						color: 'rgba(22, 207, 208, 0.3)'
+					}
 				},
 				splitArea: {
 					show: true,
 					areaStyle: {
-						color: 'rgba(22, 207, 208, 0.02)',
-					},
+						color: 'rgba(22, 207, 208, 0.02)'
+					}
 				},
 				nameTextStyle: {
-					color: '#16cfd0',
-				},
-			},
+					color: '#16cfd0'
+				}
+			}
 		],
 		series: [
 			{
@@ -428,25 +428,25 @@ const initVisualizingContentLeftBottom = () => {
 				stack: '总量',
 				smooth: true,
 				lineStyle: {
-					width: 0,
+					width: 0
 				},
 				areaStyle: {
 					opacity: 0.8,
 					color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
 						{
 							offset: 0,
-							color: 'rgba(128, 255, 165)',
+							color: 'rgba(128, 255, 165)'
 						},
 						{
 							offset: 1,
-							color: 'rgba(1, 191, 236)',
-						},
-					]),
+							color: 'rgba(1, 191, 236)'
+						}
+					])
 				},
 				emphasis: {
-					focus: 'series',
+					focus: 'series'
 				},
-				data: [140, 232, 101, 264, 90],
+				data: [140, 232, 101, 264, 90]
 			},
 			{
 				name: '天数',
@@ -454,48 +454,48 @@ const initVisualizingContentLeftBottom = () => {
 				stack: '总量',
 				smooth: true,
 				lineStyle: {
-					width: 0,
+					width: 0
 				},
 				areaStyle: {
 					opacity: 0.8,
 					color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
 						{
 							offset: 0,
-							color: 'rgba(0, 221, 255)',
+							color: 'rgba(0, 221, 255)'
 						},
 						{
 							offset: 1,
-							color: 'rgba(77, 119, 255)',
-						},
-					]),
+							color: 'rgba(77, 119, 255)'
+						}
+					])
 				},
 				emphasis: {
-					focus: 'series',
+					focus: 'series'
 				},
-				data: [120, 282, 111, 234, 220],
-			},
-		],
-	};
-	myChart.setOption(option);
-	state.myCharts.push(myChart);
-};
+				data: [120, 282, 111, 234, 220]
+			}
+		]
+	}
+	myChart.setOption(option)
+	state.myCharts.push(myChart)
+}
 // 游客过夜情况
 const initVisualizingContentCenterTop = () => {
-	const myChart = echarts.init(visualizingContentCenterTop.value);
-	const min = 100;
-	const max = 1000;
+	const myChart = echarts.init(visualizingContentCenterTop.value)
+	const min = 100
+	const max = 1000
 	const option = {
 		grid: {
 			top: 50,
 			right: 10,
 			bottom: 66,
-			left: 38,
+			left: 38
 		},
 		tooltip: {
 			trigger: 'axis',
 			axisPointer: {
-				type: 'shadow',
-			},
+				type: 'shadow'
+			}
 		},
 		xAxis: [
 			{
@@ -504,21 +504,21 @@ const initVisualizingContentCenterTop = () => {
 				axisLabel: {
 					color: '#16cfd0',
 					textStyle: {
-						fontSize: 9,
+						fontSize: 9
 					},
 					interval: 0,
-					rotate: -45,
+					rotate: -45
 				},
 				axisLine: {
 					lineStyle: {
 						color: 'rgba(22, 207, 208, 0.1)',
-						width: 1,
-					},
+						width: 1
+					}
 				},
 				axisTick: {
-					show: false,
-				},
-			},
+					show: false
+				}
+			}
 		],
 		yAxis: [
 			{
@@ -528,28 +528,28 @@ const initVisualizingContentCenterTop = () => {
 				axisLine: {
 					show: true,
 					lineStyle: {
-						color: 'rgba(22, 207, 208, 0.1)',
-					},
+						color: 'rgba(22, 207, 208, 0.1)'
+					}
 				},
 				axisLabel: {
-					color: '#16cfd0',
+					color: '#16cfd0'
 				},
 				splitLine: {
 					show: true,
 					lineStyle: {
-						color: 'rgba(22, 207, 208, 0.3)',
-					},
+						color: 'rgba(22, 207, 208, 0.3)'
+					}
 				},
 				splitArea: {
 					show: true,
 					areaStyle: {
-						color: 'rgba(22, 207, 208, 0.02)',
-					},
+						color: 'rgba(22, 207, 208, 0.02)'
+					}
 				},
 				nameTextStyle: {
-					color: '#16cfd0',
-				},
-			},
+					color: '#16cfd0'
+				}
+			}
 		],
 		series: [
 			{
@@ -560,14 +560,14 @@ const initVisualizingContentCenterTop = () => {
 						color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
 							{
 								offset: 0,
-								color: '#de682e',
+								color: '#de682e'
 							},
 							{
 								offset: 1,
-								color: '#ecc232',
-							},
-						]),
-					},
+								color: '#ecc232'
+							}
+						])
+					}
 				},
 				label: {
 					normal: {
@@ -575,15 +575,15 @@ const initVisualizingContentCenterTop = () => {
 						position: 'top',
 						formatter: function (param: any) {
 							if (param.value == max || param.value == min) {
-								return '';
+								return ''
 							}
-							return param.value;
+							return param.value
 						},
 						textStyle: {
 							color: 'rgba(22, 207, 208, 0.8)',
-							fontSize: 10,
-						},
-					},
+							fontSize: 10
+						}
+					}
 				},
 				markPoint: {
 					symbolSize: 30,
@@ -591,55 +591,55 @@ const initVisualizingContentCenterTop = () => {
 						normal: {
 							textStyle: {
 								color: '#ffffff',
-								fontSize: 10,
-							},
-						},
+								fontSize: 10
+							}
+						}
 					},
 					data: [
 						{ name: '年最低', value: min, xAxis: 0, yAxis: 100 },
-						{ name: '年最高', value: max, xAxis: 9, yAxis: 1000 },
-					],
+						{ name: '年最高', value: max, xAxis: 9, yAxis: 1000 }
+					]
 				},
-				data: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
-			},
-		],
-	};
-	myChart.setOption(option);
-	state.myCharts.push(myChart);
-};
+				data: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
+			}
+		]
+	}
+	myChart.setOption(option)
+	state.myCharts.push(myChart)
+}
 // 游客驻留时长
 const initVisualizingContentCenterBottom = () => {
-	const myChart = echarts.init(visualizingContentCenterBottom.value);
+	const myChart = echarts.init(visualizingContentCenterBottom.value)
 	const option = {
 		tooltip: {
 			trigger: 'axis',
 			axisPointer: {
-				type: 'shadow',
-			},
+				type: 'shadow'
+			}
 		},
 		grid: {
 			top: 26,
 			right: 10,
 			bottom: 66,
-			left: 45,
+			left: 45
 		},
 		xAxis: {
 			type: 'value',
 			axisLabel: {
-				color: '#16cfd0',
+				color: '#16cfd0'
 			},
 			splitLine: {
 				show: true,
 				lineStyle: {
-					color: 'rgba(22, 207, 208, 0.3)',
-				},
-			},
+					color: 'rgba(22, 207, 208, 0.3)'
+				}
+			}
 		},
 		yAxis: {
 			type: 'category',
 			axisLabel: {
-				color: '#16cfd0',
-			},
+				color: '#16cfd0'
+			}
 		},
 		series: [
 			{
@@ -647,49 +647,49 @@ const initVisualizingContentCenterBottom = () => {
 				type: 'bar',
 				stack: 'total',
 				label: {
-					show: true,
+					show: true
 				},
 				emphasis: {
-					focus: 'series',
+					focus: 'series'
 				},
 				barWidth: 12,
 				itemStyle: {
 					label: {
-						show: true,
+						show: true
 					},
 					labelLine: {
-						show: false,
+						show: false
 					},
 					color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
 						{ offset: 0, color: 'rgba(7,165,255,0.2)' },
-						{ offset: 1, color: 'rgba(7,165,255,1)' },
-					]),
-				},
+						{ offset: 1, color: 'rgba(7,165,255,1)' }
+					])
+				}
 			},
 			{
 				name: '进行中',
 				type: 'bar',
 				stack: 'total',
 				label: {
-					show: true,
+					show: true
 				},
 				emphasis: {
-					focus: 'series',
+					focus: 'series'
 				},
 				barWidth: 12,
 				itemStyle: {
 					label: {
-						show: true,
+						show: true
 					},
 					labelLine: {
-						show: false,
+						show: false
 					},
 					color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
 						{ offset: 0, color: 'rgba(41,244,236,0)' },
-						{ offset: 1, color: 'rgba(41,244,236,1)' },
-					]),
-				},
-			},
+						{ offset: 1, color: 'rgba(41,244,236,1)' }
+					])
+				}
+			}
 		],
 		dataset: {
 			source: [
@@ -697,43 +697,43 @@ const initVisualizingContentCenterBottom = () => {
 				{ status: '配送中', value1: 53, value2: 32 },
 				{ status: '已出库', value1: 78, value2: 65 },
 				{ status: '采购中', value1: 12, value2: 35 },
-				{ status: '接单中', value1: 90, value2: 52 },
-			],
-		},
-	};
-	myChart.setOption(option);
-	state.myCharts.push(myChart);
-};
+				{ status: '接单中', value1: 90, value2: 52 }
+			]
+		}
+	}
+	myChart.setOption(option)
+	state.myCharts.push(myChart)
+}
 // 当日游客趋势分析
 const initVisualizingContentRightTop = () => {
-	const myChart = echarts.init(visualizingContentRightTop.value);
+	const myChart = echarts.init(visualizingContentRightTop.value)
 	const option = {
 		grid: {
 			top: 50,
 			right: 30,
 			bottom: 50,
-			left: 20,
+			left: 20
 		},
 		tooltip: {
 			trigger: 'axis',
 			axisPointer: {
-				type: 'shadow',
-			},
+				type: 'shadow'
+			}
 		},
 		xAxis: {
 			data: ['1月', '2月', '3月', '4月', '5月', '6月'],
 			axisLine: {
 				lineStyle: {
 					color: 'rgba(22, 207, 208, 0.5)',
-					width: 1,
-				},
+					width: 1
+				}
 			},
 			axisTick: {
-				show: false,
+				show: false
 			},
 			axisLabel: {
-				color: '#16cfd0',
-			},
+				color: '#16cfd0'
+			}
 		},
 		yAxis: [
 			{
@@ -742,58 +742,58 @@ const initVisualizingContentRightTop = () => {
 				axisLine: {
 					show: true,
 					lineStyle: {
-						color: 'rgba(22, 207, 208, 0.1)',
-					},
+						color: 'rgba(22, 207, 208, 0.1)'
+					}
 				},
 				axisLabel: {
-					color: '#16cfd0',
+					color: '#16cfd0'
 				},
 				splitLine: {
 					show: true,
 					lineStyle: {
-						color: 'rgba(22, 207, 208, 0.3)',
-					},
+						color: 'rgba(22, 207, 208, 0.3)'
+					}
 				},
 				splitArea: {
 					show: true,
 					areaStyle: {
-						color: 'rgba(22, 207, 208, 0.02)',
-					},
+						color: 'rgba(22, 207, 208, 0.02)'
+					}
 				},
 				nameTextStyle: {
-					color: '#16cfd0',
-				},
+					color: '#16cfd0'
+				}
 			},
 			{
 				type: 'value',
 				name: '同比',
 				position: 'right',
 				axisLine: {
-					show: false,
+					show: false
 				},
 				axisLabel: {
 					show: true,
 					formatter: '{value}%',
 					textStyle: {
-						color: '#16cfd0',
-					},
+						color: '#16cfd0'
+					}
 				},
 				splitLine: {
-					show: false,
+					show: false
 				},
 				axisTick: {
-					show: false,
+					show: false
 				},
 				splitArea: {
 					show: true,
 					areaStyle: {
-						color: 'rgba(22, 207, 208, 0.02)',
-					},
+						color: 'rgba(22, 207, 208, 0.02)'
+					}
 				},
 				nameTextStyle: {
-					color: '#16cfd0',
-				},
-			},
+					color: '#16cfd0'
+				}
+			}
 		],
 		series: [
 			{
@@ -804,15 +804,15 @@ const initVisualizingContentRightTop = () => {
 				showAllSymbol: true,
 				symbol: 'circle',
 				itemStyle: {
-					color: '#058cff',
+					color: '#058cff'
 				},
 				lineStyle: {
-					color: '#058cff',
+					color: '#058cff'
 				},
 				areaStyle: {
-					color: 'rgba(5,140,255, 0.2)',
+					color: 'rgba(5,140,255, 0.2)'
 				},
-				data: [4.2, 3.8, 4.8, 3.5, 2.9, 2.8],
+				data: [4.2, 3.8, 4.8, 3.5, 2.9, 2.8]
 			},
 			{
 				name: '主营业务',
@@ -823,49 +823,49 @@ const initVisualizingContentRightTop = () => {
 						color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
 							{
 								offset: 0,
-								color: '#00FFE3',
+								color: '#00FFE3'
 							},
 							{
 								offset: 1,
-								color: '#4693EC',
-							},
-						]),
-					},
+								color: '#4693EC'
+							}
+						])
+					}
 				},
-				data: [4.2, 3.8, 4.8, 3.5, 2.9, 2.8],
-			},
-		],
-	};
-	myChart.setOption(option);
-	state.myCharts.push(myChart);
-};
+				data: [4.2, 3.8, 4.8, 3.5, 2.9, 2.8]
+			}
+		]
+	}
+	myChart.setOption(option)
+	state.myCharts.push(myChart)
+}
 // 当月游客趋势分析
 const initVisualizingContentRightBottom = () => {
-	const myChart = echarts.init(visualizingContentRightBottom.value);
+	const myChart = echarts.init(visualizingContentRightBottom.value)
 	const option = {
 		grid: {
 			top: 50,
 			right: 10,
 			bottom: 40,
-			left: 30,
+			left: 30
 		},
 		tooltip: {
-			trigger: 'axis',
+			trigger: 'axis'
 		},
 		xAxis: {
 			data: ['1月', '2月', '3月', '4月', '5月', '6月'],
 			axisLine: {
 				lineStyle: {
 					color: 'rgba(22, 207, 208, 0.1)',
-					width: 1,
-				},
+					width: 1
+				}
 			},
 			axisTick: {
-				show: false,
+				show: false
 			},
 			axisLabel: {
-				color: '#16cfd0',
-			},
+				color: '#16cfd0'
+			}
 		},
 		yAxis: [
 			{
@@ -874,28 +874,28 @@ const initVisualizingContentRightBottom = () => {
 				axisLine: {
 					show: true,
 					lineStyle: {
-						color: 'rgba(22, 207, 208, 0.1)',
-					},
+						color: 'rgba(22, 207, 208, 0.1)'
+					}
 				},
 				axisLabel: {
-					color: '#16cfd0',
+					color: '#16cfd0'
 				},
 				splitLine: {
 					show: true,
 					lineStyle: {
-						color: 'rgba(22, 207, 208, 0.3)',
-					},
+						color: 'rgba(22, 207, 208, 0.3)'
+					}
 				},
 				splitArea: {
 					show: true,
 					areaStyle: {
-						color: 'rgba(22, 207, 208, 0.02)',
-					},
+						color: 'rgba(22, 207, 208, 0.02)'
+					}
 				},
 				nameTextStyle: {
-					color: '#16cfd0',
-				},
-			},
+					color: '#16cfd0'
+				}
+			}
 		],
 		series: [
 			{
@@ -904,8 +904,8 @@ const initVisualizingContentRightBottom = () => {
 				data: [20, 15, 40, 55, 65, 85],
 				smooth: true,
 				itemStyle: {
-					color: '#EA7CCC',
-				},
+					color: '#EA7CCC'
+				}
 			},
 			{
 				name: '最新成交价',
@@ -913,39 +913,39 @@ const initVisualizingContentRightBottom = () => {
 				data: [30, 45, 65, 85, 60, 105],
 				smooth: true,
 				itemStyle: {
-					color: '#FAC958',
-				},
-			},
-		],
-	};
-	myChart.setOption(option);
-	state.myCharts.push(myChart);
-};
+					color: '#FAC958'
+				}
+			}
+		]
+	}
+	myChart.setOption(option)
+	state.myCharts.push(myChart)
+}
 // 批量设置 echarts resize
 const initEchartsResize = () => {
 	window.addEventListener('resize', () => {
 		for (let i = 0; i < state.myCharts.length; i++) {
-			state.myCharts[i].resize();
+			state.myCharts[i].resize()
 		}
-	});
-};
+	})
+}
 // 页面加载时
 onMounted(async () => {
-	NextLoading.done();
-	initTime();
-	await initEchartsMap();
-	await initVisualizingContentLeftTop();
-	await initVisualizingContentLeftBottom();
-	await initVisualizingContentCenterTop();
-	await initVisualizingContentCenterBottom();
-	await initVisualizingContentRightTop();
-	await initVisualizingContentRightBottom();
-	await initEchartsResize();
-});
+	NextLoading.done()
+	initTime()
+	await initEchartsMap()
+	await initVisualizingContentLeftTop()
+	await initVisualizingContentLeftBottom()
+	await initVisualizingContentCenterTop()
+	await initVisualizingContentCenterBottom()
+	await initVisualizingContentRightTop()
+	await initVisualizingContentRightBottom()
+	await initEchartsResize()
+})
 // 页面卸载时
 onUnmounted(() => {
-	window.clearInterval(state.time.fun);
-});
+	window.clearInterval(state.time.fun)
+})
 </script>
 
 <style scoped lang="scss">

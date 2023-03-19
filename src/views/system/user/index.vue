@@ -59,16 +59,16 @@
 </template>
 
 <script setup lang="ts" name="systemUser">
-import { defineAsyncComponent, reactive, onMounted, ref } from 'vue';
-import { ElMessageBox, ElMessage } from 'element-plus';
+import { defineAsyncComponent, reactive, onMounted, ref } from 'vue'
+import { ElMessageBox, ElMessage } from 'element-plus'
 
 // 引入组件
-const AddUer = defineAsyncComponent(() => import('/@/views/system/user/component/addUser.vue'));
-const EditUser = defineAsyncComponent(() => import('/@/views/system/user/component/editUser.vue'));
+const AddUer = defineAsyncComponent(() => import('/@/views/system/user/component/addUser.vue'))
+const EditUser = defineAsyncComponent(() => import('/@/views/system/user/component/editUser.vue'))
 
 // 定义变量内容
-const addUserRef = ref();
-const editUserRef = ref();
+const addUserRef = ref()
+const editUserRef = ref()
 const state = reactive<SysUserState>({
 	tableData: {
 		data: [],
@@ -76,14 +76,14 @@ const state = reactive<SysUserState>({
 		loading: false,
 		param: {
 			pageNum: 1,
-			pageSize: 10,
-		},
-	},
-});
+			pageSize: 10
+		}
+	}
+})
 
 // 初始化表格数据
 const initTableData = () => {
-	const data = [];
+	const data = []
 	for (let i = 0; i < 2; i++) {
 		data.push({
 			userName: i === 0 ? 'admin' : 'test',
@@ -97,44 +97,44 @@ const initTableData = () => {
 			overdueTime: new Date(),
 			status: true,
 			describe: i === 0 ? '不可删除' : '测试用户',
-			createTime: new Date().toLocaleString(),
-		});
+			createTime: new Date().toLocaleString()
+		})
 	}
-	state.tableData.data = data;
-	state.tableData.total = state.tableData.data.length;
-};
+	state.tableData.data = data
+	state.tableData.total = state.tableData.data.length
+}
 // 打开新增用户弹窗
 const onOpenAddUser = () => {
-	addUserRef.value.openDialog();
-};
+	addUserRef.value.openDialog()
+}
 // 打开修改用户弹窗
 const onOpenEditUser = (row: RowUserType) => {
-	editUserRef.value.openDialog(row);
-};
+	editUserRef.value.openDialog(row)
+}
 // 删除用户
 const onRowDel = (row: RowUserType) => {
 	ElMessageBox.confirm(`此操作将永久删除账户名称：“${row.userName}”，是否继续?`, '提示', {
 		confirmButtonText: '确认',
 		cancelButtonText: '取消',
-		type: 'warning',
+		type: 'warning'
 	})
 		.then(() => {
-			ElMessage.success('删除成功');
+			ElMessage.success('删除成功')
 		})
-		.catch(() => {});
-};
+		.catch(() => {})
+}
 // 分页改变
 const onHandleSizeChange = (val: number) => {
-	state.tableData.param.pageSize = val;
-};
+	state.tableData.param.pageSize = val
+}
 // 分页改变
 const onHandleCurrentChange = (val: number) => {
-	state.tableData.param.pageNum = val;
-};
+	state.tableData.param.pageNum = val
+}
 // 页面加载时
 onMounted(() => {
-	initTableData();
-});
+	initTableData()
+})
 </script>
 
 <style scoped lang="scss">

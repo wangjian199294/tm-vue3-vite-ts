@@ -43,35 +43,35 @@
 </template>
 
 <script setup lang="ts" name="loginIndex">
-import { defineAsyncComponent, onMounted, reactive, computed } from 'vue';
-import { storeToRefs } from 'pinia';
-import { useThemeConfig } from '/@/stores/themeConfig';
-import { NextLoading } from '/@/utils/loading';
-import logoMini from '/@/assets/logo-mini.svg';
-import loginMain from '/@/assets/login-main.svg';
-import loginBg from '/@/assets/login-bg.svg';
+import { defineAsyncComponent, onMounted, reactive, computed } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useThemeConfig } from '/@/stores/themeConfig'
+import { NextLoading } from '/@/utils/loading'
+import logoMini from '/@/assets/logo-mini.svg'
+import loginMain from '/@/assets/login-main.svg'
+import loginBg from '/@/assets/login-bg.svg'
 
 // 引入组件
-const Account = defineAsyncComponent(() => import('/@/views/login/component/account.vue'));
-const Mobile = defineAsyncComponent(() => import('/@/views/login/component/mobile.vue'));
-const Scan = defineAsyncComponent(() => import('/@/views/login/component/scan.vue'));
+const Account = defineAsyncComponent(() => import('/@/views/login/component/account.vue'))
+const Mobile = defineAsyncComponent(() => import('/@/views/login/component/mobile.vue'))
+const Scan = defineAsyncComponent(() => import('/@/views/login/component/scan.vue'))
 
 // 定义变量内容
-const storesThemeConfig = useThemeConfig();
-const { themeConfig } = storeToRefs(storesThemeConfig);
+const storesThemeConfig = useThemeConfig()
+const { themeConfig } = storeToRefs(storesThemeConfig)
 const state = reactive({
 	tabsActiveName: 'account',
-	isScan: false,
-});
+	isScan: false
+})
 
 // 获取布局配置信息
 const getThemeConfig = computed(() => {
-	return themeConfig.value;
-});
+	return themeConfig.value
+})
 // 页面加载时
 onMounted(() => {
-	NextLoading.done();
-});
+	NextLoading.done()
+})
 </script>
 
 <style scoped lang="scss">

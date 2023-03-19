@@ -84,7 +84,7 @@ watch(
 		other.useTitle()
 	},
 	{
-		deep: true,
+		deep: true
 	}
 )
 </script>

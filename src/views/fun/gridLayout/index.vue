@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts" name="funGridLayout">
-import { reactive } from 'vue';
+import { reactive } from 'vue'
 
 // 定义变量内容
 const state = reactive({
@@ -40,9 +40,9 @@ const state = reactive({
 		{ x: 6, y: 0, w: 2, h: 3, i: '3' },
 		{ x: 8, y: 0, w: 2, h: 3, i: '4' },
 		{ x: 10, y: 0, w: 2, h: 3, i: '5' },
-		{ x: 0, y: 5, w: 2, h: 5, i: '6' },
-	],
-});
+		{ x: 0, y: 5, w: 2, h: 5, i: '6' }
+	]
+})
 </script>
 
 <style scoped lang="scss">

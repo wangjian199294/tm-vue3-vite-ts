@@ -23,14 +23,14 @@
 </template>
 
 <script setup lang="ts" name="makeTableDemo">
-import { defineAsyncComponent, reactive, ref, onMounted } from 'vue';
-import { ElMessage } from 'element-plus';
+import { defineAsyncComponent, reactive, ref, onMounted } from 'vue'
+import { ElMessage } from 'element-plus'
 
 // 引入组件
-const Table = defineAsyncComponent(() => import('/@/components/table/index.vue'));
+const Table = defineAsyncComponent(() => import('/@/components/table/index.vue'))
 
 // 定义变量内容
-const tableRef = ref<RefType>();
+const tableRef = ref<RefType>()
 const state = reactive<TableDemoState>({
 	tableData: {
 		// 列表数据（必传）
@@ -42,11 +42,11 @@ const state = reactive<TableDemoState>({
 			{ key: 'phone', colWidth: '', title: '采样点联系电话', type: 'text', isCheck: true },
 			{ key: 'time', colWidth: '', title: '开放时间', type: 'text', isCheck: true },
 			{ key: 'isSupport', colWidth: '', title: '是否支持24小时核酸检测', type: 'text', isCheck: true },
-			{ key: 'image', colWidth: '', width: '70', height: '40', title: '图片描述', type: 'image', isCheck: true },
+			{ key: 'image', colWidth: '', width: '70', height: '40', title: '图片描述', type: 'image', isCheck: true }
 		],
 		// 搜索参数（可选）
 		param: {
-			search: '',
+			search: ''
 		},
 		// 配置项（必传）
 		config: {
@@ -55,15 +55,15 @@ const state = reactive<TableDemoState>({
 			isBorder: false, // 是否显示表格边框
 			isSerialNo: true, // 是否显示表格序号
 			isSelection: true, // 是否显示表格多选
-			isOperate: true, // 是否显示表格操作栏
-		},
-	},
-});
+			isOperate: true // 是否显示表格操作栏
+		}
+	}
+})
 
 // 初始化列表数据
 const getTableData = () => {
-	state.tableData.config.loading = true;
-	state.tableData.data = [];
+	state.tableData.config.loading = true
+	state.tableData.data = []
 	for (let i = 0; i < 20; i++) {
 		state.tableData.data.push({
 			id: `123456789${i + 1}`,
@@ -72,38 +72,38 @@ const getTableData = () => {
 			phone: `0592-6081259${i + 1}`,
 			time: `6:00 ~ 24:00`,
 			isSupport: `${i % 2 === 0 ? '是' : '否'}`,
-			image: `https://img2.baidu.com/it/u=417454395,2713356475&fm=253&fmt=auto?w=200&h=200`,
-		});
+			image: `https://img2.baidu.com/it/u=417454395,2713356475&fm=253&fmt=auto?w=200&h=200`
+		})
 	}
 	// 数据总数（模拟，真实从接口取）
-	state.tableData.config.total = state.tableData.data.length;
+	state.tableData.config.total = state.tableData.data.length
 	setTimeout(() => {
-		state.tableData.config.loading = false;
-	}, 500);
-};
+		state.tableData.config.loading = false
+	}, 500)
+}
 // 搜索
 const onSearch = () => {
-	tableRef.value.pageReset();
-};
+	tableRef.value.pageReset()
+}
 // 删除当前项回调
 const onTableDelRow = (row: EmptyObjectType) => {
-	ElMessage.success(`删除${row.name}成功！`);
-	getTableData();
-};
+	ElMessage.success(`删除${row.name}成功！`)
+	getTableData()
+}
 // 分页改变时回调
 const onTablePageChange = (page: TableDemoPageType) => {
-	state.tableData.param.pageNum = page.pageNum;
-	state.tableData.param.pageSize = page.pageSize;
-	getTableData();
-};
+	state.tableData.param.pageNum = page.pageNum
+	state.tableData.param.pageSize = page.pageSize
+	getTableData()
+}
 // 拖动显示列排序回调
 const onSortHeader = (data: TableHeaderType[]) => {
-	state.tableData.header = data;
-};
+	state.tableData.header = data
+}
 // 页面加载时
 onMounted(() => {
-	getTableData();
-});
+	getTableData()
+})
 </script>
 
 <style scoped lang="scss">

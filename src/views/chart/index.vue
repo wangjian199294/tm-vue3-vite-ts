@@ -202,40 +202,40 @@
 </template>
 
 <script setup lang="ts" name="chartIndex">
-import { defineAsyncComponent, reactive, onMounted, watch, nextTick, onActivated, ref } from 'vue';
-import * as echarts from 'echarts';
-import 'echarts-wordcloud';
-import { storeToRefs } from 'pinia';
-import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes';
-import { skyList, dBtnList, chartData4List } from '/@/views/chart/chart';
+import { defineAsyncComponent, reactive, onMounted, watch, nextTick, onActivated, ref } from 'vue'
+import * as echarts from 'echarts'
+import 'echarts-wordcloud'
+import { storeToRefs } from 'pinia'
+import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes'
+import { skyList, dBtnList, chartData4List } from '/@/views/chart/chart'
 
 // 引入组件
-const ChartHead = defineAsyncComponent(() => import('/@/views/chart/head.vue'));
+const ChartHead = defineAsyncComponent(() => import('/@/views/chart/head.vue'))
 
 // 定义变量内容
-const chartsCenterOneRef = ref();
-const chartsSevenDaysRef = ref();
-const chartsWarningRef = ref();
-const chartsMonitorRef = ref();
-const chartsInvestmentRef = ref();
-const storesTagsViewRoutes = useTagsViewRoutes();
-const { isTagsViewCurrenFull } = storeToRefs(storesTagsViewRoutes);
+const chartsCenterOneRef = ref()
+const chartsSevenDaysRef = ref()
+const chartsWarningRef = ref()
+const chartsMonitorRef = ref()
+const chartsInvestmentRef = ref()
+const storesTagsViewRoutes = useTagsViewRoutes()
+const { isTagsViewCurrenFull } = storeToRefs(storesTagsViewRoutes)
 const state = reactive({
 	skyList,
 	dBtnList,
 	chartData4List,
-	myCharts: [] as EmptyArrayType,
-});
+	myCharts: [] as EmptyArrayType
+})
 
 // 初始化中间图表1
 const initChartsCenterOne = () => {
-	const myChart = echarts.init(chartsCenterOneRef.value);
+	const myChart = echarts.init(chartsCenterOneRef.value)
 	const option = {
 		grid: {
 			top: 15,
 			right: 15,
 			bottom: 20,
-			left: 30,
+			left: 30
 		},
 		tooltip: {},
 		series: [
@@ -252,8 +252,8 @@ const initChartsCenterOne = () => {
 					fontFamily: 'sans-serif',
 					fontWeight: 'bold',
 					color: function () {
-						return `rgb(${[Math.round(Math.random() * 160), Math.round(Math.random() * 160), Math.round(Math.random() * 160)].join(',')})`;
-					},
+						return `rgb(${[Math.round(Math.random() * 160), Math.round(Math.random() * 160), Math.round(Math.random() * 160)].join(',')})`
+					}
 				},
 				data: [
 					{ name: 'vue-next-admin', value: 520 },
@@ -280,71 +280,71 @@ const initChartsCenterOne = () => {
 					{ name: '温柔', value: 3.91 },
 					{ name: '有个性', value: 3.25 },
 					{ name: '可爱', value: 9.93 },
-					{ name: '幽默诙谐', value: 3.65 },
-				],
-			},
-		],
-	};
-	myChart.setOption(option);
-	state.myCharts.push(myChart);
-};
+					{ name: '幽默诙谐', value: 3.65 }
+				]
+			}
+		]
+	}
+	myChart.setOption(option)
+	state.myCharts.push(myChart)
+}
 // 初始化近7天产品追溯扫码统计
 const initChartsSevenDays = () => {
-	const myChart = echarts.init(chartsSevenDaysRef.value);
+	const myChart = echarts.init(chartsSevenDaysRef.value)
 	const option = {
 		grid: {
 			top: 15,
 			right: 15,
 			bottom: 20,
-			left: 30,
+			left: 30
 		},
 		tooltip: {
-			trigger: 'axis',
+			trigger: 'axis'
 		},
 		xAxis: {
 			type: 'category',
 			boundaryGap: false,
-			data: ['1天', '2天', '3天', '4天', '5天', '6天', '7天'],
+			data: ['1天', '2天', '3天', '4天', '5天', '6天', '7天']
 		},
 		yAxis: {
-			type: 'value',
+			type: 'value'
 		},
 		series: [
 			{
 				name: '邮件营销',
 				type: 'line',
 				stack: '总量',
-				data: [12, 32, 11, 34, 90, 23, 21],
+				data: [12, 32, 11, 34, 90, 23, 21]
 			},
 			{
 				name: '联盟广告',
 				type: 'line',
 				stack: '总量',
-				data: [22, 82, 91, 24, 90, 30, 30],
+				data: [22, 82, 91, 24, 90, 30, 30]
 			},
 			{
 				name: '视频广告',
 				type: 'line',
 				stack: '总量',
-				data: [50, 32, 18, 14, 90, 30, 50],
-			},
-		],
-	};
-	myChart.setOption(option);
-	state.myCharts.push(myChart);
-};
+				data: [50, 32, 18, 14, 90, 30, 50]
+			}
+		]
+	}
+	myChart.setOption(option)
+	state.myCharts.push(myChart)
+}
 // 初始化近30天预警总数
 const initChartsWarning = () => {
-	const myChart = echarts.init(chartsWarningRef.value);
+	const myChart = echarts.init(chartsWarningRef.value)
 	const option = {
 		grid: {
 			top: 50,
 			right: 20,
 			bottom: 30,
-			left: 30,
+			left: 30
 		},
 		tooltip: {
-			trigger: 'item',
+			trigger: 'item'
 		},
 		series: [
 			{
@@ -354,40 +354,40 @@ const initChartsWarning = () => {
 				center: ['50%', '50%'],
 				roseType: 'area',
 				itemStyle: {
-					borderRadius: 8,
+					borderRadius: 8
 				},
 				data: [
 					{ value: 40, name: '监测设备预警' },
 					{ value: 38, name: '天气预警' },
 					{ value: 32, name: '任务预警' },
-					{ value: 30, name: '病虫害预警' },
-				],
-			},
-		],
-	};
-	myChart.setOption(option);
-	state.myCharts.push(myChart);
-};
+					{ value: 30, name: '病虫害预警' }
+				]
+			}
+		]
+	}
+	myChart.setOption(option)
+	state.myCharts.push(myChart)
+}
 // 初始化当前设备监测
 const initChartsMonitor = () => {
-	const myChart = echarts.init(chartsMonitorRef.value);
+	const myChart = echarts.init(chartsMonitorRef.value)
 	const option = {
 		grid: {
 			top: 15,
 			right: 15,
 			bottom: 20,
-			left: 30,
+			left: 30
 		},
 		tooltip: {
-			trigger: 'axis',
+			trigger: 'axis'
 		},
 		xAxis: {
 			type: 'category',
 			boundaryGap: false,
-			data: ['02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00'],
+			data: ['02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00']
 		},
 		yAxis: {
-			type: 'value',
+			type: 'value'
 		},
 		series: [
 			{
@@ -396,80 +396,80 @@ const initChartsMonitor = () => {
 					borderColor: '#289df5',
 					areaStyle: {
 						type: 'default',
-						opacity: 0.1,
-					},
+						opacity: 0.1
+					}
 				},
 				data: [20, 32, 31, 34, 12, 13, 20],
 				type: 'line',
-				areaStyle: {},
-			},
-		],
-	};
-	myChart.setOption(option);
-	state.myCharts.push(myChart);
-};
+				areaStyle: {}
+			}
+		]
+	}
+	myChart.setOption(option)
+	state.myCharts.push(myChart)
+}
 // 初始化近7天投入品记录
 const initChartsInvestment = () => {
-	const myChart = echarts.init(chartsInvestmentRef.value);
+	const myChart = echarts.init(chartsInvestmentRef.value)
 	const option = {
 		grid: {
 			top: 15,
 			right: 15,
 			bottom: 20,
-			left: 30,
+			left: 30
 		},
 		tooltip: {
-			trigger: 'axis',
+			trigger: 'axis'
 		},
 		xAxis: {
 			type: 'category',
-			data: ['1天', '2天', '3天', '4天', '5天', '6天', '7天'],
+			data: ['1天', '2天', '3天', '4天', '5天', '6天', '7天']
 		},
 		yAxis: {
-			type: 'value',
+			type: 'value'
 		},
 		series: [
 			{
 				data: [10, 20, 15, 80, 70, 11, 30],
-				type: 'bar',
-			},
-		],
-	};
-	myChart.setOption(option);
-	state.myCharts.push(myChart);
-};
+				type: 'bar'
+			}
+		]
+	}
+	myChart.setOption(option)
+	state.myCharts.push(myChart)
+}
 // 批量设置 echarts resize
 const initEchartsResizeFun = () => {
 	nextTick(() => {
 		for (let i = 0; i < state.myCharts.length; i++) {
-			state.myCharts[i].resize();
+			state.myCharts[i].resize()
 		}
-	});
-};
+	})
+}
 // 批量设置 echarts resize
 const initEchartsResize = () => {
-	window.addEventListener('resize', initEchartsResizeFun);
-};
+	window.addEventListener('resize', initEchartsResizeFun)
+}
 // 页面加载时
 onMounted(() => {
-	initChartsCenterOne();
-	initChartsSevenDays();
-	initChartsWarning();
-	initChartsMonitor();
-	initChartsInvestment();
-	initEchartsResize();
-});
+	initChartsCenterOne()
+	initChartsSevenDays()
+	initChartsWarning()
+	initChartsMonitor()
+	initChartsInvestment()
+	initEchartsResize()
+})
 // 由于页面缓存原因，keep-alive
 onActivated(() => {
-	initEchartsResizeFun();
-});
+	initEchartsResizeFun()
+})
 // 监听 pinia 中的 tagsview 开启全屏变化，重新 resize 图表，防止不出现/大小不变等
 watch(
 	() => isTagsViewCurrenFull.value,
 	() => {
-		initEchartsResizeFun();
+		initEchartsResizeFun()
 	}
-);
+)
 </script>
 
 <style scoped lang="scss">

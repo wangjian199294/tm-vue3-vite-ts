@@ -36,16 +36,16 @@
 </template>
 
 <script setup lang="ts" name="paramsCommon">
-import { reactive } from 'vue';
-import { useRouter } from 'vue-router';
+import { reactive } from 'vue'
+import { useRouter } from 'vue-router'
 
 // 定义变量内容
-const router = useRouter();
+const router = useRouter()
 const state = reactive<ParamsState>({
 	value: '',
 	tagsViewName: '',
-	tagsViewNameIsI18n: false,
-});
+	tagsViewNameIsI18n: false
+})
 
 // 跳转到详情
 /**
@@ -53,25 +53,25 @@ const state = reactive<ParamsState>({
  * 传不同的 tagsViewName 值
  */
 const onGoDetailsClick = () => {
-	const params: EmptyObjectType = { id: state.value };
-	if (state.tagsViewName) params.tagsViewName = state.tagsViewName;
+	const params: EmptyObjectType = { id: state.value }
+	if (state.tagsViewName) params.tagsViewName = state.tagsViewName
 	router.push({
 		path: '/params/common/details',
-		query: params,
-	});
-	state.value = '';
-};
+		query: params
+	})
+	state.value = ''
+}
 // 模拟测试内容
 const onChangeI18n = () => {
-	state.tagsViewNameIsI18n = !state.tagsViewNameIsI18n;
+	state.tagsViewNameIsI18n = !state.tagsViewNameIsI18n
 	if (state.tagsViewNameIsI18n) {
 		state.tagsViewName = JSON.stringify({
 			'zh-cn': '测试用',
 			en: 'test page',
-			'zh-tw': '測試用',
-		});
+			'zh-tw': '測試用'
+		})
 	} else {
-		state.tagsViewName = '我是普通路由测试tagsViewName(非国际化)';
+		state.tagsViewName = '我是普通路由测试tagsViewName(非国际化)'
 	}
-};
+}
 </script>

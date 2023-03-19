@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts" name="pagesFormRulesThree">
-import { reactive } from 'vue';
+import { reactive } from 'vue'
 
 // 定义变量内容
 const state = reactive({
@@ -37,7 +37,7 @@ const state = reactive({
 		createUser: { required: true, message: '请输入创建用户', trigger: 'blur' },
 		editUser: { required: true, message: '请输入修改用户', trigger: 'blur' },
 		user: { required: true, message: '请输入所属用户', trigger: 'blur' },
-		department: { required: true, message: '请输入所属部门', trigger: 'blur' },
-	},
-});
+		department: { required: true, message: '请输入所属部门', trigger: 'blur' }
+	}
+})
 </script>

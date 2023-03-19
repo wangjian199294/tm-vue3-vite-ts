@@ -335,31 +335,31 @@
 </template>
 
 <script setup lang="ts" name="limitsFrontEndBtn">
-import { defineAsyncComponent } from 'vue';
-import { ElMessage } from 'element-plus';
-import { auth, auths, authAll } from '/@/utils/authFunction';
+import { defineAsyncComponent } from 'vue'
+import { ElMessage } from 'element-plus'
+import { auth, auths, authAll } from '/@/utils/authFunction'
 
 // 引入组件
-const LimitsFrontEndPage = defineAsyncComponent(() => import('/@/views/limits/frontEnd/page/index.vue'));
-const Auth = defineAsyncComponent(() => import('/@/components/auth/auth.vue'));
-const Auths = defineAsyncComponent(() => import('/@/components/auth/auths.vue'));
-const AuthAll = defineAsyncComponent(() => import('/@/components/auth/authAll.vue'));
+const LimitsFrontEndPage = defineAsyncComponent(() => import('/@/views/limits/frontEnd/page/index.vue'))
+const Auth = defineAsyncComponent(() => import('/@/components/auth/auth.vue'))
+const Auths = defineAsyncComponent(() => import('/@/components/auth/auths.vue'))
+const AuthAll = defineAsyncComponent(() => import('/@/components/auth/authAll.vue'))
 
 // 单个权限验证
 const onAuthClick = () => {
-	if (!auth('btn.add')) ElMessage.error('抱歉，您没有权限！');
-	else ElMessage.success('恭喜，您有权限！');
-};
+	if (!auth('btn.add')) ElMessage.error('抱歉，您没有权限！')
+	else ElMessage.success('恭喜，您有权限！')
+}
 // 多个权限验证，满足一个则为 true
 const onAuthsClick = () => {
-	if (!auths(['btn.add', 'btn.edit', 'btn.del', 'btn.link'])) ElMessage.error('抱歉，您没有权限！');
-	else ElMessage.success('恭喜，您有权限！');
-};
+	if (!auths(['btn.add', 'btn.edit', 'btn.del', 'btn.link'])) ElMessage.error('抱歉，您没有权限！')
+	else ElMessage.success('恭喜，您有权限！')
+}
 // 多个权限验证，全部满足则为 true
 const onAuthAllClick = () => {
-	if (!authAll(['btn.add', 'btn.edit', 'btn.del', 'btn.link'])) ElMessage.error('抱歉，您没有权限！');
-	else ElMessage.success('恭喜，您有权限！');
-};
+	if (!authAll(['btn.add', 'btn.edit', 'btn.del', 'btn.link'])) ElMessage.error('抱歉，您没有权限！')
+	else ElMessage.success('恭喜，您有权限！')
+}
 </script>
 
 <style scoped lang="scss">

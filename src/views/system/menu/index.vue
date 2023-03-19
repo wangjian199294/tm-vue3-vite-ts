@@ -59,44 +59,44 @@
 </template>
 
 <script setup lang="ts" name="systemMenu">
-import { defineAsyncComponent, ref, computed } from 'vue';
-import { RouteRecordRaw } from 'vue-router';
-import { ElMessageBox, ElMessage } from 'element-plus';
-import { storeToRefs } from 'pinia';
-import { useRoutesList } from '/@/stores/routesList';
+import { defineAsyncComponent, ref, computed } from 'vue'
+import { RouteRecordRaw } from 'vue-router'
+import { ElMessageBox, ElMessage } from 'element-plus'
+import { storeToRefs } from 'pinia'
+import { useRoutesList } from '/@/stores/routesList'
 
 // 引入组件
-const AddMenu = defineAsyncComponent(() => import('/@/views/system/menu/component/addMenu.vue'));
-const EditMenu = defineAsyncComponent(() => import('/@/views/system/menu/component/editMenu.vue'));
+const AddMenu = defineAsyncComponent(() => import('/@/views/system/menu/component/addMenu.vue'))
+const EditMenu = defineAsyncComponent(() => import('/@/views/system/menu/component/editMenu.vue'))
 
 // 定义变量内容
-const stores = useRoutesList();
-const { routesList } = storeToRefs(stores);
-const addMenuRef = ref();
-const editMenuRef = ref();
+const stores = useRoutesList()
+const { routesList } = storeToRefs(stores)
+const addMenuRef = ref()
+const editMenuRef = ref()
 
 // 获取 pinia 中的路由
 const menuTableData = computed(() => {
-	return routesList.value;
-});
+	return routesList.value
+})
 // 打开新增菜单弹窗
 const onOpenAddMenu = () => {
-	addMenuRef.value.openDialog();
-};
+	addMenuRef.value.openDialog()
+}
 // 打开编辑菜单弹窗
 const onOpenEditMenu = (row: RouteRecordRaw) => {
-	editMenuRef.value.openDialog(row);
-};
+	editMenuRef.value.openDialog(row)
+}
 // 删除当前行
 const onTabelRowDel = (row: RouteRecordRaw) => {
 	ElMessageBox.confirm(`此操作将永久删除路由：${row.path}, 是否继续?`, '提示', {
 		confirmButtonText: '删除',
 		cancelButtonText: '取消',
-		type: 'warning',
+		type: 'warning'
 	})
 		.then(() => {
-			ElMessage.success('删除成功');
+			ElMessage.success('删除成功')
 		})
-		.catch(() => {});
-};
+		.catch(() => {})
+}
 </script>

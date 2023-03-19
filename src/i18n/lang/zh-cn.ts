@@ -73,12 +73,12 @@ export default {
 		tools: '工具类集合',
 		layoutLinkView: '外链',
 		layoutIframeViewOne: '内嵌 iframe1',
-		layoutIframeViewTwo: '内嵌 iframe2',
+		layoutIframeViewTwo: '内嵌 iframe2'
 	},
 	staticRoutes: {
 		signIn: '登录',
 		notFound: '找不到此页面',
-		noPower: '没有权限',
+		noPower: '没有权限'
 	},
 	user: {
 		title0: '组件大小',
@@ -106,7 +106,7 @@ export default {
 		logOutMessage: '此操作将退出登录, 是否继续?',
 		logOutConfirm: '确定',
 		logOutCancel: '取消',
-		logOutExit: '退出中',
+		logOutExit: '退出中'
 	},
 	tagsView: {
 		refresh: '刷新',
@@ -114,17 +114,17 @@ export default {
 		closeOther: '关闭其它',
 		closeAll: '全部关闭',
 		fullscreen: '当前页全屏',
-		closeFullscreen: '关闭全屏',
+		closeFullscreen: '关闭全屏'
 	},
 	notFound: {
 		foundTitle: '地址输入错误，请重新输入地址~',
 		foundMsg: '您可以先检查网址，然后重新输入或给我们反馈问题。',
-		foundBtn: '返回首页',
+		foundBtn: '返回首页'
 	},
 	noAccess: {
 		accessTitle: '您未被授权，没有操作权限~',
 		accessMsg: '联系方式：加QQ群探讨 665452019',
-		accessBtn: '重新授权',
+		accessBtn: '重新授权'
 	},
 	layout: {
 		configTitle: '布局配置',
@@ -178,7 +178,7 @@ export default {
 		copyText: '一键复制配置',
 		resetText: '一键恢复默认',
 		copyTextSuccess: '复制成功！',
-		copyTextError: '复制失败！',
+		copyTextError: '复制失败！'
 	},
 	upgrade: {
 		title: '新版本升级',
@@ -186,6 +186,6 @@ export default {
 		desc: '提示：更新会还原默认配置',
 		btnOne: '残忍拒绝',
 		btnTwo: '马上更新',
-		btnTwoLoading: '更新中',
-	},
-};
+		btnTwoLoading: '更新中'
+	}
+}

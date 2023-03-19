@@ -10,54 +10,54 @@
 </template>
 
 <script setup lang="ts" name="pagesWorkflowDrawer">
-import { defineAsyncComponent, reactive, ref, nextTick } from 'vue';
+import { defineAsyncComponent, reactive, ref, nextTick } from 'vue'
 
 // 定义子组件向父组件传值/事件
-const emit = defineEmits(['label', 'node']);
+const emit = defineEmits(['label', 'node'])
 
 // 引入组件
-const Lines = defineAsyncComponent(() => import('./line.vue'));
-const Nodes = defineAsyncComponent(() => import('./node.vue'));
+const Lines = defineAsyncComponent(() => import('./line.vue'))
+const Nodes = defineAsyncComponent(() => import('./node.vue'))
 
 // 定义变量内容
-const lineRef = ref();
-const nodeRef = ref();
+const lineRef = ref()
+const nodeRef = ref()
 const state = reactive<WorkflowDrawerState>({
 	isOpen: false,
 	nodeData: {
-		type: 'node',
+		type: 'node'
 	},
-	jsplumbConn: {},
-});
+	jsplumbConn: {}
+})
 
 // 打开抽屉
 const open = (item: WorkflowDrawerLabelType, conn: EmptyObjectType) => {
-	state.isOpen = true;
-	state.jsplumbConn = conn;
-	state.nodeData = item;
+	state.isOpen = true
+	state.jsplumbConn = conn
+	state.nodeData = item
 	nextTick(() => {
 		setTimeout(() => {
-			if (item.type === 'line') lineRef.value.getParentData(item);
-			else nodeRef.value.getParentData(item);
-		}, 300);
-	});
-};
+			if (item.type === 'line') lineRef.value.getParentData(item)
+			else nodeRef.value.getParentData(item)
+		}, 300)
+	})
+}
 // 关闭
 const close = () => {
-	state.isOpen = false;
-};
+	state.isOpen = false
+}
 // 线 label 内容改变时
 const onLineChange = (label: string) => {
-	state.jsplumbConn.label = label;
-	emit('label', state.jsplumbConn);
-};
+	state.jsplumbConn.label = label
+	emit('label', state.jsplumbConn)
+}
 // 节点内容改变时
 const onNodeSubmit = (data: object) => {
-	emit('node', data);
-};
+	emit('node', data)
+}
 
 // 暴露变量
 defineExpose({
-	open,
-});
+	open
+})
 </script>

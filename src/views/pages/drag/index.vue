@@ -38,12 +38,12 @@
 </template>
 
 <script setup lang="ts" name="pagesDrag">
-import { reactive } from 'vue';
+import { reactive } from 'vue'
 
 // 定义变量内容
 const state = reactive({
-	dialogVisible: false,
-});
+	dialogVisible: false
+})
 </script>
 
 <style scoped lang="scss">

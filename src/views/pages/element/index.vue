@@ -18,24 +18,24 @@
 </template>
 
 <script setup lang="ts" name="pagesElement">
-import { reactive, onMounted } from 'vue';
-import initIconfont from '/@/utils/getStyleSheets';
+import { reactive, onMounted } from 'vue'
+import initIconfont from '/@/utils/getStyleSheets'
 
 // 定义变量内容
 const state = reactive({
-	sheetsIconList: [],
-});
+	sheetsIconList: []
+})
 
 // 初始化获取 css 样式，获取 element plus 自带 svg 图标，增加了 ele- 前缀，使用时：ele-Aim
 const initGetStyleSheets = () => {
 	initIconfont.ele().then((res: any) => {
-		state.sheetsIconList = res;
-	});
-};
+		state.sheetsIconList = res
+	})
+}
 // 页面加载时
 onMounted(() => {
-	initGetStyleSheets();
-});
+	initGetStyleSheets()
+})
 </script>
 
 <style scoped lang="scss">

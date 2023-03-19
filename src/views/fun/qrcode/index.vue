@@ -23,11 +23,11 @@
 </template>
 
 <script setup lang="ts" name="funQrcode">
-import { onMounted, ref } from 'vue';
-import QRCode from 'qrcodejs2-fixes';
+import { onMounted, ref } from 'vue'
+import QRCode from 'qrcodejs2-fixes'
 
 // 定义变量内容
-const qrcodeRef = ref();
+const qrcodeRef = ref()
 
 // 初始化生成二维码
 const initQrcode = () => {
@@ -36,18 +36,18 @@ const initQrcode = () => {
 		width: 125,
 		height: 125,
 		colorDark: '#000000',
-		colorLight: '#ffffff',
-	});
-};
+		colorLight: '#ffffff'
+	})
+}
 // 重新生成
 const onInitQrcode = () => {
-	qrcodeRef.value.innerHTML = '';
-	initQrcode();
-};
+	qrcodeRef.value.innerHTML = ''
+	initQrcode()
+}
 // 页面加载时
 onMounted(() => {
-	initQrcode();
-});
+	initQrcode()
+})
 </script>
 
 <style scoped lang="scss">

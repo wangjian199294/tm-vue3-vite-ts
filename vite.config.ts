@@ -6,28 +6,28 @@
  * @FilePath: /tm-vue3-vite-ts/vite.config.ts
  * @Description:
  */
-import vue from '@vitejs/plugin-vue';
-import { resolve } from 'path';
-import { defineConfig, loadEnv, ConfigEnv } from 'vite';
-import vueSetupExtend from 'vite-plugin-vue-setup-extend';
+import vue from '@vitejs/plugin-vue'
+import { resolve } from 'path'
+import { defineConfig, loadEnv, ConfigEnv } from 'vite'
+import vueSetupExtend from 'vite-plugin-vue-setup-extend'
 
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver, } from 'unplugin-vue-components/resolvers'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { createStyleImportPlugin, ElementPlusResolve } from 'vite-plugin-style-import'
-import viteCompression from "vite-plugin-compression"
+import viteCompression from 'vite-plugin-compression'
 
 const pathResolve = (dir: string): any => {
-	return resolve(__dirname, '.', dir);
-};
+	return resolve(__dirname, '.', dir)
+}
 
 const alias: Record<string, string> = {
 	'/@': pathResolve('./src/'),
-	'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
-};
+	'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js'
+}
 
 const viteConfig = defineConfig((mode: ConfigEnv) => {
-	const env = loadEnv(mode.mode, process.cwd());
+	const env = loadEnv(mode.mode, process.cwd())
 	return {
 		plugins: [
 			vue(),
@@ -38,44 +38,42 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 					/\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
 					/\.vue$/,
 					/\.vue\?vue/, // .vue
-					/\.md$/, // .md
+					/\.md$/ // .md
 				],
 				// 全局引入插件
 				imports: [
 					// presets
-					"vue",
-					"vue-router",
-					"pinia",
+					'vue',
+					'vue-router',
+					'pinia',
 					// custom
 					{
-						"@vueuse/core": [
+						'@vueuse/core': [
 							// named imports
-							"useMouse", // import { useMouse } from '@vueuse/core',
+							'useMouse', // import { useMouse } from '@vueuse/core',
 							// alias
-							["useFetch", "useMyFetch"], // import { useFetch as useMyFetch } from '@vueuse/core',
+							['useFetch', 'useMyFetch'] // import { useFetch as useMyFetch } from '@vueuse/core',
 						],
 						axios: [
 							// default imports
-							["default", "axios"], // import { default as axios } from 'axios',
+							['default', 'axios'] // import { default as axios } from 'axios',
 						],
-						"[package-name]": [
-							"[import-names]",
+						'[package-name]': [
+							'[import-names]',
 							// alias
-							["[from]", "[alias]"],
-						],
-					},
+							['[from]', '[alias]']
+						]
+					}
 				],
 				dts: true,
-				resolvers: [ElementPlusResolver()],
+				resolvers: [ElementPlusResolver()]
 			}),
 			Components({
-				resolvers: [ElementPlusResolver()],
+				resolvers: [ElementPlusResolver()]
 			}),
 			//按需自动导入样式文件
 			createStyleImportPlugin({
-				resolves: [
-					ElementPlusResolve()
-				]
+				resolves: [ElementPlusResolve()]
 			}),
 			//压缩文件
 			viteCompression({
@@ -83,17 +81,17 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 				disable: false,
 				// filter:()=>{}, // 那些资源不压缩
 				threshold: 1024 * 50, // 体积大于 threshold 才会被压缩,单位 b
-				deleteOriginFile: false,// 压缩后是否删除源文件
+				deleteOriginFile: false, // 压缩后是否删除源文件
 				algorithm: 'gzip', // 压缩算法,可选 [ 'gzip' , 'brotliCompress' ,'deflate' , 'deflateRaw']
 				ext: '.gz' // 生成的压缩包后缀
-			}),
+			})
 		],
 		root: process.cwd(),
 		resolve: { alias },
 		base: './',
 		hmr: true,
 		optimizeDeps: {
-			include: ['element-plus/lib/locale/lang/zh-cn', 'element-plus/lib/locale/lang/en', 'element-plus/lib/locale/lang/zh-tw'],
+			include: ['element-plus/lib/locale/lang/zh-cn', 'element-plus/lib/locale/lang/en', 'element-plus/lib/locale/lang/zh-tw']
 		},
 		server: {
 			open: true,
@@ -102,9 +100,9 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 					target: 'https://gitee.com',
 					ws: true,
 					changeOrigin: true,
-					rewrite: (path) => path.replace(/^\/gitee/, ''),
-				},
-			},
+					rewrite: (path) => path.replace(/^\/gitee/, '')
+				}
+			}
 		},
 		build: {
 			outDir: 'dist',
@@ -118,15 +116,15 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 					compact: true,
 					manualChunks: {
 						vue: ['vue', 'vue-router', 'pinia'],
-						echarts: ['echarts'],
+						echarts: ['echarts']
 					},
 					chunkFileNames: (chunkInfo) => {
 						const facadeModuleId = chunkInfo.facadeModuleId ? chunkInfo.facadeModuleId.split('/') : []
 						const fileName = facadeModuleId[facadeModuleId.length - 2] || '[name]'
 						return `js/${fileName}/[name].[hash].js`
 					}
-				},
-			},
+				}
+			}
 		},
 		css: {
 			preprocessorOptions: { css: { charset: false } }
@@ -135,9 +133,9 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 			__VUE_I18N_LEGACY_API__: JSON.stringify(false),
 			__VUE_I18N_FULL_INSTALL__: JSON.stringify(false),
 			__INTLIFY_PROD_DEVTOOLS__: JSON.stringify(false),
-			__VERSION__: JSON.stringify(process.env.npm_package_version),
-		},
-	};
-});
+			__VERSION__: JSON.stringify(process.env.npm_package_version)
+		}
+	}
+})
 
-export default viteConfig;
+export default viteConfig

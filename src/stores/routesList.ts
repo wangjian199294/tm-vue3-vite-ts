@@ -1,4 +1,3 @@
-
 /**
  * 路由列表
  * @methods setRoutesList 设置路由数据
@@ -9,17 +8,17 @@ export const useRoutesList = defineStore('routesList', {
 	state: (): RoutesListState => ({
 		routesList: [],
 		isColumnsMenuHover: false,
-		isColumnsNavHover: false,
+		isColumnsNavHover: false
 	}),
 	actions: {
 		async setRoutesList(data: Array<string>) {
-			this.routesList = data;
+			this.routesList = data
 		},
 		async setColumnsMenuHover(bool: Boolean) {
-			this.isColumnsMenuHover = bool;
+			this.isColumnsMenuHover = bool
 		},
 		async setColumnsNavHover(bool: Boolean) {
-			this.isColumnsNavHover = bool;
-		},
-	},
-});
+			this.isColumnsNavHover = bool
+		}
+	}
+})

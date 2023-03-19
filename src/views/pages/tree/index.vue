@@ -31,57 +31,57 @@
 </template>
 
 <script setup lang="ts" name="pagesTree">
-import { reactive, onBeforeMount, ref } from 'vue';
-import { ElMessage } from 'element-plus';
+import { reactive, onBeforeMount, ref } from 'vue'
+import { ElMessage } from 'element-plus'
 
 // 定义变量内容
-const treeTableRef = ref();
+const treeTableRef = ref()
 const state = reactive({
 	treeCheckAll: false,
 	treeLoading: false,
 	treeTableData: [] as RowTreeType[],
 	treeDefaultProps: {
 		children: 'children',
-		label: 'label',
+		label: 'label'
 	},
 	treeSelArr: [] as RowTreeType[],
-	treeLength: 0,
-});
+	treeLength: 0
+})
 
 // 初始化树的长度
 const initTreeLengh = (arr: RowTreeType[]) => {
-	let count = 0;
+	let count = 0
 	arr.map((item) => {
 		if (item.children) {
-			count += item.children.length;
+			count += item.children.length
 		}
-	});
-	state.treeLength = count + arr.length;
-};
+	})
+	state.treeLength = count + arr.length
+}
 // 全选改变时
 const onCheckAllChange = () => {
 	if (state.treeCheckAll) {
-		treeTableRef.value.setCheckedNodes(state.treeTableData);
+		treeTableRef.value.setCheckedNodes(state.treeTableData)
 	} else {
-		treeTableRef.value.setCheckedKeys([]);
+		treeTableRef.value.setCheckedKeys([])
 	}
-};
+}
 // 节点选中状态发生变化时的回调
 const onCheckTree = () => {
-	state.treeSelArr = [];
-	state.treeSelArr = treeTableRef.value.getCheckedNodes();
-	state.treeSelArr.length == state.treeLength ? (state.treeCheckAll = true) : (state.treeCheckAll = false);
-};
+	state.treeSelArr = []
+	state.treeSelArr = treeTableRef.value.getCheckedNodes()
+	state.treeSelArr.length == state.treeLength ? (state.treeCheckAll = true) : (state.treeCheckAll = false)
+}
 // 选择元素按钮
 const onSelect = () => {
-	let treeArr = treeTableRef.value.getCheckedNodes();
+	let treeArr = treeTableRef.value.getCheckedNodes()
 	if (treeArr.length <= 0) {
-		ElMessage.warning('请选择元素');
-		return;
+		ElMessage.warning('请选择元素')
+		return
 	} else {
 		// console.log(treeTableRef.value.getCheckedNodes());
 	}
-};
+}
 // 初始化树模拟数据
 const getTreeData = () => {
 	state.treeTableData = [
@@ -97,16 +97,16 @@ const getTreeData = () => {
 					label: '一级 1-1',
 					label1: '好滋好味鸡蛋仔',
 					label2: '荷兰优质淡奶，奶香浓而不腻',
-					isShow: false,
+					isShow: false
 				},
 				{
 					id: 12,
 					label: '一级 1-2',
 					label1: '好滋好味鸡蛋仔',
 					label2: '荷兰优质淡奶，奶香浓而不腻',
-					isShow: false,
-				},
-			],
+					isShow: false
+				}
+			]
 		},
 		{
 			id: 2,
@@ -120,16 +120,16 @@ const getTreeData = () => {
 					label: '二级 2-1',
 					label1: '好滋好味鸡蛋仔',
 					label2: '荷兰优质淡奶，奶香浓而不腻',
-					isShow: false,
+					isShow: false
 				},
 				{
 					id: 22,
 					label: '二级 2-2',
 					label1: '好滋好味鸡蛋仔',
 					label2: '荷兰优质淡奶，奶香浓而不腻',
-					isShow: false,
-				},
-			],
+					isShow: false
+				}
+			]
 		},
 		{
 			id: 3,
@@ -143,31 +143,31 @@ const getTreeData = () => {
 					label: '二级 3-1',
 					label1: '好滋好味鸡蛋仔',
 					label2: '荷兰优质淡奶，奶香浓而不腻',
-					isShow: false,
+					isShow: false
 				},
 				{
 					id: 32,
 					label: '二级 3-2',
 					label1: '好滋好味鸡蛋仔',
 					label2: '荷兰优质淡奶，奶香浓而不腻',
-					isShow: false,
+					isShow: false
 				},
 				{
 					id: 33,
 					label: '二级 3-3',
 					label1: '好滋好味鸡蛋仔',
 					label2: '荷兰优质淡奶，奶香浓而不腻',
-					isShow: false,
-				},
-			],
-		},
-	];
-	initTreeLengh(state.treeTableData);
-};
+					isShow: false
+				}
+			]
+		}
+	]
+	initTreeLengh(state.treeTableData)
+}
 // 页面加载前
 onBeforeMount(() => {
-	getTreeData();
-});
+	getTreeData()
+})
 </script>
 
 <style scoped lang="scss">

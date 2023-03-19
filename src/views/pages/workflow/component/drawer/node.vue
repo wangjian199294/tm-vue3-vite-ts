@@ -93,17 +93,17 @@
 </template>
 
 <script setup lang="ts" name="pagesWorkflowDrawerNode">
-import { reactive, ref, nextTick } from 'vue';
-import { ElMessage } from 'element-plus';
-import * as echarts from 'echarts';
+import { reactive, ref, nextTick } from 'vue'
+import { ElMessage } from 'element-plus'
+import * as echarts from 'echarts'
 
 // 定义子组件向父组件传值/事件
-const emit = defineEmits(['submit', 'close']);
+const emit = defineEmits(['submit', 'close'])
 
 // 定义变量内容
-const nodeFormRef = ref();
-const extendFormRef = ref();
-const chartsMonitorRef = ref();
+const nodeFormRef = ref()
+const extendFormRef = ref()
+const chartsMonitorRef = ref()
 const state = reactive<WorkflowDrawerNodeState>({
 	node: {},
 	nodeRules: {
@@ -113,84 +113,84 @@ const state = reactive<WorkflowDrawerNodeState>({
 		left: [{ required: true, message: '请输入left坐标', trigger: 'blur' }],
 		top: [{ required: true, message: '请输入top坐标', trigger: 'blur' }],
 		icon: [{ required: true, message: '请输入icon图标', trigger: 'blur' }],
-		name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
+		name: [{ required: true, message: '请输入名称', trigger: 'blur' }]
 	},
 	form: {
-		module: [],
+		module: []
 	},
 	tabsActive: '1',
 	loading: {
-		extend: false,
-	},
-});
+		extend: false
+	}
+})
 
 // 获取父组件数据
 const getParentData = (data: object) => {
-	state.tabsActive = '1';
-	state.node = data;
-	initChartsMonitor();
-};
+	state.tabsActive = '1'
+	state.node = data
+	initChartsMonitor()
+}
 // 节点编辑-重置
 const onNodeRefresh = () => {
-	state.node.icon = '';
-	state.node.name = '';
-};
+	state.node.icon = ''
+	state.node.name = ''
+}
 // 节点编辑-保存
 const onNodeSubmit = () => {
 	nodeFormRef.value.validate((valid: boolean) => {
 		if (valid) {
-			emit('submit', state.node);
-			emit('close');
+			emit('submit', state.node)
+			emit('close')
 		} else {
-			return false;
+			return false
 		}
-	});
-};
+	})
+}
 // 扩展表单-重置
 const onExtendRefresh = () => {
-	extendFormRef.value.resetFields();
-};
+	extendFormRef.value.resetFields()
+}
 // 扩展表单-保存
 const onExtendSubmit = () => {
 	extendFormRef.value.validate((valid: boolean) => {
 		if (valid) {
-			state.loading.extend = true;
+			state.loading.extend = true
 			setTimeout(() => {
-				state.loading.extend = false;
-				ElMessage.success('保存成功');
-				emit('close');
-			}, 1000);
+				state.loading.extend = false
+				ElMessage.success('保存成功')
+				emit('close')
+			}, 1000)
 		} else {
-			return false;
+			return false
 		}
-	});
-};
+	})
+}
 // 图表可视化-初始化
 const initChartsMonitor = () => {
-	const myChart = echarts.init(chartsMonitorRef.value);
-	const numsOne = [];
-	const numsTwo = [];
+	const myChart = echarts.init(chartsMonitorRef.value)
+	const numsOne = []
+	const numsTwo = []
 	for (let i = 0; i < 7; i++) {
-		numsOne.push(`${Math.floor(Math.random() * 52 + 10)}:${Math.floor(Math.random() * 52 + 1)}`);
-		numsTwo.push(Math.floor(Math.random() * 52 + 1));
+		numsOne.push(`${Math.floor(Math.random() * 52 + 10)}:${Math.floor(Math.random() * 52 + 1)}`)
+		numsTwo.push(Math.floor(Math.random() * 52 + 1))
 	}
 	const option = {
 		grid: {
 			top: 50,
 			right: 30,
 			bottom: 30,
-			left: 50,
+			left: 50
 		},
 		tooltip: {
-			trigger: 'axis',
+			trigger: 'axis'
 		},
 		xAxis: {
 			type: 'category',
 			boundaryGap: false,
-			data: numsOne,
+			data: numsOne
 		},
 		yAxis: {
-			type: 'value',
+			type: 'value'
 		},
 		series: [
 			{
@@ -199,25 +199,25 @@ const initChartsMonitor = () => {
 					borderColor: '#289df5',
 					areaStyle: {
 						type: 'default',
-						opacity: 0.1,
-					},
+						opacity: 0.1
+					}
 				},
 				data: numsTwo,
 				type: 'line',
-				areaStyle: {},
-			},
-		],
-	};
-	myChart.setOption(option);
+				areaStyle: {}
+			}
+		]
+	}
+	myChart.setOption(option)
 	nextTick(() => {
-		myChart.resize();
-	});
-};
+		myChart.resize()
+	})
+}
 
 // 暴露变量
 defineExpose({
-	getParentData,
-});
+	getParentData
+})
 </script>
 
 <style scoped lang="scss">

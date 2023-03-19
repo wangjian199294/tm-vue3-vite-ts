@@ -23,33 +23,33 @@
 </template>
 
 <script setup lang="ts" name="limitsFrontEndPage">
-import { onMounted, ref } from 'vue';
-import Cookies from 'js-cookie';
-import { storeToRefs } from 'pinia';
-import { useUserInfo } from '/@/stores/userInfo';
-import { frontEndsResetRoute, setAddRoute, setFilterMenuAndCacheTagsViewRoutes } from '/@/router/frontEnd';
+import { onMounted, ref } from 'vue'
+import Cookies from 'js-cookie'
+import { storeToRefs } from 'pinia'
+import { useUserInfo } from '/@/stores/userInfo'
+import { frontEndsResetRoute, setAddRoute, setFilterMenuAndCacheTagsViewRoutes } from '/@/router/frontEnd'
 
 // 定义变量内容
-const storesUserInfo = useUserInfo();
-const { userInfos } = storeToRefs(storesUserInfo);
-const userAuth = ref('');
+const storesUserInfo = useUserInfo()
+const { userInfos } = storeToRefs(storesUserInfo)
+const userAuth = ref('')
 
 // 初始化用户权限
 const initUserAuth = () => {
-	userAuth.value = userInfos.value.roles[0];
-};
+	userAuth.value = userInfos.value.roles[0]
+}
 // 用户权限改变时
 const onRadioChange = async () => {
 	// 模拟数据
-	frontEndsResetRoute();
-	Cookies.set('userName', userAuth.value);
+	frontEndsResetRoute()
+	Cookies.set('userName', userAuth.value)
 	// 模拟切换不同权限用户
-	await storesUserInfo.setUserInfos();
-	await setAddRoute();
-	setFilterMenuAndCacheTagsViewRoutes();
-};
+	await storesUserInfo.setUserInfos()
+	await setAddRoute()
+	setFilterMenuAndCacheTagsViewRoutes()
+}
 // 页面加载时
 onMounted(() => {
-	initUserAuth();
-});
+	initUserAuth()
+})
 </script>

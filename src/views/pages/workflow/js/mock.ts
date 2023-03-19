@@ -17,7 +17,7 @@ export const leftNavList = [
 						prop: 'name',
 						placeholder: '请输入客户姓名',
 						required: true,
-						disabled: false,
+						disabled: false
 					},
 					{
 						type: 'select',
@@ -29,13 +29,13 @@ export const leftNavList = [
 						options: [
 							{
 								value: '0',
-								label: '女',
+								label: '女'
 							},
 							{
 								value: '1',
-								label: '男',
-							},
-						],
+								label: '男'
+							}
+						]
 					},
 					{
 						type: 'input',
@@ -43,7 +43,7 @@ export const leftNavList = [
 						prop: 'number',
 						placeholder: '请输入员工编号',
 						required: true,
-						disabled: false,
+						disabled: false
 					},
 					{
 						type: 'input',
@@ -51,7 +51,7 @@ export const leftNavList = [
 						prop: 'mobile',
 						placeholder: '请输入办公电话',
 						required: true,
-						disabled: false,
+						disabled: false
 					},
 					{
 						type: 'select',
@@ -63,13 +63,13 @@ export const leftNavList = [
 						options: [
 							{
 								value: '0',
-								label: '编辑权限',
+								label: '编辑权限'
 							},
 							{
 								value: '1',
-								label: '删除权限',
-							},
-						],
+								label: '删除权限'
+							}
+						]
 					},
 					{
 						type: 'checkbox',
@@ -77,9 +77,9 @@ export const leftNavList = [
 						prop: 'module',
 						placeholder: '请选择模块',
 						required: true,
-						disabled: false,
-					},
-				],
+						disabled: false
+					}
+				]
 			},
 			{
 				icon: 'iconfont icon-shouye_dongtaihui',
@@ -92,7 +92,7 @@ export const leftNavList = [
 						prop: 'grade',
 						placeholder: '请输入等级',
 						required: true,
-						disabled: false,
+						disabled: false
 					},
 					{
 						type: 'input',
@@ -100,9 +100,9 @@ export const leftNavList = [
 						prop: 'password',
 						placeholder: '请输入登记密码',
 						required: true,
-						disabled: false,
-					},
-				],
+						disabled: false
+					}
+				]
 			},
 			{
 				icon: 'iconfont icon-zhongduancanshuchaxun',
@@ -115,7 +115,7 @@ export const leftNavList = [
 						prop: 'dataSheet',
 						placeholder: '请输入数据表',
 						required: true,
-						disabled: false,
+						disabled: false
 					},
 					{
 						type: 'input',
@@ -123,9 +123,9 @@ export const leftNavList = [
 						prop: 'field',
 						placeholder: '请输入字段配置',
 						required: true,
-						disabled: false,
-					},
-				],
+						disabled: false
+					}
+				]
 			},
 			{
 				icon: 'iconfont icon-zhongduancanshu',
@@ -138,9 +138,9 @@ export const leftNavList = [
 						prop: 'publish',
 						placeholder: '请输入发布模板',
 						required: true,
-						disabled: false,
-					},
-				],
+						disabled: false
+					}
+				]
 			},
 			{
 				icon: 'iconfont icon-bolangnengshiyanchang',
@@ -153,9 +153,9 @@ export const leftNavList = [
 						prop: 'content',
 						placeholder: '请输入内容模板',
 						required: true,
-						disabled: false,
-					},
-				],
+						disabled: false
+					}
+				]
 			},
 			{
 				icon: 'iconfont icon-xingqiu',
@@ -165,11 +165,11 @@ export const leftNavList = [
 					{
 						type: 'input',
 						label: '活动名称6',
-						prop: 'name16',
-					},
-				],
-			},
-		],
+						prop: 'name16'
+					}
+				]
+			}
+		]
 	},
 	{
 		title: '流程',
@@ -185,9 +185,9 @@ export const leftNavList = [
 					{
 						type: 'input',
 						label: '活动名称7',
-						prop: 'name21',
-					},
-				],
+						prop: 'name21'
+					}
+				]
 			},
 			{
 				icon: 'iconfont icon-fuwenbenkuang',
@@ -197,9 +197,9 @@ export const leftNavList = [
 					{
 						type: 'input',
 						label: '活动名称8',
-						prop: 'name22',
-					},
-				],
+						prop: 'name22'
+					}
+				]
 			},
 			{
 				icon: 'iconfont icon-shangchuan',
@@ -209,11 +209,11 @@ export const leftNavList = [
 					{
 						type: 'input',
 						label: '活动名称9',
-						prop: 'name23',
-					},
-				],
-			},
-		],
+						prop: 'name23'
+					}
+				]
+			}
+		]
 	},
 	{
 		title: '任务',
@@ -229,9 +229,9 @@ export const leftNavList = [
 					{
 						type: 'input',
 						label: '活动名称1',
-						prop: 'name31',
-					},
-				],
+						prop: 'name31'
+					}
+				]
 			},
 			{
 				icon: 'iconfont icon-gerenzhongxin',
@@ -241,9 +241,9 @@ export const leftNavList = [
 					{
 						type: 'input',
 						label: '活动名称2',
-						prop: 'name32',
-					},
-				],
+						prop: 'name32'
+					}
+				]
 			},
 			{
 				icon: 'iconfont icon-fangkuang',
@@ -253,10 +253,10 @@ export const leftNavList = [
 					{
 						type: 'input',
 						label: '活动名称3',
-						prop: 'name33',
-					},
-				],
-			},
-		],
-	},
-];
+						prop: 'name33'
+					}
+				]
+			}
+		]
+	}
+]

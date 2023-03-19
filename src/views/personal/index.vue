@@ -184,9 +184,9 @@
 </template>
 
 <script setup lang="ts" name="personal">
-import { reactive, computed } from 'vue';
-import { formatAxis } from '/@/utils/formatTime';
-import { newsInfoList, recommendList } from './mock';
+import { reactive, computed } from 'vue'
+import { formatAxis } from '/@/utils/formatTime'
+import { newsInfoList, recommendList } from './mock'
 
 // 定义变量内容
 const state = reactive<PersonalState>({
@@ -198,14 +198,14 @@ const state = reactive<PersonalState>({
 		autograph: '',
 		occupation: '',
 		phone: '',
-		sex: '',
-	},
-});
+		sex: ''
+	}
+})
 
 // 当前时间提示语
 const currentTime = computed(() => {
-	return formatAxis(new Date());
-});
+	return formatAxis(new Date())
+})
 </script>
 
 <style scoped lang="scss">

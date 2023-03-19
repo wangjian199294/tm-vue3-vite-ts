@@ -32,41 +32,41 @@
 </template>
 
 <script setup lang="ts" name="cropper">
-import { reactive, nextTick } from 'vue';
-import Cropper from 'cropperjs';
-import 'cropperjs/dist/cropper.css';
+import { reactive, nextTick } from 'vue'
+import Cropper from 'cropperjs'
+import 'cropperjs/dist/cropper.css'
 
 // 定义变量内容
 const state = reactive({
 	isShowDialog: false,
 	cropperImg: '',
 	cropperImgBase64: '',
-	cropper: '' as RefType,
-});
+	cropper: '' as RefType
+})
 
 // 打开弹窗
 const openDialog = (imgs: string) => {
-	state.cropperImg = imgs;
-	state.isShowDialog = true;
+	state.cropperImg = imgs
+	state.isShowDialog = true
 	nextTick(() => {
-		initCropper();
-	});
-};
+		initCropper()
+	})
+}
 // 关闭弹窗
 const closeDialog = () => {
-	state.isShowDialog = false;
-};
+	state.isShowDialog = false
+}
 // 取消
 const onCancel = () => {
-	closeDialog();
-};
+	closeDialog()
+}
 // 更换
 const onSubmit = () => {
 	// state.cropperImgBase64 = state.cropper.getCroppedCanvas().toDataURL('image/jpeg');
-};
+}
 // 初始化cropperjs图片裁剪
 const initCropper = () => {
-	const letImg = <HTMLImageElement>document.querySelector('.cropper-warp-left-img');
+	const letImg = <HTMLImageElement>document.querySelector('.cropper-warp-left-img')
 	state.cropper = new Cropper(letImg, {
 		viewMode: 1,
 		dragMode: 'none',
@@ -77,15 +77,15 @@ const initCropper = () => {
 		autoCropArea: 0.6,
 		zoomOnWheel: false,
 		crop: () => {
-			state.cropperImgBase64 = state.cropper.getCroppedCanvas().toDataURL('image/jpeg');
-		},
-	});
-};
+			state.cropperImgBase64 = state.cropper.getCroppedCanvas().toDataURL('image/jpeg')
+		}
+	})
+}
 
 // 暴露变量
 defineExpose({
-	openDialog,
-});
+	openDialog
+})
 </script>
 
 <style scoped lang="scss">

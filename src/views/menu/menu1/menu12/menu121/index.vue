@@ -5,8 +5,8 @@
 </template>
 
 <script setup lang="ts" name="menu121">
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 // 定义变量内容
-const val = ref('');
+const val = ref('')
 </script>

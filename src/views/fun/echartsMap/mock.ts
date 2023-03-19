@@ -189,8 +189,8 @@ export const echartsMapList = [
 	{ name: '菏泽', value: 194 },
 	{ name: '合肥', value: 229 },
 	{ name: '武汉', value: 273 },
-	{ name: '大庆', value: 279 },
-];
+	{ name: '大庆', value: 279 }
+]
 
 // 地图经纬度数据
 export const echartsMapData = {
@@ -383,5 +383,5 @@ export const echartsMapData = {
 	菏泽: [115.480656, 35.23375],
 	合肥: [117.27, 31.86],
 	武汉: [114.31, 30.52],
-	大庆: [125.03, 46.58],
-};
+	大庆: [125.03, 46.58]
+}

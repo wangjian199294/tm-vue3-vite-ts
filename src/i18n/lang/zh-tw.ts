@@ -73,12 +73,12 @@ export default {
 		tools: '工具類集合',
 		layoutLinkView: '外鏈',
 		layoutIframeViewOne: '内嵌 iframe1',
-		layoutIframeViewTwo: '内嵌 iframe2',
+		layoutIframeViewTwo: '内嵌 iframe2'
 	},
 	staticRoutes: {
 		signIn: '登入',
 		notFound: '找不到此頁面',
-		noPower: '沒有許可權',
+		noPower: '沒有許可權'
 	},
 	user: {
 		title0: '組件大小',
@@ -106,7 +106,7 @@ export default {
 		logOutMessage: '此操作將登出，是否繼續？',
 		logOutConfirm: '確定',
 		logOutCancel: '取消',
-		logOutExit: '退出中',
+		logOutExit: '退出中'
 	},
 	tagsView: {
 		refresh: '重繪',
@@ -114,17 +114,17 @@ export default {
 		closeOther: '關閉其它',
 		closeAll: '全部關閉',
 		fullscreen: '當前頁全屏',
-		closeFullscreen: '關閉全屏',
+		closeFullscreen: '關閉全屏'
 	},
 	notFound: {
 		foundTitle: '地址輸入錯誤，請重新輸入地址~',
 		foundMsg: '您可以先檢查網址，然後重新輸入或給我們迴響問題。',
-		foundBtn: '返回首頁',
+		foundBtn: '返回首頁'
 	},
 	noAccess: {
 		accessTitle: '您未被授權，沒有操作許可權~',
 		accessMsg: '聯繫方式：加QQ群探討665452019',
-		accessBtn: '重新授權',
+		accessBtn: '重新授權'
 	},
 	layout: {
 		configTitle: '佈局配寘',
@@ -178,7 +178,7 @@ export default {
 		copyText: '一鍵複製配寘',
 		resetText: '一鍵恢復默認',
 		copyTextSuccess: '複製成功！',
-		copyTextError: '複製失敗！',
+		copyTextError: '複製失敗！'
 	},
 	upgrade: {
 		title: '新版本陞級',
@@ -186,6 +186,6 @@ export default {
 		desc: '提示：更新會還原默認配寘',
 		btnOne: '殘忍拒絕',
 		btnTwo: '馬上更新',
-		btnTwoLoading: '更新中',
-	},
-};
+		btnTwoLoading: '更新中'
+	}
+}

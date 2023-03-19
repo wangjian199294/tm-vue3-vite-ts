@@ -58,16 +58,16 @@
 </template>
 
 <script setup lang="ts" name="systemRole">
-import { defineAsyncComponent, reactive, onMounted, ref } from 'vue';
-import { ElMessageBox, ElMessage } from 'element-plus';
+import { defineAsyncComponent, reactive, onMounted, ref } from 'vue'
+import { ElMessageBox, ElMessage } from 'element-plus'
 
 // 引入组件
-const AddRole = defineAsyncComponent(() => import('/@/views/system/role/component/addRole.vue'));
-const EditRole = defineAsyncComponent(() => import('/@/views/system/role/component/editRole.vue'));
+const AddRole = defineAsyncComponent(() => import('/@/views/system/role/component/addRole.vue'))
+const EditRole = defineAsyncComponent(() => import('/@/views/system/role/component/editRole.vue'))
 
 // 定义变量内容
-const addRoleRef = ref();
-const editRoleRef = ref();
+const addRoleRef = ref()
+const editRoleRef = ref()
 const state = reactive<SysRoleState>({
 	tableData: {
 		data: [],
@@ -76,13 +76,13 @@ const state = reactive<SysRoleState>({
 		param: {
 			search: '',
 			pageNum: 1,
-			pageSize: 10,
-		},
-	},
-});
+			pageSize: 10
+		}
+	}
+})
 // 初始化表格数据
 const initTableData = () => {
-	const data = [];
+	const data = []
 	for (let i = 0; i < 20; i++) {
 		data.push({
 			roleName: i === 0 ? '超级管理员' : '普通用户',
@@ -90,44 +90,44 @@ const initTableData = () => {
 			describe: `测试角色${i + 1}`,
 			sort: i,
 			status: true,
-			createTime: new Date().toLocaleString(),
-		});
+			createTime: new Date().toLocaleString()
+		})
 	}
-	state.tableData.data = data;
-	state.tableData.total = state.tableData.data.length;
-};
+	state.tableData.data = data
+	state.tableData.total = state.tableData.data.length
+}
 // 打开新增角色弹窗
 const onOpenAddRole = () => {
-	addRoleRef.value.openDialog();
-};
+	addRoleRef.value.openDialog()
+}
 // 打开修改角色弹窗
 const onOpenEditRole = (row: Object) => {
-	editRoleRef.value.openDialog(row);
-};
+	editRoleRef.value.openDialog(row)
+}
 // 删除角色
 const onRowDel = (row: RowRoleType) => {
 	ElMessageBox.confirm(`此操作将永久删除角色名称：“${row.roleName}”，是否继续?`, '提示', {
 		confirmButtonText: '确认',
 		cancelButtonText: '取消',
-		type: 'warning',
+		type: 'warning'
 	})
 		.then(() => {
-			ElMessage.success('删除成功');
+			ElMessage.success('删除成功')
 		})
-		.catch(() => {});
-};
+		.catch(() => {})
+}
 // 分页改变
 const onHandleSizeChange = (val: number) => {
-	state.tableData.param.pageSize = val;
-};
+	state.tableData.param.pageSize = val
+}
 // 分页改变
 const onHandleCurrentChange = (val: number) => {
-	state.tableData.param.pageNum = val;
-};
+	state.tableData.param.pageNum = val
+}
 // 页面加载时
 onMounted(() => {
-	initTableData();
-});
+	initTableData()
+})
 </script>
 
 <style scoped lang="scss">

@@ -52,16 +52,16 @@
 </template>
 
 <script setup lang="ts" name="systemDept">
-import { defineAsyncComponent, ref, reactive, onMounted } from 'vue';
-import { ElMessageBox, ElMessage } from 'element-plus';
+import { defineAsyncComponent, ref, reactive, onMounted } from 'vue'
+import { ElMessageBox, ElMessage } from 'element-plus'
 
 // 引入组件
-const AddDept = defineAsyncComponent(() => import('/@/views/system/dept/component/addDept.vue'));
-const EditDept = defineAsyncComponent(() => import('/@/views/system/dept/component/editDept.vue'));
+const AddDept = defineAsyncComponent(() => import('/@/views/system/dept/component/addDept.vue'))
+const EditDept = defineAsyncComponent(() => import('/@/views/system/dept/component/editDept.vue'))
 
 // 定义变量内容
-const addDeptRef = ref();
-const editDeptRef = ref();
+const addDeptRef = ref()
+const editDeptRef = ref()
 const state = reactive<SysDeptState>({
 	tableData: {
 		data: [],
@@ -69,10 +69,10 @@ const state = reactive<SysDeptState>({
 		loading: false,
 		param: {
 			pageNum: 1,
-			pageSize: 10,
-		},
-	},
-});
+			pageSize: 10
+		}
+	}
+})
 
 // 初始化表格数据
 const initTableData = () => {
@@ -90,7 +90,7 @@ const initTableData = () => {
 				status: true,
 				sort: Math.random(),
 				describe: '总部',
-				id: Math.random(),
+				id: Math.random()
 			},
 			{
 				deptName: '资本控股',
@@ -98,34 +98,34 @@ const initTableData = () => {
 				status: true,
 				sort: Math.random(),
 				describe: '分部',
-				id: Math.random(),
-			},
-		],
-	});
-	state.tableData.total = state.tableData.data.length;
-};
+				id: Math.random()
+			}
+		]
+	})
+	state.tableData.total = state.tableData.data.length
+}
 // 打开新增菜单弹窗
 const onOpenAddDept = () => {
-	addDeptRef.value.openDialog();
-};
+	addDeptRef.value.openDialog()
+}
 // 打开编辑菜单弹窗
 const onOpenEditDept = (row: DeptTreeType) => {
-	editDeptRef.value.openDialog(row);
-};
+	editDeptRef.value.openDialog(row)
+}
 // 删除当前行
 const onTabelRowDel = (row: DeptTreeType) => {
 	ElMessageBox.confirm(`此操作将永久删除部门：${row.deptName}, 是否继续?`, '提示', {
 		confirmButtonText: '删除',
 		cancelButtonText: '取消',
-		type: 'warning',
+		type: 'warning'
 	})
 		.then(() => {
-			ElMessage.success('删除成功');
+			ElMessage.success('删除成功')
 		})
-		.catch(() => {});
-};
+		.catch(() => {})
+}
 // 页面加载时
 onMounted(() => {
-	initTableData();
-});
+	initTableData()
+})
 </script>

@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts" name="pagesFormRulesTwo">
-import { reactive } from 'vue';
+import { reactive } from 'vue'
 
 // 定义变量内容
 const state = reactive({
@@ -39,7 +39,7 @@ const state = reactive({
 	rules: {
 		phone: { required: true, message: '请输入手机', trigger: 'blur' },
 		password: { required: true, message: '请输入登录密码', trigger: 'blur' },
-		auth: { required: true, message: '请输入权限角色', trigger: 'blur' },
-	},
-});
+		auth: { required: true, message: '请输入权限角色', trigger: 'blur' }
+	}
+})
 </script>

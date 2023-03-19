@@ -55,12 +55,12 @@
 </template>
 
 <script setup lang="ts" name="pagesTableRules">
-import { reactive, ref } from 'vue';
-import { ElMessage } from 'element-plus';
-import type { FormInstance } from 'element-plus';
+import { reactive, ref } from 'vue'
+import { ElMessage } from 'element-plus'
+import type { FormInstance } from 'element-plus'
 
 // 定义变量内容
-const tableRulesRef = ref<FormInstance>();
+const tableRulesRef = ref<FormInstance>()
 const state = reactive<TableRulesState>({
 	tableData: {
 		data: [],
@@ -72,25 +72,25 @@ const state = reactive<TableRulesState>({
 			{ prop: 'a5', width: '', label: '五级分类', isRequired: true, type: 'input' },
 			{ prop: 'a6', width: '', label: '六级分类', isTooltip: true, type: 'dialog' },
 			{ prop: 'a7', width: '', label: '演示级分类', type: 'input' },
-			{ prop: 'a8', width: '', label: '颜色是分类', type: 'input' },
+			{ prop: 'a8', width: '', label: '颜色是分类', type: 'input' }
 		],
 		option: [
 			{ value: '选项1', label: '黄金糕' },
 			{ value: '选项2', label: '双皮奶' },
-			{ value: '选项3', label: '蚵仔煎' },
-		],
-	},
-});
+			{ value: '选项3', label: '蚵仔煎' }
+		]
+	}
+})
 
 // 表格验证
 const onValidate = (formEl: FormInstance | undefined) => {
-	if (state.tableData.data.length <= 0) return ElMessage.warning('请先点击增加一行');
-	if (!formEl) return;
+	if (state.tableData.data.length <= 0) return ElMessage.warning('请先点击增加一行')
+	if (!formEl) return
 	formEl.validate((valid) => {
-		if (!valid) return ElMessage.warning('表格项必填未填');
-		ElMessage.success('全部验证通过');
-	});
-};
+		if (!valid) return ElMessage.warning('表格项必填未填')
+		ElMessage.success('全部验证通过')
+	})
+}
 // 新增一行
 const onAddRow = () => {
 	state.tableData.data.push({
@@ -101,7 +101,7 @@ const onAddRow = () => {
 		a5: '',
 		a6: '',
 		a7: '',
-		a8: '',
-	});
-};
+		a8: ''
+	})
+}
 </script>

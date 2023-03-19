@@ -37,11 +37,11 @@
 </template>
 
 <script setup lang="ts" name="funCountup">
-import { reactive, onMounted, nextTick, ref } from 'vue';
-import { CountUp } from 'countup.js';
+import { reactive, onMounted, nextTick, ref } from 'vue'
+import { CountUp } from 'countup.js'
 
 // 定义变量内容
-const topCardItemRefs = ref<RefType[]>([]);
+const topCardItemRefs = ref<RefType[]>([])
 const state = reactive({
 	topCardItemList: [
 		{
@@ -51,7 +51,7 @@ const state = reactive({
 			tipNum: '911',
 			color: '--el-color-primary',
 			iconColor: '#ffcb47',
-			icon: 'iconfont icon-jinridaiban',
+			icon: 'iconfont icon-jinridaiban'
 		},
 		{
 			title: '实验室总数',
@@ -60,7 +60,7 @@ const state = reactive({
 			tipNum: '611',
 			color: '--el-color-success',
 			iconColor: '#70cf41',
-			icon: 'iconfont icon-AIshiyanshi',
+			icon: 'iconfont icon-AIshiyanshi'
 		},
 		{
 			title: '申请人数（月）',
@@ -69,7 +69,7 @@ const state = reactive({
 			tipNum: '911',
 			color: '--el-color-warning',
 			iconColor: '#dfae64',
-			icon: 'iconfont icon-shenqingkaiban',
+			icon: 'iconfont icon-shenqingkaiban'
 		},
 		{
 			title: '销售情况',
@@ -78,28 +78,28 @@ const state = reactive({
 			tipNum: '911',
 			color: '--el-color-danger',
 			iconColor: '#e56565',
-			icon: 'iconfont icon-ditu',
-		},
-	],
-});
+			icon: 'iconfont icon-ditu'
+		}
+	]
+})
 
 // 初始化数字滚动
 const initNumCountUp = () => {
 	nextTick(() => {
 		topCardItemRefs.value.forEach((v: HTMLDivElement) => {
-			new CountUp(v.querySelector('.countup-card-item-title-num') as HTMLDivElement, Math.random() * 10000).start();
-			new CountUp(v.querySelector('.countup-card-item-tip-num') as HTMLDivElement, Math.random() * 1000).start();
-		});
-	});
-};
+			new CountUp(v.querySelector('.countup-card-item-title-num') as HTMLDivElement, Math.random() * 10000).start()
+			new CountUp(v.querySelector('.countup-card-item-tip-num') as HTMLDivElement, Math.random() * 1000).start()
+		})
+	})
+}
 // 重置/刷新数值
 const refreshCurrent = () => {
-	initNumCountUp();
-};
+	initNumCountUp()
+}
 // 页面加载时
 onMounted(() => {
-	initNumCountUp();
-});
+	initNumCountUp()
+})
 </script>
 
 <style scoped lang="scss">

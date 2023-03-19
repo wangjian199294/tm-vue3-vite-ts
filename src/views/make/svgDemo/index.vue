@@ -19,8 +19,8 @@
 </template>
 
 <script setup lang="ts" name="makeSvgDemo">
-import { reactive } from 'vue';
-import logoMini from '/@/assets/logo-mini.svg';
+import { reactive } from 'vue'
+import logoMini from '/@/assets/logo-mini.svg'
 
 // 定义变量内容
 const state = reactive({
@@ -30,22 +30,22 @@ const state = reactive({
 			a2: 'svg 图标组件名字 / svg 路径 url',
 			a3: 'string',
 			a4: '',
-			a5: '',
+			a5: ''
 		},
 		{
 			a1: 'size',
 			a2: 'svg 大小',
 			a3: 'number',
 			a4: '',
-			a5: 14,
+			a5: 14
 		},
 		{
 			a1: 'color',
 			a2: 'svg 颜色',
 			a3: 'string',
 			a4: '',
-			a5: '',
-		},
-	],
-});
+			a5: ''
+		}
+	]
+})
 </script>

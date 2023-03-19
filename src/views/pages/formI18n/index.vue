@@ -32,22 +32,22 @@
 </template>
 
 <script setup lang="ts" name="pagesFormI18n">
-import { reactive } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { reactive } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 // 定义变量内容
-const { locale } = useI18n();
+const { locale } = useI18n()
 const state = reactive({
 	radio: 'zh-cn',
 	form: {
 		name: '',
 		email: '',
-		autograph: '',
-	},
-});
+		autograph: ''
+	}
+})
 
 // 单选框改变时
 const onRadioChange = () => {
-	locale.value = state.radio;
-};
+	locale.value = state.radio
+}
 </script>

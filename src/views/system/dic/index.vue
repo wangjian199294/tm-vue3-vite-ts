@@ -55,16 +55,16 @@
 </template>
 
 <script setup lang="ts" name="systemDic">
-import { defineAsyncComponent, reactive, onMounted, ref } from 'vue';
-import { ElMessageBox, ElMessage } from 'element-plus';
+import { defineAsyncComponent, reactive, onMounted, ref } from 'vue'
+import { ElMessageBox, ElMessage } from 'element-plus'
 
 // 引入组件
-const AddDic = defineAsyncComponent(() => import('/@/views/system/dic/component/addDic.vue'));
-const EditDic = defineAsyncComponent(() => import('/@/views/system/dic/component/editDic.vue'));
+const AddDic = defineAsyncComponent(() => import('/@/views/system/dic/component/addDic.vue'))
+const EditDic = defineAsyncComponent(() => import('/@/views/system/dic/component/editDic.vue'))
 
 // 定义变量内容
-const addDicRef = ref();
-const editDicRef = ref();
+const addDicRef = ref()
+const editDicRef = ref()
 const state = reactive<SysDicState>({
 	tableData: {
 		data: [],
@@ -72,14 +72,14 @@ const state = reactive<SysDicState>({
 		loading: false,
 		param: {
 			pageNum: 1,
-			pageSize: 10,
-		},
-	},
-});
+			pageSize: 10
+		}
+	}
+})
 
 // 初始化表格数据
 const initTableData = () => {
-	const data = [];
+	const data = []
 	for (let i = 0; i < 2; i++) {
 		data.push({
 			dicName: i === 0 ? '角色标识' : '用户性别',
@@ -87,42 +87,42 @@ const initTableData = () => {
 			describe: i === 0 ? '这是角色字典' : '这是用户性别字典',
 			status: true,
 			createTime: new Date().toLocaleString(),
-			list: [],
-		});
+			list: []
+		})
 	}
-	state.tableData.data = data;
-	state.tableData.total = state.tableData.data.length;
-};
+	state.tableData.data = data
+	state.tableData.total = state.tableData.data.length
+}
 // 打开新增字典弹窗
 const onOpenAddDic = () => {
-	addDicRef.value.openDialog();
-};
+	addDicRef.value.openDialog()
+}
 // 打开修改字典弹窗
 const onOpenEditDic = (row: RowDicType) => {
-	editDicRef.value.openDialog(row);
-};
+	editDicRef.value.openDialog(row)
+}
 // 删除字典
 const onRowDel = (row: RowDicType) => {
 	ElMessageBox.confirm(`此操作将永久删除字典名称：“${row.dicName}”，是否继续?`, '提示', {
 		confirmButtonText: '确认',
 		cancelButtonText: '取消',
-		type: 'warning',
+		type: 'warning'
 	})
 		.then(() => {
-			ElMessage.success('删除成功');
+			ElMessage.success('删除成功')
 		})
-		.catch(() => {});
-};
+		.catch(() => {})
+}
 // 分页改变
 const onHandleSizeChange = (val: number) => {
-	state.tableData.param.pageSize = val;
-};
+	state.tableData.param.pageSize = val
+}
 // 分页改变
 const onHandleCurrentChange = (val: number) => {
-	state.tableData.param.pageNum = val;
-};
+	state.tableData.param.pageNum = val
+}
 // 页面加载时
 onMounted(() => {
-	initTableData();
-});
+	initTableData()
+})
 </script>

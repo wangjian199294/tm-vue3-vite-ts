@@ -13,7 +13,7 @@ export const jsplumbDefaults = {
 		'BottomRight',
 		'BottomLeft',
 		'Left',
-		'LeftMiddle',
+		'LeftMiddle'
 	],
 	// 连线的容器id
 	Container: 'workflow-right',
@@ -34,7 +34,7 @@ export const jsplumbDefaults = {
 		stroke: '#E0E3E7',
 		strokeWidth: 1,
 		outlineStroke: 'transparent',
-		outlineWidth: 10,
+		outlineWidth: 10
 	},
 	// 用于配置任何可拖动元素的默认选项jsPlumb.draggable
 	DragOptions: { cursor: 'pointer', zIndex: 2000 },
@@ -47,17 +47,17 @@ export const jsplumbDefaults = {
 				length: 8, // 从箭头的尾部到头部的距离
 				location: 1, // 位置，建议使用0～1之间
 				direction: 1, // 方向，默认值为1（表示向前），可选-1（表示向后）
-				foldback: 0.623, // 折回，也就是尾翼的角度，默认0.623，当为1时，为正三角
-			},
+				foldback: 0.623 // 折回，也就是尾翼的角度，默认0.623，当为1时，为正三角
+			}
 		],
 		[
 			'Label',
 			{
 				label: '',
 				location: 0.5,
-				cssClass: 'aLabel',
-			},
-		],
+				cssClass: 'aLabel'
+			}
+		]
 	],
 	// 默认渲染模式 svg、canvas
 	RenderMode: 'svg',
@@ -66,8 +66,8 @@ export const jsplumbDefaults = {
 	// 悬停状态下端点的默认外观
 	EndpointHoverStyle: { fill: 'red' },
 	// 端点和连接的默认范围。范围提供了对哪些端点可以连接到哪些其他端点的基本控制
-	Scope: 'jsPlumb_DefaultScope',
-};
+	Scope: 'jsPlumb_DefaultScope'
+}
 
 // 整个节点作为source或者target
 export const jsplumbMakeSource = {
@@ -77,8 +77,8 @@ export const jsplumbMakeSource = {
 	anchor: 'Continuous',
 	// 是否允许自己连接自己
 	allowLoopback: true,
-	maxConnections: -1,
-};
+	maxConnections: -1
+}
 
 // 整个节点作为source或者target
 export const jsplumbMakeTarget = {
@@ -87,13 +87,13 @@ export const jsplumbMakeTarget = {
 	// 是否允许自己连接自己
 	anchor: 'Continuous',
 	allowLoopback: true,
-	dropOptions: { hoverClass: 'ef-drop-hover' },
-};
+	dropOptions: { hoverClass: 'ef-drop-hover' }
+}
 
 // 连线参数
 export const jsplumbConnect = {
 	isSource: true,
 	isTarget: true,
 	// 动态锚点、提供了4个方向 Continuous、AutoDefault
-	anchor: 'Continuous',
-};
+	anchor: 'Continuous'
+}

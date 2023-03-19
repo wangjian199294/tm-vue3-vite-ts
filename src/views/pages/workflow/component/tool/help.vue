@@ -14,23 +14,23 @@
 </template>
 
 <script setup lang="ts" name="pagesWorkflowToolHelp">
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 // 定义变量内容
-const isShow = ref(false);
+const isShow = ref(false)
 
 // 打开弹窗
 const open = () => {
-	isShow.value = true;
-};
+	isShow.value = true
+}
 // 关闭弹窗
 const close = () => {
-	isShow.value = false;
-};
+	isShow.value = false
+}
 
 // 暴露变量
 defineExpose({
 	open,
-	close,
-});
+	close
+})
 </script>
