@@ -8,7 +8,7 @@
 		"dev": "vite --force",
 		"build": "vite build",
 		"eslint": "eslint --fix --ext .js --ext .jsx --ext .vue src/,.ts src",
-		"prepare": "husky install",
+		"postinstall": "husky install",
 		"lint": "lint-staged"
 	},
 	"dependencies": {
