@@ -1,0 +1,68 @@
+<template>
+  <div class="layout-padding">
+    <div class="layout-padding-auto layout-padding-view p15">
+      <el-form ref="form" inline :mode="data.form"></el-form>
+      <div class="pb15">
+        <el-button @click="add" type="primary">新增</el-button>
+      </div>
+      <tm-table ref="table" :column-list="columns" :queryObj="queryComputed" :api="" class="flex-auto"></tm-table>
+    </div>
+    <model ref="modelDialog" @refresh="refresh" />
+  </div>
+</template>
+
+<script lang="ts" setup>
+import type { IData } from '{{name}}'
+import formHooks from '/@/hooks/formHooks'
+import { Model } from './component'
+import { toast, confirms } from '/@/utils'
+
+const form = ref<TmFormInstanceType> (null)
+const table = ref<TmTableInstanceType> (null)
+const modelDialog = ref<InstanceType<typeof Model> | null> (null)
+
+const { resetFields } = formHooks(form)
+const { refreshCurrent, refresh } = tableHooks(table)
+
+const data = reactive<IData>({
+  form: {}
+})
+
+//新增
+const add = () => {
+  modelDialog.value?.open('新增')
+}
+
+//编辑
+const edit = ({ row }: {  row: any }) => {
+  modelDialog.value?.open('编辑')
+  modelDialog.value?.setForm()
+}
+
+//删除
+const del = async ({ row }: { row: any }) => {
+  if(await confirms('确定要删除吗')){
+    let res: any = await delApi()
+    if(res){
+      toast('success', res.msg)
+      refreshCurrent()
+    }else {
+      toast('error', res.msg)
+    }
+  }
+}
+
+const columns: Array<any> = [
+  { label: 'ID', prop: 'id' },
+  {
+    label: '操作',
+    operates: [
+      { type: 'warning', name: '编辑', method: edit },
+      { type: 'danger', name: '删除', method: del }
+    ]
+  }
+]
+</script>
+
+<style scoped lang="scss">
+</style>

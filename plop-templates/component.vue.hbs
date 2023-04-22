@@ -1,0 +1,69 @@
+<template>
+  <tm-dialog ref="dialog" width="50%" :loading="data.loading" @save="save" @close="close">
+    <el-form ref="form" :mode="data.form" :rules="rules" label-width="80px"></el-form>
+  </tm-dialog>
+</template>
+<script lang="ts" setup>
+import type { IModelData } from '{{name}}'
+import formHooks from '/@/hooks/formHooks'
+import { toast } from '/@/utils'
+
+const emits = defineEmits < {
+	(event: 'refresh'): void
+}>()
+
+const dialog = ref<TmDialogInstanceType>(null)
+const form = ref<TmFormInstanceType>(null)
+
+const { resetFields, validate } = formHooks(form)
+
+const formData = {}
+
+const data = reactive<IModelData>({
+  form: formData, //表单
+  loading: false
+})
+
+//打开
+const open = (title: string) => {
+  dialog.value?.open(title)
+}
+
+//关闭
+const close = () => {
+  data.form = formData
+  resetFields()
+}
+
+//设置数据
+const setForm = (row: any) => {
+  nextTick(() => {
+    data.form = row
+  })
+}
+
+//保存
+const save = async() => {
+  if(await validate()){
+    data.loading = true
+    let res: any = await saveApi(data.from)
+    if(res){
+      toast('success', res.msg)
+      emits('refresh')
+      dialog.value?.close()
+    }else {
+      toast('error', res.msg)
+    }
+  }
+}
+
+defineExpose({
+  open,
+  setForm
+})
+
+const rules = {
+  id: [{ required: true, message: '' }]
+}
+</script>
+<style lang="scss" scoped></style>

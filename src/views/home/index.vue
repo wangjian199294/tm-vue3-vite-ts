@@ -70,7 +70,6 @@ import * as echarts from 'echarts'
 import { storeToRefs } from 'pinia'
 import { useThemeConfig } from '/@/stores/themeConfig'
 import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes'
-
 // 定义变量内容
 const homeLineRef = ref()
 const homePieRef = ref()
@@ -80,6 +79,7 @@ const storesThemeConfig = useThemeConfig()
 const { themeConfig } = storeToRefs(storesThemeConfig)
 const { isTagsViewCurrenFull } = storeToRefs(storesTagsViewRoutes)
 const state = reactive({
+	ME: null,
 	global: {
 		homeChartOne: null,
 		homeChartTwo: null,
