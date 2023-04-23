@@ -38,6 +38,12 @@ module.exports = function (plop) {
 					path: 'src/types/{{path}}.d.ts',
 					templateFile: 'plop-templates/types.d.ts.hbs',
 					data: { name }
+				},
+				{
+					type: 'add',
+					path: 'src/views/{{path}}/components/search.vue',
+					templateFile: 'plop-templates/search.vue.hbs',
+					data: { name }
 				}
 			]
 			return actions

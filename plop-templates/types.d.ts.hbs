@@ -1,8 +1,14 @@
 declare module '{{name}}' {
-  export interface IData {
-    form: {}
+  export interface ISearch {
   }
+
+  export interface IData {
+    form: ISearch
+  }
+
   export interface IModelData {
     form: {}
+    loading: boolean
   }
+
 }

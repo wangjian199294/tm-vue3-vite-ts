@@ -1,0 +1,22 @@
+<template>
+  <tm-form inline isSearch :mode="form" @search="search"></tm-form>
+</template>
+<script lang="ts" setup>
+import type { ISearch } from '{{name}}'
+
+const emits = defineEmits<{
+  (event: 'search', form: ISearch): void
+}>()
+
+//表单数据
+const form = ref<ISearch>({})
+
+//查询
+const search = () => {
+  emits('search', form.value)
+}
+
+  defineExpose({
+    search
+  })
+</script>

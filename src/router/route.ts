@@ -63,6 +63,21 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 				}
 			},
 			{
+				path: '/abc',
+				name: 'abc',
+				component: () => import('/@/views/abc/index.vue'),
+				meta: {
+					title: 'message.router.home',
+					isLink: '',
+					isHide: false,
+					isKeepAlive: true,
+					isAffix: true,
+					isIframe: false,
+					roles: ['admin', 'common'],
+					icon: 'iconfont icon-shouye'
+				}
+			},
+			{
 				path: '/system',
 				name: 'system',
 				component: () => import('/@/layout/routerView/parent.vue'),

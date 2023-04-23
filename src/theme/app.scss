@@ -297,6 +297,9 @@ body,
 /* 外边距、内边距全局样式
 ------------------------------- */
 @for $i from 1 through 35 {
+	.m#{$i} {
+		margin: #{$i}px !important;
+	}
 	.mt#{$i} {
 		margin-top: #{$i}px !important;
 	}
@@ -308,6 +311,9 @@ body,
 	}
 	.ml#{$i} {
 		margin-left: #{$i}px !important;
+	}
+	.p#{$i} {
+		padding: #{$i}px !important;
 	}
 	.pt#{$i} {
 		padding-top: #{$i}px !important;

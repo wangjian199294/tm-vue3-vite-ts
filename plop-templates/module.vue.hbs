@@ -1,25 +1,28 @@
 <template>
   <div class="layout-padding">
     <div class="layout-padding-auto layout-padding-view p15">
-      <el-form ref="form" inline :mode="data.form"></el-form>
+      <Search ref="search" @search="query"/>
       <div class="pb15">
         <el-button @click="add" type="primary">新增</el-button>
       </div>
-      <tm-table ref="table" :column-list="columns" :queryObj="queryComputed" :api="" class="flex-auto"></tm-table>
+      <tm-table ref="table" :column-list="columns" :queryObj="data.form" :api="" class="flex-auto"></tm-table>
     </div>
     <model ref="modelDialog" @refresh="refresh" />
   </div>
 </template>
 
 <script lang="ts" setup>
-import type { IData } from '{{name}}'
+import type { IData, ISearch } from '{{name}}'
 import formHooks from '/@/hooks/formHooks'
-import { Model } from './component'
+import tableHooks from '/@/hooks/tableHooks'
+import searchHooks from '/@/hooks/searchHooks'
+import { Search, Model } from './components'
 import { toast, confirms } from '/@/utils'
 
-const form = ref<TmFormInstanceType> (null)
-const table = ref<TmTableInstanceType> (null)
-const modelDialog = ref<InstanceType<typeof Model> | null> (null)
+const form = ref<TmFormLayoutInstanceType>(null)
+const table = ref<TmTableInstanceType>(null)
+const modelDialog = ref<InstanceType<typeof Model> | null>(null)
+const search = ref<InstanceType<typeof Search> | null>(null)
 
 const { resetFields } = formHooks(form)
 const { refreshCurrent, refresh } = tableHooks(table)
@@ -27,6 +30,12 @@ const { refreshCurrent, refresh } = tableHooks(table)
 const data = reactive<IData>({
   form: {}
 })
+
+//查询
+const query = (form: ISearch) => {
+  data.form = form
+  refresh()
+}
 
 //新增
 const add = () => {
@@ -51,6 +60,9 @@ const del = async ({ row }: { row: any }) => {
     }
   }
 }
+
+//初始化查询
+searchHooks(search)
 
 const columns: Array<any> = [
   { label: 'ID', prop: 'id' },

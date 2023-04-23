@@ -1,6 +1,6 @@
 <template>
   <tm-dialog ref="dialog" width="50%" :loading="data.loading" @save="save" @close="close">
-    <el-form ref="form" :mode="data.form" :rules="rules" label-width="80px"></el-form>
+    <tm-form ref="form" :mode="data.form" :rules="rules"></tm-form>
   </tm-dialog>
 </template>
 <script lang="ts" setup>
@@ -13,7 +13,7 @@ const emits = defineEmits < {
 }>()
 
 const dialog = ref<TmDialogInstanceType>(null)
-const form = ref<TmFormInstanceType>(null)
+const form = ref<TmFormLayoutInstanceType>(null)
 
 const { resetFields, validate } = formHooks(form)
 

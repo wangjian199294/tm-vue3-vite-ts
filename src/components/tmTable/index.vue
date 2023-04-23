@@ -2,8 +2,8 @@
  * @Author: wj
  * @Date: 2023-02-21 10:39:37
  * @LastEditors: wj_advance
- * @LastEditTime: 2023-04-14 15:22:48
- * @FilePath: /tmyd-system/src/components/tmTable/index.vue
+ * @LastEditTime: 2023-04-23 09:55:00
+ * @FilePath: /tm-vue3-vite-ts/src/components/tmTable/index.vue
  * @Description: 表格组件
 -->
 <template>
