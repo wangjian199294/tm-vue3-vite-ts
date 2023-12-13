@@ -4,6 +4,9 @@ node_modules
 /components.d.ts
 /auto-imports.d.ts
 /src/auto-imports.d.ts
+/.eslintcache
+/stats.html
+/src/utils/devToken.ts
 
 # local env files
 .env.local
