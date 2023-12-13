@@ -34,10 +34,10 @@ const { themeConfig } = storeToRefs(storesThemeConfig)
 // 获取版本号
 const getVersion = computed(() => {
 	let isVersion = false
-	if (route.path !== '/login') {
-		// @ts-ignore
-		if ((Local.get('version') && Local.get('version') !== __VERSION__) || !Local.get('version')) isVersion = true
-	}
+	// if (route.path !== '/login') {
+	// 	// @ts-ignore
+	// 	if ((Local.get('version') && Local.get('version') !== __VERSION__) || !Local.get('version')) isVersion = true
+	// }
 	return isVersion
 })
 // 获取全局组件大小
@@ -88,3 +88,24 @@ watch(
 	}
 )
 </script>
+<style lang="scss">
+.abow-dialog .el-dialog__body {
+	height: calc(100% - 118px) !important;
+	overflow-x: hidden;
+	overflow-y: auto;
+	padding: 0 !important;
+}
+.abow-dialog-no-footer .el-dialog__body {
+	height: calc(100% - 54px) !important;
+	overflow-x: hidden;
+	overflow-y: auto;
+	padding: 0 !important;
+}
+.dialog-height .el-dialog__body {
+	max-height: 80vh;
+	overflow-y: auto;
+}
+.el-loading-mask {
+	z-index: 9999;
+}
+</style>

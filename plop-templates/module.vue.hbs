@@ -1,80 +1,74 @@
 <template>
-  <div class="layout-padding">
-    <div class="layout-padding-auto layout-padding-view p15">
-      <Search ref="search" @search="query"/>
-      <div class="pb15">
-        <el-button @click="add" type="primary">新增</el-button>
-      </div>
-      <tm-table ref="table" :column-list="columns" :queryObj="data.form" :api="" class="flex-auto"></tm-table>
-    </div>
-    <model ref="modelDialog" @refresh="refresh" />
-  </div>
+	<div class='layout-padding'>
+		<div class='layout-padding-auto layout-padding-view p15'>
+			<Search ref='search' @search='query' />
+			<div class='pb15'>
+				<el-button @click='add' type='primary'>新增</el-button>
+			</div>
+			<tm-table ref='table' :column-list='columns' :queryObj='data.form' :api='getList' class='flex-auto'></tm-table>
+		</div>
+		<model ref='modelDialog' @refresh='refreshCurrent' />
+	</div>
 </template>
 
-<script lang="ts" setup>
+<script lang='ts' setup>
 import type { IData, ISearch } from '{{name}}'
-import formHooks from '/@/hooks/formHooks'
 import tableHooks from '/@/hooks/tableHooks'
 import searchHooks from '/@/hooks/searchHooks'
+import dialogHooks from '/@/hooks/dialogHooks'
 import { Search, Model } from './components'
-import { toast, confirms } from '/@/utils'
+import { confirms } from '/@/utils'
+import { getList,delData } from '/@/api/{{path}}'
 
-const form = ref<TmFormLayoutInstanceType>(null)
 const table = ref<TmTableInstanceType>(null)
 const modelDialog = ref<InstanceType<typeof Model> | null>(null)
 const search = ref<InstanceType<typeof Search> | null>(null)
 
-const { resetFields } = formHooks(form)
 const { refreshCurrent, refresh } = tableHooks(table)
+const { open } = dialogHooks(modelDialog)
 
 const data = reactive<IData>({
-  form: {}
+	form: {} as ISearch
 })
 
 //查询
 const query = (form: ISearch) => {
-  data.form = form
-  refresh()
+	data.form = form
+	refresh()
 }
 
 //新增
 const add = () => {
-  modelDialog.value?.open('新增')
+	open('新增')
 }
 
 //编辑
-const edit = ({ row }: {  row: any }) => {
-  modelDialog.value?.open('编辑')
-  modelDialog.value?.setForm()
+const edit = ({ row }: { row: any }) => {
+	open('编辑')
+	modelDialog.value?.setForm(row)
 }
 
 //删除
 const del = async ({ row }: { row: any }) => {
-  if(await confirms('确定要删除吗')){
-    let res: any = await delApi()
-    if(res){
-      toast('success', res.msg)
-      refreshCurrent()
-    }else {
-      toast('error', res.msg)
-    }
-  }
+	if(await confirms('确定要删除吗')){
+		let res: any = await delData({ id: row.id })
+		if(res){
+			refreshCurrent()
+		}
+	}
 }
 
 //初始化查询
 searchHooks(search)
 
 const columns: Array<any> = [
-  { label: 'ID', prop: 'id' },
-  {
-    label: '操作',
-    operates: [
-      { type: 'warning', name: '编辑', method: edit },
-      { type: 'danger', name: '删除', method: del }
-    ]
-  }
+	{type: 'selection', fixed: 'left'},
+	{{#each list}}
+		{ label: '{{this.label}}', prop: '{{this.prop}}' },
+	{{/each}}
+	{ label: '操作', fixed: 'right', operates: [ { type: 'warning', name: '编辑', method: edit }, { type: 'danger', name: '删除', method: del } ] }
 ]
 </script>
 
-<style scoped lang="scss">
+<style scoped lang='scss'>
 </style>

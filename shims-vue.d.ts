@@ -8,3 +8,4 @@ declare module '*.vue' {
 
 declare module 'js-table2excel'
 declare module 'vue-grid-layout'
+declare module 'js-cookie'

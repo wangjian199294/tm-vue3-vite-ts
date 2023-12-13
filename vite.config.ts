@@ -2,7 +2,7 @@
  * @Author: wj
  * @Date: 2022-12-08 09:11:32
  * @LastEditors: wj_advance
- * @LastEditTime: 2023-03-19 17:31:15
+ * @LastEditTime: 2023-12-13 11:05:24
  * @FilePath: /tm-vue3-vite-ts/vite.config.ts
  * @Description:
  */
@@ -95,12 +95,13 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 		},
 		server: {
 			open: true,
+			port: 8080,
+			host: '0.0.0.0',
 			proxy: {
-				'/gitee': {
-					target: 'https://gitee.com',
+				'/*': {
+					target: env.VITE_API_URL,
 					ws: true,
-					changeOrigin: true,
-					rewrite: (path) => path.replace(/^\/gitee/, '')
+					changeOrigin: true
 				}
 			}
 		},
@@ -111,11 +112,13 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 			rollupOptions: {
 				output: {
 					entryFileNames: `js/[name].[hash].js`,
-					chunkFileNames: `js/[name].[hash].js`,
+					// chunkFileNames: `js/[name].[hash].js`,
 					assetFileNames: `[ext]/[name].[hash].[ext]`,
 					compact: true,
 					manualChunks: {
-						vue: ['vue', 'vue-router', 'pinia'],
+						vue: ['vue'],
+						'vue-router': ['vue-router'],
+						pinia: ['pinia'],
 						echarts: ['echarts']
 					},
 					chunkFileNames: (chunkInfo) => {
@@ -123,8 +126,22 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 						const fileName = facadeModuleId[facadeModuleId.length - 2] || '[name]'
 						return `js/${fileName}/[name].[hash].js`
 					}
+				},
+				parallel: true // 启用并行构建
+			},
+			minify: 'terser',
+			terserOptions: {
+				compress: {
+					keep_infinity: true,
+					drop_console: false,
+					drop_debugger: true
+				},
+				output: {
+					// 去掉注释内容
+					comments: true
 				}
-			}
+			},
+			cssCodeSplit: true
 		},
 		css: {
 			preprocessorOptions: { css: { charset: false } }

@@ -1,5 +1,19 @@
 <template>
-  <tm-form inline isSearch :mode="form" @search="search"></tm-form>
+  <tm-form inline isSearch :mode="form" @search="search">
+    {{#each list}}
+      <el-form-item label="{{this.label}}:" prop="{{this.prop}}">
+        {{#eq this.type "input"}}
+        <el-input v-model="form.{{this.prop}}" placeholder="请输入{{this.label}}" clearable />
+        {{/eq}}
+        {{#eq this.type "select"}}
+        <el-select v-model="form.{{this.prop}}" placeholder="请选择{{this.label}}" clearable filterable></el-select>
+        {{/eq}}
+        {{#eq this.type "date"}}
+        <el-date-picker v-model="form.{{this.prop}}"/>
+        {{/eq}}
+      </el-form-item>
+    {{/each}}
+  </tm-form>
 </template>
 <script lang="ts" setup>
 import type { ISearch } from '{{name}}'
@@ -9,7 +23,11 @@ const emits = defineEmits<{
 }>()
 
 //表单数据
-const form = ref<ISearch>({})
+const form = ref<ISearch>({
+  {{#each list}}
+  {{this.prop}}: '',
+  {{/each}}
+})
 
 //查询
 const search = () => {

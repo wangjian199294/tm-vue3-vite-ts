@@ -2,7 +2,7 @@
  * @Author: wj
  * @Date: 2023-04-22 11:16:52
  * @LastEditors: wj_advance
- * @LastEditTime: 2023-04-23 15:02:47
+ * @LastEditTime: 2023-12-13 10:13:32
  * @FilePath: /tm-vue3-vite-ts/src/components/tmForm/index.vue
  * @Description: 表单组件外层form封装
 -->
@@ -16,12 +16,14 @@
 		:status-icon="props.statusIcon"
 		scroll-to-error
 		v-bind="$attrs"
+		@keyup.enter.native="query"
 	>
 		<slot name="default" />
 		<el-form-item v-if="props.isSearch">
 			<el-button @click="search" type="primary">查询</el-button>
-			<el-button @click="reset" type="info">重置</el-button>
+			<el-button @click="reset" type="info" v-if="!props.noReset">重置</el-button>
 			<el-button @click="importData" v-if="props.isNeedExportBtn" type="success">导出</el-button>
+			<slot name="footer" />
 		</el-form-item>
 	</el-form>
 </template>
@@ -31,7 +33,7 @@ import formHooks from '/@/hooks/formHooks'
 import { exportDataToUrl } from '/@/utils'
 
 const form = ref<TmFormInstanceType>(null)
-const { resetFields } = formHooks(form)
+const { resetFields, validateForm } = formHooks(form)
 
 const emits = defineEmits<{
 	(event: 'search'): void
@@ -48,6 +50,7 @@ interface IProps {
 	isNeedExportBtn?: boolean
 	exportPath?: string
 	extraExportParams?: IObject
+	noReset?: boolean
 }
 
 const props = withDefaults(defineProps<IProps>(), {
@@ -74,7 +77,9 @@ const props = withDefaults(defineProps<IProps>(), {
 	//额外的导出参数
 	extraExportParams: () => {
 		return {}
-	}
+	},
+	//是否显示重置按钮
+	noReset: () => false
 })
 
 /**
@@ -82,6 +87,7 @@ const props = withDefaults(defineProps<IProps>(), {
  * @author: wj_advance
  */
 const importData = () => {
+	console.log({ ...props.mode, ...props.extraExportParams })
 	exportDataToUrl(props.exportPath, { ...props.mode, ...props.extraExportParams })
 }
 
@@ -92,12 +98,28 @@ const search = () => {
 
 //重置
 const reset = () => {
-	console.log(111)
 	resetFields()
 	emits('reset')
+	//目的: 自定义表单组件清空表单
+	inject('reset')
+}
+
+//回车查询
+const query = () => {
+	if (!props.inline) return
+	search()
+}
+
+//校验规则
+const validate = async () => {
+	let flag = await validateForm()
+	return new Promise((resolve) => {
+		resolve(flag)
+	})
 }
 
 defineExpose({
-	search
+	search,
+	validate
 })
 </script>

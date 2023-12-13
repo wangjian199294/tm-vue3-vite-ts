@@ -1,0 +1,13 @@
+import http from '/@/utils/request'
+
+//查询列表
+export const getList = (params?: object) => http.get({ url: '', params })
+
+//保存
+export const saveData = (params?: object) => http.post({ url: '', params, showToast: true })
+
+//根据id查数据,不需要就删除
+export const queryInfo = (params?: object) => http.get({ url: '', params })
+
+//删除
+export const delData = (params?: object) => http.post({ url: '', params })

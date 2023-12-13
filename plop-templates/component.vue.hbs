@@ -1,67 +1,62 @@
 <template>
-  <tm-dialog ref="dialog" width="50%" :loading="data.loading" @save="save" @close="closeModel">
-    <tm-form ref="form" :mode="data.form" :rules="rules"></tm-form>
-  </tm-dialog>
+	<tm-dialog ref='dialog' width='50%' @save='save' @close='closeModel'>
+		<tm-form ref='formRef' :mode='form' :rules='rules'></tm-form>
+	</tm-dialog>
 </template>
-<script lang="ts" setup>
-  import type { IModelData } from '{{name}}'
-  import formHooks from '/@/hooks/formHooks'
-  import dialogHooks from '/@/hooks/dialogHooks'
-  import { toast } from '/@/utils'
+<script lang='ts' setup>
+	import type { IModelData } from '{{name}}'
 
-  const emits = defineEmits < {
-	(event: 'refresh'): void
+	import formHooks from '/@/hooks/formHooks'
+	import dialogHooks from '/@/hooks/dialogHooks'
+	import { deepClone } from '/@/utils'
+	import { saveData } from '/@/api/{{path}}'
+
+
+	const dialog = ref < TmDialogInstanceType > (null)
+	const formRef = ref < TmFormLayoutInstanceType > (null)
+
+	const { resetFields, validate } = formHooks(formRef)
+
+	const { open, close } = dialogHooks(dialog)
+
+	const emits = defineEmits < {
+	(e: 'refresh'): void
 }> ()
 
-  const dialog = ref < TmDialogInstanceType > (null)
-  const form = ref < TmFormLayoutInstanceType > (null)
+	const formData = {}
+	const form = ref(deepClone(formData))
 
-  const { resetFields, validate } = formHooks(form)
-  const { open, close } = dialogHooks(dialog)
+	//关闭
+	const closeModel = () => {
+		form.value = deepClone(formData)
+		resetFields()
+		close()
+	}
 
-  const formData = {}
+	//设置数据
+	const setForm = (row: any) => {
+		nextTick(() => {
+			form.value = deepClone(row)
+		})
+	}
 
-  const data = reactive < IModelData > ({
-    form: formData, //表单
-    loading: false
-  })
+	//保存
+	const save = async () => {
+		if (await validate()) {
+			let res: any = await saveData(data.form)
+			if (res) {
+				emits('refresh')
+				closeModel()
+			}
+		}
+	}
 
-  //关闭
-  const closeModel = () => {
-    data.form = formData
-    resetFields()
-    close()
-  }
+	defineExpose({
+		open,
+		setForm
+	})
 
-  //设置数据
-  const setForm = (row: any) => {
-    nextTick(() => {
-      data.form = row
-    })
-  }
-
-  //保存
-  const save = async () => {
-    if (await validate()) {
-      data.loading = true
-      let res: any = await saveApi(data.from)
-      if (res) {
-        toast('success', res.msg)
-        emits('refresh')
-        closeModel()
-      } else {
-        toast('error', res.msg)
-      }
-    }
-  }
-
-  defineExpose({
-    open,
-    setForm
-  })
-
-  const rules = {
-    id: [{ required: true, message: '' }]
-  }
+	const rules = {
+		id: [{ required: true, message: '' }]
+	}
 </script>
-<style lang="scss" scoped></style>

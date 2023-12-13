@@ -2,36 +2,43 @@
  * @Author: wj
  * @Date: 2023-02-21 17:52:52
  * @LastEditors: wj_advance
- * @LastEditTime: 2023-04-13 18:25:01
- * @FilePath: /tmyd-system/src/components/tmDialog/index.vue
+ * @LastEditTime: 2023-12-13 10:15:28
+ * @FilePath: /tm-vue3-vite-ts/src/components/tmDialog/index.vue
  * @Description: 弹窗组件
 -->
 <template>
-	<el-dialog
-		v-model="data.visible"
-		:custom-class="props.fullscreen ? 'abow-dialog' : props.customClass || ''"
-		:title="data.title || '弹窗'"
-		:fullscreen="props.fullscreen"
-		:width="data.width || '50%'"
-		:close-on-click-modal="false"
-		:destroy-on-close="!props.destryOnClose"
-		:show-close="!props.loading"
-		:close-on-press-escape="!props.loading"
-		:append-to-body="props.appendToBody"
-		@close="handleClose"
-		v-if="data.visible"
-		top="10vh"
-	>
-		<template #header v-if="props.isCustomizeHeader">
-			<slot name="cust-header"></slot>
-		</template>
-		<slot></slot>
-		<template #footer v-if="props.isNeedFootButtons">
-			<el-button :disabled="props.loading" @click="close">取消</el-button>
-			<el-button type="primary" :loading="props.loading" @click="save">{{ props.saveButtonTitle || '确定' }}</el-button>
-			<slot name="footer-btn"></slot>
-		</template>
-	</el-dialog>
+	<Teleport to="body">
+		<el-dialog
+			v-model="data.visible"
+			:title="data.title || '弹窗'"
+			:fullscreen="props.fullscreen"
+			:width="props.width || '50%'"
+			:close-on-click-modal="false"
+			:destroy-on-close="!props.destryOnClose"
+			:show-close="!props.loading"
+			:close-on-press-escape="!props.loading"
+			:append-to-body="props.appendToBody"
+			@close="handleClose"
+			v-if="data.visible"
+			top="10vh"
+			:class="{
+				'dialog-height': !props.fullscreen,
+				'abow-dialog': props.fullscreen,
+				'abow-dialog-no-footer': props.fullscreen && !props.isNeedFootButtons
+			}"
+			v-bind="$attrs"
+		>
+			<template #header v-if="props.isCustomizeHeader">
+				<slot name="cust-header"></slot>
+			</template>
+			<slot></slot>
+			<template #footer v-if="props.isNeedFootButtons">
+				<el-button :disabled="props.loading" @click="handleClose" size="default">取 消</el-button>
+				<el-button type="primary" :loading="props.loading" @click="save" size="default">{{ props.saveButtonTitle || '确 定' }}</el-button>
+				<slot name="footer-btn"></slot>
+			</template>
+		</el-dialog>
+	</Teleport>
 </template>
 
 <script setup lang="ts">
@@ -46,25 +53,24 @@ interface IProps {
 	loading?: boolean
 	isNeedFootButtons?: boolean
 	isCustomizeHeader?: boolean
-	customClass?: string
 	destryOnClose?: boolean
 	appendToBody?: boolean
+	width: string
 }
 
 const props = withDefaults(defineProps<IProps>(), {
-	saveButtonTitle: '确定', //确定按钮title
+	saveButtonTitle: '确 定', //确定按钮title
 	fullscreen: false, //是否是全屏
 	loading: false, //确定按钮的loading
 	isNeedFootButtons: true, //是否需要底部按钮
 	isCustomizeHeader: false, //是否需要自定义头部标题部分
-	customClass: '',
 	destryOnClose: true, //关闭后是否销毁弹窗内的元素
-	appendToBody: false //添加到body上
+	appendToBody: false, //添加到body上
+	width: '50%' //弹窗的宽度
 })
 
 const data = reactive({
 	title: '新增',
-	width: '',
 	visible: false
 })
 
@@ -92,3 +98,8 @@ defineExpose({
 	close
 })
 </script>
+<style lang="scss" scoped>
+.dialog_custom_border {
+	border-top: 1px solid #ebeef5;
+}
+</style>

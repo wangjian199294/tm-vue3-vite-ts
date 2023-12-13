@@ -78,9 +78,11 @@ declare module '@vue/runtime-core' {
 		NoticeBar: typeof import('./src/components/noticeBar/index.vue')['default']
 		RouterLink: typeof import('vue-router')['RouterLink']
 		RouterView: typeof import('vue-router')['RouterView']
+		Setting: typeof import('./src/components/tmTable/setting.vue')['default']
 		SvgIcon: typeof import('./src/components/svgIcon/index.vue')['default']
 		Table: typeof import('./src/components/table/index.vue')['default']
 		TmDialog: typeof import('./src/components/tmDialog/index.vue')['default']
+		TmForm: typeof import('./src/components/tmForm/index.vue')['default']
 		TmTable: typeof import('./src/components/tmTable/index.vue')['default']
 	}
 	export interface ComponentCustomProperties {
