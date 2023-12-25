@@ -1,7 +1,16 @@
+const fs = require('fs')
+const path = require('path')
+
 /* eslint-disable no-undef */
 const toComponentName = (name) => {
 	let nameArray = name.split('/')
 	return nameArray[nameArray.length - 1]
+}
+
+//验证文件夹是否存在
+const verifyFileExist = (dirName, dirPath, tail = '') => {
+	const directories = fs.readdirSync(dirPath)
+	return directories.includes(dirName + tail)
 }
 
 module.exports = function (plop) {
@@ -11,7 +20,21 @@ module.exports = function (plop) {
 			{
 				type: 'input',
 				name: 'path',
-				message: '请输入组件路径(相对src/views/)'
+				message: '请输入组件路径(相对src/views/)',
+				validate: (dirName) => {
+					if (!dirName || dirName.trim() === '') {
+						// 验证用户是否输入
+						// 返回字符串报错
+						return '文件夹路径名称不能为空'
+					} else if (verifyFileExist(dirName.trim(), path.join(__dirname, '/src/views'))) {
+						// 验证文件是否存在
+						// 返回字符串报错r
+						return '文件夹已经存在'
+					} else {
+						// 则继续执行 action
+						return true
+					}
+				}
 			},
 			{
 				type: 'input',
@@ -26,6 +49,7 @@ module.exports = function (plop) {
 							prop: fields[i + 1].trim()
 						})
 					}
+					console.log('\n' + fields)
 					return result
 				}
 			},
@@ -43,6 +67,7 @@ module.exports = function (plop) {
 							type: fields[i + 2].trim()
 						})
 					}
+					console.log('\n' + fields)
 					return result
 				}
 			}

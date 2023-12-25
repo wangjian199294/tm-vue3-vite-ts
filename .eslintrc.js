@@ -71,6 +71,7 @@ module.exports = {
 		'no-v-model-argument': 'off',
 		'no-case-declarations': 'off',
 		'no-console': 'off',
-		'no-redeclare': 'off'
+		'no-redeclare': 'off',
+		eqeqeq: 'off'
 	}
 }
