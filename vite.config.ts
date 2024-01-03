@@ -2,7 +2,7 @@
  * @Author: wj
  * @Date: 2022-12-08 09:11:32
  * @LastEditors: wj_advance
- * @LastEditTime: 2023-12-13 11:05:24
+ * @LastEditTime: 2024-01-02 18:51:40
  * @FilePath: /tm-vue3-vite-ts/vite.config.ts
  * @Description:
  */
@@ -16,6 +16,8 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { createStyleImportPlugin, ElementPlusResolve } from 'vite-plugin-style-import'
 import viteCompression from 'vite-plugin-compression'
+
+import { visualizer } from 'rollup-plugin-visualizer'
 
 const pathResolve = (dir: string): any => {
 	return resolve(__dirname, '.', dir)
@@ -31,6 +33,14 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 	return {
 		plugins: [
 			vue(),
+			// 打包分析页面
+			visualizer({
+				//注意这里要设置为true，否则无效
+				open: false,
+				filename: 'stats.html', //分析图生成的文件名
+				gzipSize: true, // 收集 gzip 大小并将其显示
+				brotliSize: true // 收集 brotli 大小并将其显示
+			}),
 			vueSetupExtend(),
 			AutoImport({
 				// 目标文件
@@ -91,7 +101,7 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 		base: './',
 		hmr: true,
 		optimizeDeps: {
-			include: ['element-plus/lib/locale/lang/zh-cn', 'element-plus/lib/locale/lang/en', 'element-plus/lib/locale/lang/zh-tw']
+			include: ['element-plus/es/locale/lang/zh-cn', 'element-plus/es/locale/lang/en', 'element-plus/es/locale/lang/zh-tw']
 		},
 		server: {
 			open: true,
