@@ -3,13 +3,13 @@ module.exports = {
 	env: {
 		browser: true,
 		es2021: true,
-		node: true
+		node: true,
 	},
 	parser: 'vue-eslint-parser',
 	parserOptions: {
 		ecmaVersion: 12,
 		parser: '@typescript-eslint/parser',
-		sourceType: 'module'
+		sourceType: 'module',
 	},
 	extends: ['plugin:vue/vue3-essential', 'plugin:vue/essential', 'eslint:recommended'],
 	plugins: ['vue', '@typescript-eslint'],
@@ -17,9 +17,9 @@ module.exports = {
 		{
 			files: ['*.ts', '*.tsx', '*.vue'],
 			rules: {
-				'no-undef': 'off'
-			}
-		}
+				'no-undef': 'off',
+			},
+		},
 	],
 	rules: {
 		// http://eslint.cn/docs/rules/
@@ -72,6 +72,8 @@ module.exports = {
 		'no-case-declarations': 'off',
 		'no-console': 'off',
 		'no-redeclare': 'off',
-		eqeqeq: 'off'
-	}
+		eqeqeq: 'off',
+		// //开启拖尾逗号
+		'comma-dangle': ['error', 'only-multiline'],
+	},
 }

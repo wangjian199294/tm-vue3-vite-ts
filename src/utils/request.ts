@@ -2,7 +2,7 @@
  * @Author: wj
  * @Date: 2022-12-08 09:11:32
  * @LastEditors: wj_advance
- * @LastEditTime: 2023-12-13 10:52:17
+ * @LastEditTime: 2024-01-15 14:40:53
  * @FilePath: /tm-vue3-vite-ts/src/utils/request.ts
  * @Description: 请求
  */
@@ -20,7 +20,7 @@ const getCookie = () => {
 const service: AxiosInstance = axios.create({
 	baseURL: import.meta.env.VITE_API_URL,
 	timeout: 50000,
-	headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }
+	headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
 })
 
 // 添加请求拦截器
@@ -28,14 +28,14 @@ service.interceptors.request.use(
 	(config: any) => {
 		// 在发送请求之前做些什么 token
 		if (Session.get('token')) {
-			config.headers!['Authorization'] = `${Session.get('token')}`
+			config.headers!['access-token'] = 123456
 		}
 		return config
 	},
 	(error) => {
 		// 对请求错误做些什么
 		return Promise.reject(error)
-	}
+	},
 )
 
 // 添加响应拦截器
@@ -60,6 +60,8 @@ service.interceptors.response.use(
 		}
 	},
 	(error) => {
+		console.log(error)
+
 		// 对响应错误做点什么
 		if (error.message.indexOf('timeout') != -1) {
 			ElMessage.error('网络超时')
@@ -67,14 +69,14 @@ service.interceptors.response.use(
 			ElMessage({
 				type: 'error',
 				message: '网络连接错误',
-				grouping: true
+				grouping: true,
 			})
 		} else {
 			if (error.response.data) ElMessage.error(error.response.statusText)
 			else ElMessage.error('接口路径找不到')
 		}
 		return Promise.reject(error)
-	}
+	},
 )
 
 //参数类型
@@ -100,7 +102,7 @@ const http = {
 			showLoading &&
 			ElLoading.service({
 				target: '#app',
-				text: '努力加载中...'
+				text: '努力加载中...',
 			})
 		return new Promise((resolve) => {
 			service
@@ -130,7 +132,7 @@ const http = {
 			showLoading &&
 			ElLoading.service({
 				target: '#app',
-				text: '努力加载中...'
+				text: '努力加载中...',
 			})
 		return new Promise((resolve, reject) => {
 			service
@@ -159,7 +161,7 @@ const http = {
 			showLoading &&
 			ElLoading.service({
 				target: '#app',
-				text: '努力加载中...'
+				text: '努力加载中...',
 			})
 		return new Promise((resolve, reject) => {
 			service
@@ -188,7 +190,7 @@ const http = {
 			showLoading &&
 			ElLoading.service({
 				target: '#app',
-				text: '努力加载中...'
+				text: '努力加载中...',
 			})
 		return new Promise((resolve, reject) => {
 			service
@@ -217,7 +219,7 @@ const http = {
 			showLoading &&
 			ElLoading.service({
 				target: '#app',
-				text: '努力加载中...'
+				text: '努力加载中...',
 			})
 		return new Promise((resolve, reject) => {
 			service
@@ -238,7 +240,7 @@ const http = {
 					reject(error)
 				})
 		})
-	}
+	},
 }
 
 // 导出

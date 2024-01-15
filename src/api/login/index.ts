@@ -1,3 +1,11 @@
+/*
+ * @Author: wj
+ * @Date: 2023-03-19 18:41:08
+ * @LastEditors: wj_advance
+ * @LastEditTime: 2024-01-14 14:23:41
+ * @FilePath: /tm-vue3-vite-ts/src/api/login/index.ts
+ * @Description:
+ */
 import request from '/@/utils/request'
 
 /**
@@ -12,6 +20,6 @@ export function useLoginApi() {
 		},
 		signOut: (params: object) => {
 			return request.post('/user/signOut', params)
-		}
+		},
 	}
 }

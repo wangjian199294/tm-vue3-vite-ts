@@ -84,8 +84,8 @@ watch(
 		other.useTitle()
 	},
 	{
-		deep: true
-	}
+		deep: true,
+	},
 )
 </script>
 <style lang="scss">

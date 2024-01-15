@@ -1,3 +1,11 @@
+<!--
+ * @Author: wj
+ * @Date: 2024-01-02 14:23:52
+ * @LastEditors: wj_advance
+ * @LastEditTime: 2024-01-09 11:15:20
+ * @FilePath: /tm-vue3-vite-ts/README.md
+ * @Description:
+-->
 <div align="center">
  <p align="center">
      <a href="https://v3.vuejs.org/" target="_blank">
@@ -30,7 +38,7 @@
 
 #### ⚡ 使用说明
 
-建议使用 yarn. <a href="http://nodejs.cn/" target="_blank">node 版本 > 16.14.0+</a>
+建议使用 yarn. <a href="http://nodejs.cn/" target="_blank">node 版本 > 18.12.1+</a>
 
 ```bash
 # 克隆项目

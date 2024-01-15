@@ -2,13 +2,12 @@
  * @Author: wj
  * @Date: 2023-04-22 15:43:12
  * @LastEditors: wj_advance
- * @LastEditTime: 2023-12-13 10:10:17
+ * @LastEditTime: 2024-01-11 11:15:20
  * @FilePath: /tm-vue3-vite-ts/src/utils/index.ts
  * @Description: 公共类
  */
 import useClipboard from 'vue-clipboard3'
 import { Local } from './storage'
-
 interface IObject {
 	[key: string]: any
 }
@@ -75,6 +74,7 @@ export const dealDataToEmpty = (data: IObject, list: string[]): any => {
 
 //url地址
 export const BASE_URL: string = import.meta.env.VITE_API_URL !== '/' ? import.meta.env.VITE_API_URL : location.origin
+// export const BASE_URL: string = ''
 
 /**
  * @description: 确认弹窗
@@ -88,7 +88,7 @@ export const confirms: (text: string) => Promise<any> = (text: string = '确定�
 			confirmButtonText: '确定',
 			cancelButtonText: '取消',
 			type: 'warning',
-			center: true
+			center: true,
 		})
 			.then(() => {
 				resolve(true)
@@ -110,12 +110,12 @@ export const toast = (type: 'success' | 'warning' | 'info' | 'error', message: s
 		success: '成功',
 		warning: '警告',
 		info: '提示',
-		error: '错误'
+		error: '错误',
 	}
 	ElNotification({
 		title: title[type],
 		message,
-		type
+		type,
 	})
 }
 
@@ -124,7 +124,7 @@ export const message = (type: 'success' | 'warning' | 'info' | 'error', message:
 	ElMessage({
 		message,
 		type,
-		grouping: true
+		grouping: true,
 	})
 }
 
@@ -302,16 +302,14 @@ export const hasEmptyKeysInArray = (arr?: any[]): boolean => {
  * @return: {number} 返回结果
  * @author: wj_advance
  */
-export const sum = (params: any) => {
+export const sum = (params: (number | `${number}`)[] | number | `${number}`) => {
 	let data = 0
 	if (typeof params === 'string' || typeof params === 'number') {
 		data = Math.round(Number(params) * 1000)
 	} else if (Array.isArray(params)) {
-		params &&
-			params.forEach((item) => {
-				if (!item) {
-					item = 0
-				}
+		const filteredParams = params.filter((item: any) => item !== null && item !== undefined)
+		filteredParams &&
+			filteredParams.forEach((item) => {
 				data += Math.round(Number(item) * 1000)
 			})
 	}
