@@ -43,32 +43,9 @@ const state = reactive<BreadcrumbState>({
 	breadcrumbList: [],
 	routeSplit: [],
 	routeSplitFirst: '',
-	routeSplitIndex: 1
+	routeSplitIndex: 1,
 })
 
-// 动态设置经典、横向布局不显示
-const isShowBreadcrumb = computed(() => {
-	initRouteSplit(route.path)
-	const { layout, isBreadcrumb } = themeConfig.value
-	if (layout === 'classic' || layout === 'transverse') return false
-	else return isBreadcrumb ? true : false
-})
-// 面包屑点击时
-const onBreadcrumbClick = (v: RouteItem) => {
-	const { redirect, path } = v
-	if (redirect) router.push(redirect)
-	else router.push(path)
-}
-// 展开/收起左侧菜单点击
-const onThemeConfigChange = () => {
-	themeConfig.value.isCollapse = !themeConfig.value.isCollapse
-	setLocalThemeConfig()
-}
-// 存储布局配置
-const setLocalThemeConfig = () => {
-	Local.remove('themeConfig')
-	Local.set('themeConfig', themeConfig.value)
-}
 // 处理面包屑数据
 const getBreadcrumbList = (arr: RouteItems) => {
 	arr.forEach((item: RouteItem) => {
@@ -82,6 +59,7 @@ const getBreadcrumbList = (arr: RouteItems) => {
 		})
 	})
 }
+
 // 当前路由字符串切割成数组，并删除第一项空内容
 const initRouteSplit = (path: string) => {
 	if (!themeConfig.value.isBreadcrumb) return false
@@ -95,6 +73,33 @@ const initRouteSplit = (path: string) => {
 	if (state.breadcrumbList.length > 0)
 		state.breadcrumbList[state.breadcrumbList.length - 1].meta.tagsViewName = other.setTagsViewNameI18n(<RouteToFrom>route)
 }
+
+// 动态设置经典、横向布局不显示
+const isShowBreadcrumb = computed(() => {
+	initRouteSplit(route.path)
+	const { layout, isBreadcrumb } = themeConfig.value
+	if (layout === 'classic' || layout === 'transverse') return false
+	else return Boolean(isBreadcrumb)
+})
+// 面包屑点击时
+const onBreadcrumbClick = (v: RouteItem) => {
+	const { redirect, path } = v
+	if (redirect) router.push(redirect)
+	else router.push(path)
+}
+
+// 存储布局配置
+const setLocalThemeConfig = () => {
+	Local.remove('themeConfig')
+	Local.set('themeConfig', themeConfig.value)
+}
+
+// 展开/收起左侧菜单点击
+const onThemeConfigChange = () => {
+	themeConfig.value.isCollapse = !themeConfig.value.isCollapse
+	setLocalThemeConfig()
+}
+
 // 页面加载时
 onMounted(() => {
 	initRouteSplit(route.path)

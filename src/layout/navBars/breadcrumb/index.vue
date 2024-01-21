@@ -28,7 +28,7 @@ const { themeConfig } = storeToRefs(storesThemeConfig)
 const { routesList } = storeToRefs(stores)
 const route = useRoute()
 const state = reactive({
-	menuList: [] as RouteItems
+	menuList: [] as RouteItems,
 })
 
 // 设置 logo 显示/隐藏
@@ -41,17 +41,7 @@ const isLayoutTransverse = computed(() => {
 	let { layout, isClassicSplitMenu } = themeConfig.value
 	return layout === 'transverse' || (isClassicSplitMenu && layout === 'classic')
 })
-// 设置/过滤路由（非静态路由/是否显示在菜单中）
-const setFilterRoutes = () => {
-	let { layout, isClassicSplitMenu } = themeConfig.value
-	if (layout === 'classic' && isClassicSplitMenu) {
-		state.menuList = delClassicChildren(filterRoutesFun(routesList.value))
-		const resData = setSendClassicChildren(route.path)
-		mittBus.emit('setSendClassicChildren', resData)
-	} else {
-		state.menuList = filterRoutesFun(routesList.value)
-	}
-}
+
 // 设置了分割菜单时，删除底下 children
 const delClassicChildren = <T extends ChilType>(arr: T[]): T[] => {
 	arr.map((v: T) => {
@@ -59,6 +49,7 @@ const delClassicChildren = <T extends ChilType>(arr: T[]): T[] => {
 	})
 	return arr
 }
+
 // 路由过滤递归函数
 const filterRoutesFun = <T extends RouteItem>(arr: T[]): T[] => {
 	return arr
@@ -69,6 +60,7 @@ const filterRoutesFun = <T extends RouteItem>(arr: T[]): T[] => {
 			return item
 		})
 }
+
 // 传送当前子级数据到菜单中
 const setSendClassicChildren = (path: string) => {
 	const currentPathSplit = path.split('/')
@@ -83,6 +75,19 @@ const setSendClassicChildren = (path: string) => {
 	})
 	return currentData
 }
+
+// 设置/过滤路由（非静态路由/是否显示在菜单中）
+const setFilterRoutes = () => {
+	let { layout, isClassicSplitMenu } = themeConfig.value
+	if (layout === 'classic' && isClassicSplitMenu) {
+		state.menuList = delClassicChildren(filterRoutesFun(routesList.value))
+		const resData = setSendClassicChildren(route.path)
+		mittBus.emit('setSendClassicChildren', resData)
+	} else {
+		state.menuList = filterRoutesFun(routesList.value)
+	}
+}
+
 // 页面加载时
 onMounted(() => {
 	setFilterRoutes()

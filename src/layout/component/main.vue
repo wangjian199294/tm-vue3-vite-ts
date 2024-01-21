@@ -43,8 +43,8 @@ const isFixedHeader = computed(() => {
 })
 // 设置 Backtop 回到顶部
 const setBacktopClass = computed(() => {
-	if (themeConfig.value.isFixedHeader) return `.layout-backtop-header-fixed .el-scrollbar__wrap`
-	else return `.layout-backtop .el-scrollbar__wrap`
+	if (themeConfig.value.isFixedHeader) return '.layout-backtop-header-fixed .el-scrollbar__wrap'
+	else return '.layout-backtop .el-scrollbar__wrap'
 })
 // 设置主内容区的高度
 const setMainHeight = computed(() => {
@@ -60,6 +60,6 @@ onMounted(() => {
 
 // 暴露变量
 defineExpose({
-	layoutMainScrollbarRef
+	layoutMainScrollbarRef,
 })
 </script>

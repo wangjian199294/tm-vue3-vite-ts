@@ -25,26 +25,6 @@ export function elSvg(app: App) {
 }
 
 /**
- * 设置浏览器标题国际化
- * @method const title = useTitle(); ==> title()
- */
-export function useTitle() {
-	const stores = useThemeConfig(pinia)
-	const { themeConfig } = storeToRefs(stores)
-	nextTick(() => {
-		let webTitle = ''
-		let globalTitle: string = themeConfig.value.globalTitle
-		const { path, meta } = router.currentRoute.value
-		if (path === '/login') {
-			webTitle = <string>meta.title
-		} else {
-			webTitle = setTagsViewNameI18n(router.currentRoute.value)
-		}
-		document.title = `${webTitle} - ${globalTitle}` || globalTitle
-	})
-}
-
-/**
  * 设置 自定义 tagsView 名称、 自定义 tagsView 名称国际化
  * @param params 路由 query、params 中的 tagsViewName
  * @returns 返回当前 tagsViewName 名称
@@ -66,6 +46,26 @@ export function setTagsViewNameI18n(item: any) {
 		tagsViewName = i18n.global.t(meta.title)
 	}
 	return tagsViewName
+}
+
+/**
+ * 设置浏览器标题国际化
+ * @method const title = useTitle(); ==> title()
+ */
+export function useTitle() {
+	const stores = useThemeConfig(pinia)
+	const { themeConfig } = storeToRefs(stores)
+	nextTick(() => {
+		let webTitle = ''
+		let globalTitle: string = themeConfig.value.globalTitle
+		const { path, meta } = router.currentRoute.value
+		if (path === '/login') {
+			webTitle = <string>meta.title
+		} else {
+			webTitle = setTagsViewNameI18n(router.currentRoute.value)
+		}
+		document.title = `${webTitle} - ${globalTitle}` || globalTitle
+	})
 }
 
 /**
@@ -130,7 +130,7 @@ export function deepClone(obj: EmptyObjectType) {
 export function isMobile() {
 	if (
 		navigator.userAgent.match(
-			/('phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone')/i
+			/('phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone')/i,
 		)
 	) {
 		return true
@@ -210,7 +210,7 @@ const other = {
 	},
 	handleOpenLink: (val: RouteItem) => {
 		handleOpenLink(val)
-	}
+	},
 }
 
 // 统一批量导出

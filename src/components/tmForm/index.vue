@@ -2,7 +2,7 @@
  * @Author: wj
  * @Date: 2023-04-22 11:16:52
  * @LastEditors: wj_advance
- * @LastEditTime: 2023-12-13 10:13:32
+ * @LastEditTime: 2024-01-21 14:37:49
  * @FilePath: /tm-vue3-vite-ts/src/components/tmForm/index.vue
  * @Description: 表单组件外层form封装
 -->
@@ -79,7 +79,7 @@ const props = withDefaults(defineProps<IProps>(), {
 		return {}
 	},
 	//是否显示重置按钮
-	noReset: () => false
+	noReset: () => false,
 })
 
 /**
@@ -120,6 +120,6 @@ const validate = async () => {
 
 defineExpose({
 	search,
-	validate
+	validate,
 })
 </script>

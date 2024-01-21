@@ -1,3 +1,11 @@
+<!--
+ * @Author: wj
+ * @Date: 2024-01-02 14:23:52
+ * @LastEditors: wj_advance
+ * @LastEditTime: 2024-01-21 15:31:20
+ * @FilePath: /tm-vue3-vite-ts/src/views/fun/qrcode/index.vue
+ * @Description:
+-->
 <template>
 	<div class="qrcode-container layout-pd">
 		<el-card shadow="hover" header="qrcodejs2 二维码生成">

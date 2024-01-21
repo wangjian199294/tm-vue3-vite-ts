@@ -36,8 +36,8 @@ const props = defineProps({
 		type: Object,
 		default: () => {
 			return { x: '', y: '' }
-		}
-	}
+		},
+	},
 })
 
 // 定义子组件向父组件传值/事件
@@ -49,12 +49,12 @@ const state = reactive({
 	isShow: false,
 	dropdownList: [
 		{ contextMenuClickId: 0, txt: '删除', icon: 'ele-Delete' },
-		{ contextMenuClickId: 1, txt: '编辑', icon: 'ele-Edit' }
+		{ contextMenuClickId: 1, txt: '编辑', icon: 'ele-Edit' },
 	],
 	item: {
-		type: 'node'
+		type: 'node',
 	},
-	conn: {}
+	conn: {},
 })
 
 // 父级传过来的坐标 x,y 值
@@ -65,6 +65,12 @@ const dropdowns = computed(() => {
 const onCurrentClick = (contextMenuClickId: number) => {
 	emit('current', Object.assign({}, { contextMenuClickId }, state.item), state.conn)
 }
+
+// 关闭右键菜单
+const closeContextmenu = () => {
+	state.isShow = false
+}
+
 // 打开右键菜单：判断是否固定，固定则不显示关闭按钮
 const openContextmenu = (item: WorkflowDrawerLabelType, conn = {}) => {
 	state.item = item
@@ -74,10 +80,7 @@ const openContextmenu = (item: WorkflowDrawerLabelType, conn = {}) => {
 		state.isShow = true
 	}, 10)
 }
-// 关闭右键菜单
-const closeContextmenu = () => {
-	state.isShow = false
-}
+
 // 监听页面监听进行右键菜单的关闭
 onMounted(() => {
 	document.body.addEventListener('click', closeContextmenu)
@@ -91,7 +94,7 @@ onUnmounted(() => {
 
 // 暴露变量
 defineExpose({
-	openContextmenu
+	openContextmenu,
 })
 </script>
 

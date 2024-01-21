@@ -2,7 +2,7 @@
  * @Author: wj
  * @Date: 2023-04-22 15:43:12
  * @LastEditors: wj_advance
- * @LastEditTime: 2024-01-11 11:15:20
+ * @LastEditTime: 2024-01-21 15:50:49
  * @FilePath: /tm-vue3-vite-ts/src/utils/index.ts
  * @Description: 公共类
  */
@@ -12,23 +12,43 @@ interface IObject {
 	[key: string]: any
 }
 
+/**
+ * @description: 弹窗提示
+ * @param {string} type "success" | "warning" | "info" | "error"
+ * @param {string} message 提示消息
+ * @author: wj_advance
+ */
+export const toast = (type: 'success' | 'warning' | 'info' | 'error', message: string) => {
+	let title = {
+		success: '成功',
+		warning: '警告',
+		info: '提示',
+		error: '错误',
+	}
+	ElNotification({
+		title: title[type],
+		message,
+		type,
+	})
+}
+
 //storage数据处理
 export const local = Local
 
 //点击下载文件
 export const downloadImg = (imgSrc: string) => {
-	var image = new Image()
+	let image = new Image()
 	// 解决跨域 Canvas 污染问题
 	image.setAttribute('crossOrigin', 'anonymous')
 	image.onload = function () {
-		var canvas = document.createElement('canvas')
+		let canvas = document.createElement('canvas')
 		canvas.width = image.width
 		canvas.height = image.height
-		var context = canvas.getContext('2d')
+		let context = canvas.getContext('2d')
 		context?.drawImage(image, 0, 0, image.width, image.height)
-		var url = canvas.toDataURL('image/png') // 得到图片的base64编码数据
-		var a = document.createElement('a') // 生成一个a元素
-		var event = new MouseEvent('click') // 创建一个单击事件
+		let url = canvas.toDataURL('image/png') // 得到图片的base64编码数据
+		let a = document.createElement('a') // 生成一个a元素
+		let event = new MouseEvent('click') // 创建一个单击事件
 		a.download = new Date().getTime().toString() // 设置图片名称
 		a.href = url // 将生成的URL设置为a.href属性
 		a.dispatchEvent(event) // 触发a的单击事件
@@ -73,8 +93,8 @@ export const dealDataToEmpty = (data: IObject, list: string[]): any => {
 }
 
 //url地址
-export const BASE_URL: string = import.meta.env.VITE_API_URL !== '/' ? import.meta.env.VITE_API_URL : location.origin
-// export const BASE_URL: string = ''
+// export const BASE_URL: string = import.meta.env.VITE_API_URL !== '/' ? import.meta.env.VITE_API_URL : location.origin
+export const BASE_URL: string = ''
 
 /**
  * @description: 确认弹窗
@@ -96,26 +116,6 @@ export const confirms: (text: string) => Promise<any> = (text: string = '确定�
 			.catch(() => {
 				resolve(false)
 			})
-	})
-}
-
-/**
- * @description: 弹窗提示
- * @param {string} type "success" | "warning" | "info" | "error"
- * @param {string} message 提示消息
- * @author: wj_advance
- */
-export const toast = (type: 'success' | 'warning' | 'info' | 'error', message: string) => {
-	let title = {
-		success: '成功',
-		warning: '警告',
-		info: '提示',
-		error: '错误',
-	}
-	ElNotification({
-		title: title[type],
-		message,
-		type,
 	})
 }
 
@@ -251,6 +251,25 @@ export const toComma = (val?: string): string => {
 }
 
 /**
+ * @description: 判断对象数组中是否有为空的键值
+ * @param {any} arr
+ * @author: tianchenxi
+ */
+export const hasEmptyKeysInArray = (arr?: any[]): boolean => {
+	if (!(arr instanceof Array)) return false
+	for (let i = 0; i < arr.length; i++) {
+		const obj = arr[i]
+
+		// eslint-disable-next-line no-use-before-define
+		if (hasEmptyKeysInObject(obj)) {
+			return true
+		}
+	}
+
+	return false
+}
+
+/**
  * @description: 判断对象中是否有为空的键值，并且包含其children
  * @param {object} obj
  * @param {string} children
@@ -262,7 +281,7 @@ export const hasEmptyKeysInObject = (obj: object, children?: string): boolean =>
 			const value = obj[key]
 
 			// 如果属性的值为 undefined、null 或空字符串，返回 true
-			if (value === undefined || value === null || value === '') {
+			if (value !== 0 && !value) {
 				return true
 			}
 
@@ -272,24 +291,6 @@ export const hasEmptyKeysInObject = (obj: object, children?: string): boolean =>
 					return true
 				}
 			}
-		}
-	}
-
-	return false
-}
-
-/**
- * @description: 判断对象数组中是否有为空的键值
- * @param {any} arr
- * @author: tianchenxi
- */
-export const hasEmptyKeysInArray = (arr?: any[]): boolean => {
-	if (!(arr instanceof Array)) return false
-	for (let i = 0; i < arr.length; i++) {
-		const obj = arr[i]
-
-		if (hasEmptyKeysInObject(obj)) {
-			return true
 		}
 	}
 

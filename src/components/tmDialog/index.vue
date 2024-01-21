@@ -24,7 +24,7 @@
 			:class="{
 				'dialog-height': !props.fullscreen,
 				'abow-dialog': props.fullscreen,
-				'abow-dialog-no-footer': props.fullscreen && !props.isNeedFootButtons
+				'abow-dialog-no-footer': props.fullscreen && !props.isNeedFootButtons,
 			}"
 			v-bind="$attrs"
 		>
@@ -66,12 +66,12 @@ const props = withDefaults(defineProps<IProps>(), {
 	isCustomizeHeader: false, //是否需要自定义头部标题部分
 	destryOnClose: true, //关闭后是否销毁弹窗内的元素
 	appendToBody: false, //添加到body上
-	width: '50%' //弹窗的宽度
+	width: '50%', //弹窗的宽度
 })
 
 const data = reactive({
 	title: '新增',
-	visible: false
+	visible: false,
 })
 
 //打开
@@ -95,7 +95,7 @@ const handleClose = () => {
 
 defineExpose({
 	open,
-	close
+	close,
 })
 </script>
 <style lang="scss" scoped>

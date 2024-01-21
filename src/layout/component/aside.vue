@@ -32,8 +32,20 @@ const { themeConfig } = storeToRefs(storesThemeConfig)
 const { isTagsViewCurrenFull } = storeToRefs(storesTagsViewRoutes)
 const state = reactive<AsideState>({
 	menuList: [],
-	clientWidth: 0
+	clientWidth: 0,
 })
+
+// 关闭移动端蒙版
+const closeLayoutAsideMobileMode = () => {
+	const el = document.querySelector('.layout-aside-mobile-mode')
+	el?.setAttribute('style', 'animation: error-img-two 0.3s')
+	setTimeout(() => {
+		el?.parentNode?.removeChild(el)
+	}, 300)
+	const clientWidth = document.body.clientWidth
+	if (clientWidth < 1000) themeConfig.value.isCollapse = false
+	document.body.setAttribute('class', '')
+}
 
 // 设置菜单展开/收起时的宽度
 const setCollapseStyle = computed(() => {
@@ -72,22 +84,7 @@ const setShowLogo = computed(() => {
 	let { layout, isShowLogo } = themeConfig.value
 	return (isShowLogo && layout === 'defaults') || (isShowLogo && layout === 'columns')
 })
-// 关闭移动端蒙版
-const closeLayoutAsideMobileMode = () => {
-	const el = document.querySelector('.layout-aside-mobile-mode')
-	el?.setAttribute('style', 'animation: error-img-two 0.3s')
-	setTimeout(() => {
-		el?.parentNode?.removeChild(el)
-	}, 300)
-	const clientWidth = document.body.clientWidth
-	if (clientWidth < 1000) themeConfig.value.isCollapse = false
-	document.body.setAttribute('class', '')
-}
-// 设置/过滤路由（非静态路由/是否显示在菜单中）
-const setFilterRoutes = () => {
-	if (themeConfig.value.layout === 'columns') return false
-	state.menuList = filterRoutesFun(routesList.value)
-}
+
 // 路由过滤递归函数
 const filterRoutesFun = <T extends RouteItem>(arr: T[]): T[] => {
 	return arr
@@ -97,6 +94,12 @@ const filterRoutesFun = <T extends RouteItem>(arr: T[]): T[] => {
 			if (item.children) item.children = filterRoutesFun(item.children)
 			return item
 		})
+}
+
+// 设置/过滤路由（非静态路由/是否显示在菜单中）
+const setFilterRoutes = () => {
+	if (themeConfig.value.layout === 'columns') return false
+	state.menuList = filterRoutesFun(routesList.value)
 }
 // 设置菜单导航是否固定（移动端）
 const initMenuFixed = (clientWidth: number) => {
@@ -148,7 +151,7 @@ watch(
 		setFilterRoutes()
 	},
 	{
-		deep: true
-	}
+		deep: true,
+	},
 )
 </script>

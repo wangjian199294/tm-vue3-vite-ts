@@ -3,11 +3,11 @@
  * @Author: wj
  * @Date: 2024-01-03 09:59:39
  * @LastEditors: wj_advance
- * @LastEditTime: 2024-01-11 14:52:32
- * @FilePath: /tm-vue3-vite-ts/__test__/unit/utils.test.ts
+ * @LastEditTime: 2024-01-18 11:14:55
+ * @FilePath: /tm-vue3-vite-ts/src/__test__/unit/utils.test.ts
  * @Description: 公共函数单元测试
  */
-import { sum, dealDataToEmpty } from '../../src/utils'
+import { sum, dealDataToEmpty, confirms } from '/@/utils'
 
 describe('dealDataToEmpty', () => {
 	interface IObject {
@@ -118,5 +118,32 @@ describe('sum 函数', () => {
 	it('应该处理空数组', () => {
 		const result = sum([])
 		expect(result).toBe(0)
+	})
+})
+
+describe('confirms function', () => {
+	it('调用confirm时解析为true', async () => {
+		// 创建一个 mock 函数来模拟 ElMessageBox.confirm
+		const confirmMock = jest.fn().mockResolvedValueOnce(() => Promise.resolve({}))
+
+		// 在全局对象中设置 ElMessageBox 属性
+		;(global as any).ElMessageBox = {
+			confirm: confirmMock,
+		}
+		// 调用确认函数
+		const result = await confirms('确定执行此操作吗？')
+
+		// 验证结果为 true
+		expect(result).toBe(true)
+		// 验证 mock 函数被调用了一次
+		expect(confirmMock).toHaveBeenCalledWith('确定执行此操作吗？', '提示', {
+			confirmButtonText: '确定',
+			cancelButtonText: '取消',
+			type: 'warning',
+			center: true,
+		})
+
+		// 删除设置的全局属性，以避免影响其他测试
+		delete (global as any).ElMessageBox
 	})
 })

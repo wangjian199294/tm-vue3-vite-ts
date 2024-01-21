@@ -81,12 +81,12 @@ const state = reactive({
 	time: {
 		hm: '',
 		s: '',
-		mdq: ''
+		mdq: '',
 	},
 	setIntervalTime: 0,
 	isShowLockScreen: false,
 	isShowLockScreenIntervalTime: 0,
-	lockScreenPassword: ''
+	lockScreenPassword: '',
 })
 
 // 鼠标按下 pc
@@ -99,16 +99,7 @@ const onDownApp = (down: TouchEvent) => {
 	state.isFlags = true
 	state.downClientY = down.touches[0].clientY
 }
-// 鼠标移动 pc
-const onMovePc = (move: MouseEvent) => {
-	state.moveDifference = move.clientY - state.downClientY
-	onMove()
-}
-// 鼠标移动 app
-const onMoveApp = (move: TouchEvent) => {
-	state.moveDifference = move.touches[0].clientY - state.downClientY
-	onMove()
-}
+
 // 鼠标移动事件
 const onMove = () => {
 	if (state.isFlags) {
@@ -129,11 +120,23 @@ const onMove = () => {
 		}
 	}
 }
+
+// 鼠标移动 pc
+const onMovePc = (move: MouseEvent) => {
+	state.moveDifference = move.clientY - state.downClientY
+	onMove()
+}
+// 鼠标移动 app
+const onMoveApp = (move: TouchEvent) => {
+	state.moveDifference = move.touches[0].clientY - state.downClientY
+	onMove()
+}
+
 // 鼠标松开
 const onEnd = () => {
 	state.isFlags = false
 	state.transparency = 1
-	state.moveDifference >= -400 && (<HTMLElement>state.querySelectorEl).setAttribute('style', `top:0px;opacity:1;transition:all 0.3s ease;`)
+	state.moveDifference >= -400 && (<HTMLElement>state.querySelectorEl).setAttribute('style', 'top:0px;opacity:1;transition:all 0.3s ease;')
 }
 // 获取要拖拽的初始元素
 const initGetElement = () => {
@@ -154,6 +157,13 @@ const initSetTime = () => {
 		initTime()
 	}, 1000)
 }
+
+// 存储布局配置
+const setLocalThemeConfig = () => {
+	themeConfig.value.isDrawer = false
+	Local.set('themeConfig', themeConfig.value)
+}
+
 // 锁屏时间定时器
 const initLockScreen = () => {
 	if (themeConfig.value.isLockScreen) {
@@ -169,11 +179,7 @@ const initLockScreen = () => {
 		clearInterval(state.isShowLockScreenIntervalTime)
 	}
 }
-// 存储布局配置
-const setLocalThemeConfig = () => {
-	themeConfig.value.isDrawer = false
-	Local.set('themeConfig', themeConfig.value)
-}
+
 // 密码输入点击事件
 const onLockScreenSubmit = () => {
 	themeConfig.value.isLockScreen = false

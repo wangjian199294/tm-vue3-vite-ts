@@ -65,6 +65,7 @@
     "esbuild-jest": "^0.5.0",
     "eslint": "^8.56.0",
     "eslint-plugin-vue": "^9.19.2",
+    "flush-promises": "^1.0.2",
     "husky": "^8.0.3",
     "jest": "26",
     "jest-environment-jsdom": "^26.6.2",

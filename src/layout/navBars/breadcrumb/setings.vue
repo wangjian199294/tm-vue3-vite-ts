@@ -439,13 +439,31 @@ const { themeConfig } = storeToRefs(storesThemeConfig)
 const { copyText } = commonFunction()
 const { getLightColor, getDarkColor } = useChangeColor()
 const state = reactive({
-	isMobile: false
+	isMobile: false,
 })
 
 // 获取布局配置信息
 const getThemeConfig = computed(() => {
 	return themeConfig.value
 })
+
+// 存储布局配置
+const setLocalThemeConfig = () => {
+	Local.remove('themeConfig')
+	Local.set('themeConfig', getThemeConfig.value)
+}
+
+// 存储布局配置全局主题样式（html根标签）
+const setLocalThemeConfigStyle = () => {
+	Local.set('themeConfigStyle', document.documentElement.style.cssText)
+}
+
+// 触发 store 布局配置更新
+const setDispatchThemeConfig = () => {
+	setLocalThemeConfig()
+	setLocalThemeConfigStyle()
+}
+
 // 1、全局主题
 const onColorPickerChange = () => {
 	if (!getThemeConfig.value.primary) return ElMessage.warning('全局主题 primary 颜色值不能为空')
@@ -458,29 +476,7 @@ const onColorPickerChange = () => {
 	}
 	setDispatchThemeConfig()
 }
-// 2、菜单 / 顶栏
-const onBgColorPickerChange = (bg: string) => {
-	document.documentElement.style.setProperty(`--next-bg-${bg}`, themeConfig.value[bg])
-	if (bg === 'menuBar') {
-		document.documentElement.style.setProperty(`--next-bg-menuBar-light-1`, getLightColor(getThemeConfig.value.menuBar, 0.05))
-	}
-	onTopBarGradualChange()
-	onMenuBarGradualChange()
-	onColumnsMenuBarGradualChange()
-	setDispatchThemeConfig()
-}
-// 2、菜单 / 顶栏 --> 顶栏背景渐变
-const onTopBarGradualChange = () => {
-	setGraduaFun('.layout-navbars-breadcrumb-index', getThemeConfig.value.isTopBarColorGradual, getThemeConfig.value.topBar)
-}
-// 2、菜单 / 顶栏 --> 菜单背景渐变
-const onMenuBarGradualChange = () => {
-	setGraduaFun('.layout-container .el-aside', getThemeConfig.value.isMenuBarColorGradual, getThemeConfig.value.menuBar)
-}
-// 2、菜单 / 顶栏 --> 分栏菜单背景渐变
-const onColumnsMenuBarGradualChange = () => {
-	setGraduaFun('.layout-container .layout-columns-aside', getThemeConfig.value.isColumnsMenuBarColorGradual, getThemeConfig.value.columnsMenuBar)
-}
+
 // 2、菜单 / 顶栏 --> 背景渐变函数
 const setGraduaFun = (el: string, bool: boolean, color: string) => {
 	setTimeout(() => {
@@ -488,10 +484,38 @@ const setGraduaFun = (el: string, bool: boolean, color: string) => {
 		if (!els) return false
 		document.documentElement.style.setProperty('--el-menu-bg-color', document.documentElement.style.getPropertyValue('--next-bg-menuBar'))
 		if (bool) els.setAttribute('style', `background:linear-gradient(to bottom left , ${color}, ${getLightColor(color, 0.6)}) !important;`)
-		else els.setAttribute('style', ``)
+		else els.setAttribute('style', '')
 		setLocalThemeConfig()
 	}, 200)
 }
+
+// 2、菜单 / 顶栏 --> 顶栏背景渐变
+const onTopBarGradualChange = () => {
+	setGraduaFun('.layout-navbars-breadcrumb-index', getThemeConfig.value.isTopBarColorGradual, getThemeConfig.value.topBar)
+}
+
+// 2、菜单 / 顶栏 --> 菜单背景渐变
+const onMenuBarGradualChange = () => {
+	setGraduaFun('.layout-container .el-aside', getThemeConfig.value.isMenuBarColorGradual, getThemeConfig.value.menuBar)
+}
+
+// 2、菜单 / 顶栏 --> 分栏菜单背景渐变
+const onColumnsMenuBarGradualChange = () => {
+	setGraduaFun('.layout-container .layout-columns-aside', getThemeConfig.value.isColumnsMenuBarColorGradual, getThemeConfig.value.columnsMenuBar)
+}
+
+// 2、菜单 / 顶栏
+const onBgColorPickerChange = (bg: string) => {
+	document.documentElement.style.setProperty(`--next-bg-${bg}`, themeConfig.value[bg])
+	if (bg === 'menuBar') {
+		document.documentElement.style.setProperty('--next-bg-menuBar-light-1', getLightColor(getThemeConfig.value.menuBar, 0.05))
+	}
+	onTopBarGradualChange()
+	onMenuBarGradualChange()
+	onColumnsMenuBarGradualChange()
+	setDispatchThemeConfig()
+}
+
 // 2、分栏设置 ->
 const onColumnsMenuHoverPreloadChange = () => {
 	setLocalThemeConfig()
@@ -502,7 +526,7 @@ const onThemeConfigChange = () => {
 }
 // 3、界面设置 --> 固定 Header
 const onIsFixedHeaderChange = () => {
-	getThemeConfig.value.isFixedHeaderChange = getThemeConfig.value.isFixedHeader ? false : true
+	getThemeConfig.value.isFixedHeaderChange = !getThemeConfig.value.isFixedHeader
 	setLocalThemeConfig()
 }
 // 3、界面设置 --> 经典布局分割菜单
@@ -513,7 +537,7 @@ const onClassicSplitMenuChange = () => {
 }
 // 4、界面显示 --> 侧边栏 Logo
 const onIsShowLogoChange = () => {
-	getThemeConfig.value.isShowLogoChange = getThemeConfig.value.isShowLogo ? false : true
+	getThemeConfig.value.isShowLogoChange = !getThemeConfig.value.isShowLogo
 	setLocalThemeConfig()
 }
 // 4、界面显示 --> 面包屑 Breadcrumb
@@ -564,15 +588,7 @@ const onWartermarkTextInput = (val: string) => {
 	if (getThemeConfig.value.isWartermark) Watermark.set(getThemeConfig.value.wartermarkText)
 	setLocalThemeConfig()
 }
-// 5、布局切换
-const onSetLayout = (layout: string) => {
-	Local.set('oldLayout', layout)
-	if (getThemeConfig.value.layout === layout) return false
-	if (layout === 'transverse') getThemeConfig.value.isCollapse = false
-	getThemeConfig.value.layout = layout
-	getThemeConfig.value.isDrawer = false
-	initLayoutChangeFun()
-}
+
 // 设置布局切换函数
 const initLayoutChangeFun = () => {
 	onBgColorPickerChange('menuBar')
@@ -582,6 +598,17 @@ const initLayoutChangeFun = () => {
 	onBgColorPickerChange('columnsMenuBar')
 	onBgColorPickerChange('columnsMenuBarColor')
 }
+
+// 5、布局切换
+const onSetLayout = (layout: string) => {
+	Local.set('oldLayout', layout)
+	if (getThemeConfig.value.layout === layout) return false
+	if (layout === 'transverse') getThemeConfig.value.isCollapse = false
+	getThemeConfig.value.layout = layout
+	getThemeConfig.value.isDrawer = false
+	initLayoutChangeFun()
+}
+
 // 关闭弹窗时，初始化变量。变量用于处理 layoutScrollbarRef.value.update() 更新滚动条高度
 const onDrawerClose = () => {
 	getThemeConfig.value.isFixedHeaderChange = false
@@ -593,20 +620,7 @@ const onDrawerClose = () => {
 const openDrawer = () => {
 	getThemeConfig.value.isDrawer = true
 }
-// 触发 store 布局配置更新
-const setDispatchThemeConfig = () => {
-	setLocalThemeConfig()
-	setLocalThemeConfigStyle()
-}
-// 存储布局配置
-const setLocalThemeConfig = () => {
-	Local.remove('themeConfig')
-	Local.set('themeConfig', getThemeConfig.value)
-}
-// 存储布局配置全局主题样式（html根标签）
-const setLocalThemeConfigStyle = () => {
-	Local.set('themeConfigStyle', document.documentElement.style.cssText)
-}
+
 // 一键复制配置
 const onCopyConfigClick = () => {
 	let copyThemeConfig = Local.get('themeConfig')
@@ -667,7 +681,7 @@ onUnmounted(() => {
 
 // 暴露变量
 defineExpose({
-	openDrawer
+	openDrawer,
 })
 </script>
 

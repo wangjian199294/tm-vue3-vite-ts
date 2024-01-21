@@ -43,8 +43,16 @@ const router = useRouter()
 const state = reactive<SearchState>({
 	isShowSearch: false,
 	menuQuery: '',
-	tagsViewList: []
+	tagsViewList: [],
 })
+
+// 初始化菜单数据
+const initTageView = () => {
+	if (state.tagsViewList.length > 0) return false
+	tagsViewRoutes.value.map((v: RouteItem) => {
+		if (!v.meta?.isHide) state.tagsViewList.push({ ...v })
+	})
+}
 
 // 搜索弹窗打开
 const openSearch = () => {
@@ -61,11 +69,7 @@ const openSearch = () => {
 const closeSearch = () => {
 	state.isShowSearch = false
 }
-// 菜单搜索数据过滤
-const menuSearch = (queryString: string, cb: Function) => {
-	let results = queryString ? state.tagsViewList.filter(createFilter(queryString)) : state.tagsViewList
-	cb(results)
-}
+
 // 菜单搜索过滤
 const createFilter = (queryString: string) => {
 	return (restaurant: RouteItem) => {
@@ -76,13 +80,13 @@ const createFilter = (queryString: string) => {
 		)
 	}
 }
-// 初始化菜单数据
-const initTageView = () => {
-	if (state.tagsViewList.length > 0) return false
-	tagsViewRoutes.value.map((v: RouteItem) => {
-		if (!v.meta?.isHide) state.tagsViewList.push({ ...v })
-	})
+
+// 菜单搜索数据过滤
+const menuSearch = (queryString: string, cb: Function) => {
+	let results = queryString ? state.tagsViewList.filter(createFilter(queryString)) : state.tagsViewList
+	cb(results)
 }
+
 // 当前菜单选中时
 const onHandleSelect = (item: RouteItem) => {
 	let { path, redirect } = item
@@ -94,7 +98,7 @@ const onHandleSelect = (item: RouteItem) => {
 
 // 暴露变量
 defineExpose({
-	openSearch
+	openSearch,
 })
 </script>
 

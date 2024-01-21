@@ -1,3 +1,11 @@
+/*
+ * @Author: wj
+ * @Date: 2023-03-19 18:41:08
+ * @LastEditors: wj_advance
+ * @LastEditTime: 2024-01-21 15:49:40
+ * @FilePath: /tm-vue3-vite-ts/src/stores/userInfo.ts
+ * @Description:
+ */
 import Cookies from 'js-cookie'
 import { Session } from '/@/utils/storage'
 
@@ -12,8 +20,8 @@ export const useUserInfo = defineStore('userInfo', {
 			photo: '',
 			time: 0,
 			roles: [],
-			authBtnList: []
-		}
+			authBtnList: [],
+		},
 	}),
 	actions: {
 		async setUserInfos() {
@@ -60,11 +68,11 @@ export const useUserInfo = defineStore('userInfo', {
 								: 'https://img2.baidu.com/it/u=2370931438,70387529&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
 						time: new Date().getTime(),
 						roles: defaultRoles,
-						authBtnList: defaultAuthBtnList
+						authBtnList: defaultAuthBtnList,
 					}
 					resolve(userInfos)
 				}, 0)
 			})
-		}
-	}
+		},
+	},
 })

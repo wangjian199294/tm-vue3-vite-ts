@@ -113,16 +113,65 @@ const state = reactive<WorkflowDrawerNodeState>({
 		left: [{ required: true, message: '请输入left坐标', trigger: 'blur' }],
 		top: [{ required: true, message: '请输入top坐标', trigger: 'blur' }],
 		icon: [{ required: true, message: '请输入icon图标', trigger: 'blur' }],
-		name: [{ required: true, message: '请输入名称', trigger: 'blur' }]
+		name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
 	},
 	form: {
-		module: []
+		module: [],
 	},
 	tabsActive: '1',
 	loading: {
-		extend: false
-	}
+		extend: false,
+	},
 })
+
+// 图表可视化-初始化
+const initChartsMonitor = () => {
+	const myChart = echarts.init(chartsMonitorRef.value)
+	const numsOne = []
+	const numsTwo = []
+	for (let i = 0; i < 7; i++) {
+		numsOne.push(`${Math.floor(Math.random() * 52 + 10)}:${Math.floor(Math.random() * 52 + 1)}`)
+		numsTwo.push(Math.floor(Math.random() * 52 + 1))
+	}
+	const option = {
+		grid: {
+			top: 50,
+			right: 30,
+			bottom: 30,
+			left: 50,
+		},
+		tooltip: {
+			trigger: 'axis',
+		},
+		xAxis: {
+			type: 'category',
+			boundaryGap: false,
+			data: numsOne,
+		},
+		yAxis: {
+			type: 'value',
+		},
+		series: [
+			{
+				itemStyle: {
+					color: '#289df5',
+					borderColor: '#289df5',
+					areaStyle: {
+						type: 'default',
+						opacity: 0.1,
+					},
+				},
+				data: numsTwo,
+				type: 'line',
+				areaStyle: {},
+			},
+		],
+	}
+	myChart.setOption(option)
+	nextTick(() => {
+		myChart.resize()
+	})
+}
 
 // 获取父组件数据
 const getParentData = (data: object) => {
@@ -165,58 +214,10 @@ const onExtendSubmit = () => {
 		}
 	})
 }
-// 图表可视化-初始化
-const initChartsMonitor = () => {
-	const myChart = echarts.init(chartsMonitorRef.value)
-	const numsOne = []
-	const numsTwo = []
-	for (let i = 0; i < 7; i++) {
-		numsOne.push(`${Math.floor(Math.random() * 52 + 10)}:${Math.floor(Math.random() * 52 + 1)}`)
-		numsTwo.push(Math.floor(Math.random() * 52 + 1))
-	}
-	const option = {
-		grid: {
-			top: 50,
-			right: 30,
-			bottom: 30,
-			left: 50
-		},
-		tooltip: {
-			trigger: 'axis'
-		},
-		xAxis: {
-			type: 'category',
-			boundaryGap: false,
-			data: numsOne
-		},
-		yAxis: {
-			type: 'value'
-		},
-		series: [
-			{
-				itemStyle: {
-					color: '#289df5',
-					borderColor: '#289df5',
-					areaStyle: {
-						type: 'default',
-						opacity: 0.1
-					}
-				},
-				data: numsTwo,
-				type: 'line',
-				areaStyle: {}
-			}
-		]
-	}
-	myChart.setOption(option)
-	nextTick(() => {
-		myChart.resize()
-	})
-}
 
 // 暴露变量
 defineExpose({
-	getParentData
+	getParentData,
 })
 </script>
 

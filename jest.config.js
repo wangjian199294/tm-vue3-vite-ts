@@ -2,27 +2,32 @@
  * @Author: wj
  * @Date: 2024-01-03 13:03:59
  * @LastEditors: wj_advance
- * @LastEditTime: 2024-01-11 15:01:27
+ * @LastEditTime: 2024-01-18 11:30:34
  * @FilePath: /tm-vue3-vite-ts/jest.config.js
  * @Description:
  */
 module.exports = {
 	preset: 'ts-jest',
-	moduleFileExtensions: ['vue', 'js', 'json', 'jsx', 'ts', 'tsx', 'node'],
 	testEnvironment: 'jsdom',
 	transform: {
-		'^.+\\.jsx?$': 'babel-jest',
-		'^.+\\.tsx?$': 'vite-jest',
-		'^.+\\.vue$': 'vite-jest',
+		'^.+\\.tsx?$': 'ts-jest',
+		'^.+\\.vue$': 'vue-jest',
 	},
-	plugins: ['vue-jest'],
-	transformIgnorePatterns: ['node_modules/(?!element-plus)/'],
+	moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node', 'vue'],
+	// Add any other Jest configurations as needed
 	globals: {
-		// 'process.env': {
-		// 	VITE_API_URL: 'http://localhost:8888/', // 可以设置为测试环境的API URL
-		// },
-		'vite-jest': {
-			tsConfig: './tsconfig.json',
+		'ts-jest': {
+			tsconfig: 'tsconfig.json',
+			diagnostics: false, // disable ts error reporting for jest
 		},
+		'vue-jest': {
+			experimentalCSSCompile: true,
+		},
+	},
+	transformIgnorePatterns: [
+		'/node_modules/(?!element-plus)', // allow jest to process element-plus
+	],
+	moduleNameMapper: {
+		'^/@/(.*)$': '<rootDir>/src/$1',
 	},
 }

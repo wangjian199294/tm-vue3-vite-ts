@@ -61,14 +61,122 @@ const state = reactive({
 		roleSign: '', // 角色标识
 		sort: 0, // 排序
 		status: true, // 角色状态
-		describe: '' // 角色描述
+		describe: '', // 角色描述
 	},
 	menuData: [] as TreeType[],
 	menuProps: {
 		children: 'children',
-		label: 'label'
-	}
+		label: 'label',
+	},
 })
+
+// 获取菜单结构数据
+const getMenuData = () => {
+	state.menuData = [
+		{
+			id: 1,
+			label: '系统管理',
+			children: [
+				{
+					id: 11,
+					label: '菜单管理',
+					children: [
+						{
+							id: 111,
+							label: '菜单新增',
+						},
+						{
+							id: 112,
+							label: '菜单修改',
+						},
+						{
+							id: 113,
+							label: '菜单删除',
+						},
+						{
+							id: 114,
+							label: '菜单查询',
+						},
+					],
+				},
+				{
+					id: 12,
+					label: '角色管理',
+					children: [
+						{
+							id: 121,
+							label: '角色新增',
+						},
+						{
+							id: 122,
+							label: '角色修改',
+						},
+						{
+							id: 123,
+							label: '角色删除',
+						},
+						{
+							id: 124,
+							label: '角色查询',
+						},
+					],
+				},
+				{
+					id: 13,
+					label: '用户管理',
+					children: [
+						{
+							id: 131,
+							label: '用户新增',
+						},
+						{
+							id: 132,
+							label: '用户修改',
+						},
+						{
+							id: 133,
+							label: '用户删除',
+						},
+						{
+							id: 134,
+							label: '用户查询',
+						},
+					],
+				},
+			],
+		},
+		{
+			id: 2,
+			label: '权限管理',
+			children: [
+				{
+					id: 21,
+					label: '前端控制',
+					children: [
+						{
+							id: 211,
+							label: '页面权限',
+						},
+						{
+							id: 212,
+							label: '页面权限',
+						},
+					],
+				},
+				{
+					id: 22,
+					label: '后端控制',
+					children: [
+						{
+							id: 221,
+							label: '页面权限',
+						},
+					],
+				},
+			],
+		},
+	]
+}
 
 // 打开弹窗
 const openDialog = () => {
@@ -87,117 +195,10 @@ const onCancel = () => {
 const onSubmit = () => {
 	closeDialog()
 }
-// 获取菜单结构数据
-const getMenuData = () => {
-	state.menuData = [
-		{
-			id: 1,
-			label: '系统管理',
-			children: [
-				{
-					id: 11,
-					label: '菜单管理',
-					children: [
-						{
-							id: 111,
-							label: '菜单新增'
-						},
-						{
-							id: 112,
-							label: '菜单修改'
-						},
-						{
-							id: 113,
-							label: '菜单删除'
-						},
-						{
-							id: 114,
-							label: '菜单查询'
-						}
-					]
-				},
-				{
-					id: 12,
-					label: '角色管理',
-					children: [
-						{
-							id: 121,
-							label: '角色新增'
-						},
-						{
-							id: 122,
-							label: '角色修改'
-						},
-						{
-							id: 123,
-							label: '角色删除'
-						},
-						{
-							id: 124,
-							label: '角色查询'
-						}
-					]
-				},
-				{
-					id: 13,
-					label: '用户管理',
-					children: [
-						{
-							id: 131,
-							label: '用户新增'
-						},
-						{
-							id: 132,
-							label: '用户修改'
-						},
-						{
-							id: 133,
-							label: '用户删除'
-						},
-						{
-							id: 134,
-							label: '用户查询'
-						}
-					]
-				}
-			]
-		},
-		{
-			id: 2,
-			label: '权限管理',
-			children: [
-				{
-					id: 21,
-					label: '前端控制',
-					children: [
-						{
-							id: 211,
-							label: '页面权限'
-						},
-						{
-							id: 212,
-							label: '页面权限'
-						}
-					]
-				},
-				{
-					id: 22,
-					label: '后端控制',
-					children: [
-						{
-							id: 221,
-							label: '页面权限'
-						}
-					]
-				}
-			]
-		}
-	]
-}
 
 // 暴露变量
 defineExpose({
-	openDialog
+	openDialog,
 })
 </script>
 

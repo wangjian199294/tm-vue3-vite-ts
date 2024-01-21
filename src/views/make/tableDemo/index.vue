@@ -42,11 +42,11 @@ const state = reactive<TableDemoState>({
 			{ key: 'phone', colWidth: '', title: '采样点联系电话', type: 'text', isCheck: true },
 			{ key: 'time', colWidth: '', title: '开放时间', type: 'text', isCheck: true },
 			{ key: 'isSupport', colWidth: '', title: '是否支持24小时核酸检测', type: 'text', isCheck: true },
-			{ key: 'image', colWidth: '', width: '70', height: '40', title: '图片描述', type: 'image', isCheck: true }
+			{ key: 'image', colWidth: '', width: '70', height: '40', title: '图片描述', type: 'image', isCheck: true },
 		],
 		// 搜索参数（可选）
 		param: {
-			search: ''
+			search: '',
 		},
 		// 配置项（必传）
 		config: {
@@ -55,9 +55,9 @@ const state = reactive<TableDemoState>({
 			isBorder: false, // 是否显示表格边框
 			isSerialNo: true, // 是否显示表格序号
 			isSelection: true, // 是否显示表格多选
-			isOperate: true // 是否显示表格操作栏
-		}
-	}
+			isOperate: true, // 是否显示表格操作栏
+		},
+	},
 })
 
 // 初始化列表数据
@@ -70,9 +70,9 @@ const getTableData = () => {
 			name: `莲塘别墅广场${i + 1}`,
 			address: `中沧公寓中庭榕树下${i + 1}`,
 			phone: `0592-6081259${i + 1}`,
-			time: `6:00 ~ 24:00`,
+			time: '6:00 ~ 24:00',
 			isSupport: `${i % 2 === 0 ? '是' : '否'}`,
-			image: `https://img2.baidu.com/it/u=417454395,2713356475&fm=253&fmt=auto?w=200&h=200`
+			image: 'https://img2.baidu.com/it/u=417454395,2713356475&fm=253&fmt=auto?w=200&h=200',
 		})
 	}
 	// 数据总数（模拟，真实从接口取）

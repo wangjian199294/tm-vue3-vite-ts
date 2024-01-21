@@ -69,7 +69,7 @@ const state = reactive<ColumnsAsideState>({
 	liHoverIndex: null,
 	liOldPath: null,
 	difference: 0,
-	routeSplit: []
+	routeSplit: [],
 })
 
 // 设置菜单高亮位置移动
@@ -84,6 +84,22 @@ const onColumnsAsideMenuClick = (v: RouteItem, k: number) => {
 	if (redirect) router.push(redirect)
 	else router.push(path)
 }
+
+// 传送当前子级数据到菜单中
+const setSendChildren = (path: string) => {
+	const currentPathSplit = path.split('/')
+	let currentData: MittMenu = { children: [] }
+	state.columnsAsideList.map((v: RouteItem, k: number) => {
+		if (v.path === `/${currentPathSplit[1]}`) {
+			v['k'] = k
+			currentData['item'] = { ...v }
+			currentData['children'] = [{ ...v }]
+			if (v.children) currentData['children'] = v.children
+		}
+	})
+	return currentData
+}
+
 // 鼠标移入时，显示当前的子级菜单
 const onColumnsAsideMenuMouseenter = (v: RouteRecordRaw, k: number) => {
 	if (!themeConfig.value.isColumnsMenuHoverPreload) return false
@@ -109,28 +125,7 @@ const onColumnsAsideDown = (k: number) => {
 		setColumnsAsideMove(k)
 	})
 }
-// 设置/过滤路由（非静态路由/是否显示在菜单中）
-const setFilterRoutes = () => {
-	state.columnsAsideList = filterRoutesFun(routesList.value)
-	const resData: MittMenu = setSendChildren(route.path)
-	if (Object.keys(resData).length <= 0) return false
-	onColumnsAsideDown(resData.item?.k)
-	mittBus.emit('setSendColumnsChildren', resData)
-}
-// 传送当前子级数据到菜单中
-const setSendChildren = (path: string) => {
-	const currentPathSplit = path.split('/')
-	let currentData: MittMenu = { children: [] }
-	state.columnsAsideList.map((v: RouteItem, k: number) => {
-		if (v.path === `/${currentPathSplit[1]}`) {
-			v['k'] = k
-			currentData['item'] = { ...v }
-			currentData['children'] = [{ ...v }]
-			if (v.children) currentData['children'] = v.children
-		}
-	})
-	return currentData
-}
+
 // 路由过滤递归函数
 const filterRoutesFun = <T extends RouteItem>(arr: T[]): T[] => {
 	return arr
@@ -141,6 +136,16 @@ const filterRoutesFun = <T extends RouteItem>(arr: T[]): T[] => {
 			return item
 		})
 }
+
+// 设置/过滤路由（非静态路由/是否显示在菜单中）
+const setFilterRoutes = () => {
+	state.columnsAsideList = filterRoutesFun(routesList.value)
+	const resData: MittMenu = setSendChildren(route.path)
+	if (Object.keys(resData).length <= 0) return false
+	onColumnsAsideDown(resData.item?.k)
+	mittBus.emit('setSendColumnsChildren', resData)
+}
+
 // tagsView 点击时，根据路由查找下标 columnsAsideList，实现左侧菜单高亮
 const setColumnsMenuHighlight = (path: string) => {
 	state.routeSplit = path.split('/')
@@ -186,8 +191,8 @@ watch(
 		}
 	},
 	{
-		deep: true
-	}
+		deep: true,
+	},
 )
 </script>
 

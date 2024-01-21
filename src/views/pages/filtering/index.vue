@@ -100,18 +100,11 @@ const state = reactive({
 		loading: false,
 		param: {
 			pageNum: 1,
-			pageSize: 10
-		}
-	}
+			pageSize: 10,
+		},
+	},
 })
 
-// 页面加载时
-onMounted(() => {
-	initBtnToggle()
-	window.onresize = () => {
-		initBtnToggle()
-	}
-})
 // 初始化 `收起、展开` 按钮
 const initBtnToggle = () => {
 	nextTick(() => {
@@ -121,6 +114,14 @@ const initBtnToggle = () => {
 		})
 	})
 }
+
+// 页面加载时
+onMounted(() => {
+	initBtnToggle()
+	window.onresize = () => {
+		initBtnToggle()
+	}
+})
 // 过滤当前选中的数据
 const onSelItem = (val: FilteringRowType, v: FilteringChilType) => {
 	val.children.map((v: FilteringChilType) => (v.active = false))
@@ -131,7 +132,7 @@ const onSelItem = (val: FilteringRowType, v: FilteringChilType) => {
 			if (chil.active) {
 				arr.push({
 					...item,
-					children: [{ ...chil }]
+					children: [{ ...chil }],
 				})
 			}
 		})
@@ -146,12 +147,12 @@ const onTableItemClick = (v: FilterListType) => {
 	if (v.id === 1) {
 		router.push({
 			path: '/pages/filtering/details',
-			query: { id: v.id }
+			query: { id: v.id },
 		})
 	} else {
 		router.push({
 			path: '/pages/filtering/details1',
-			query: { id: v.id }
+			query: { id: v.id },
 		})
 	}
 }

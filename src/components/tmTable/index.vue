@@ -2,7 +2,7 @@
  * @Author: wj
  * @Date: 2023-02-21 10:39:37
  * @LastEditors: wj_advance
- * @LastEditTime: 2023-12-13 10:02:35
+ * @LastEditTime: 2024-01-21 15:51:28
  * @FilePath: /tm-vue3-vite-ts/src/components/tmTable/index.vue
  * @Description: 表格组件
 -->
@@ -36,7 +36,6 @@
 						:label="item.label"
 						:width="item.width"
 						:fixed="item.fixed"
-						:resizable="false"
 						:sortable="item.sortable"
 						:sort-orders="item.sortOrders"
 						:reserve-selection="item.reserveSelection"
@@ -176,7 +175,7 @@ const props = withDefaults(defineProps<IProps>(), {
 	//是否需要拖拽表格
 	isNeedSortTable: () => false,
 	//表格id,做表格排序配置使用,如果要做表格列顺序、显隐操作必传且全系统唯一
-	tableId: () => 0
+	tableId: () => 0,
 })
 
 const table = ref<TableInstance | null>(null)
@@ -191,7 +190,7 @@ const data = reactive({
 	active: false, //是否显示筛选列弹窗
 	activeRows: [],
 	selectList: [] as Array<string | number>, //选中的数据
-	selectionData: [] as any
+	selectionData: [] as any,
 })
 
 const flag = ref(false) //传送门展示变量
@@ -200,9 +199,9 @@ const columnsList = ref([]) //中转表格列变量
 // 将树数据转化为平铺数据
 const treeToTile = (treeData: Array<any>) => {
 	const arr: Array<any> = []
-	const expanded = (data: any) => {
-		if (data && data.length > 0) {
-			data
+	const expanded = (list: any) => {
+		if (list && list.length > 0) {
+			list
 				.filter((d: any) => d)
 				.forEach((e: any) => {
 					arr.push(e)
@@ -264,8 +263,23 @@ const initDropTable = () => {
 				return false
 			}
 			emit('drag-row', { oldRow, newRow })
-		}
+		},
 	})
+}
+
+//设置选中
+const setSelectData = (list: any[]) => {
+	data.tableData &&
+		data.tableData.forEach((item: any) => {
+			list &&
+				list.forEach((item1: any) => {
+					if (item1[props.rowKey] === item[props.rowKey]) {
+						nextTick(() => {
+							table.value?.toggleRowSelection(item, true)
+						})
+					}
+				})
+		})
 }
 
 /**
@@ -277,7 +291,7 @@ const getListData = async () => {
 	let selectObj = { ...props.queryObj }
 	let searchData = {
 		...selectObj,
-		...{ [props.pageConfig.page]: data.currentPage, [props.pageConfig.pageSize]: data.pageSize }
+		...{ [props.pageConfig.page]: data.currentPage, [props.pageConfig.pageSize]: data.pageSize },
 	}
 	//数组转成json
 	// for (let key in searchData) {
@@ -299,28 +313,13 @@ const getListData = async () => {
 	}
 }
 
-//设置选中
-const setSelectData = (list: any[]) => {
-	data.tableData &&
-		data.tableData.forEach((item: any) => {
-			list &&
-				list.forEach((item1: any) => {
-					if (item1[props.rowKey] === item[props.rowKey]) {
-						nextTick(() => {
-							table.value?.toggleRowSelection(item, true)
-						})
-					}
-				})
-		})
-}
-
 watch(
 	() => props.selectData,
 	(list: any) => {
 		//设置行选中
 		setSelectData(list)
 	},
-	{ deep: true }
+	{ deep: true },
 )
 
 /**
@@ -400,6 +399,17 @@ const selectionChange = (selection: Array<any>) => {
 const rowClick = (row: any, column: any) => {
 	emit('row-click', { row, column })
 }
+
+/**
+ * @description: 用于多选表格，清空用户的选择
+ * @author: wj
+ */
+const clearSelection = () => {
+	nextTick(() => {
+		table.value?.clearSelection()
+	})
+}
+
 /**
  * @description: 刷新表格
  * @author: wj
@@ -417,16 +427,6 @@ const refresh = () => {
 const refreshCurrent = () => {
 	clearSelection()
 	getListData()
-}
-
-/**
- * @description: 用于多选表格，清空用户的选择
- * @author: wj
- */
-const clearSelection = () => {
-	nextTick(() => {
-		table.value?.clearSelection()
-	})
 }
 
 const sortChange = ({ column, prop, order }: { column: any; prop: string; order: string | null }) => {
@@ -456,7 +456,7 @@ watch(
 	(list) => {
 		data.selectionData = list
 	},
-	{ deep: true }
+	{ deep: true },
 )
 
 //获取表格数据
@@ -516,6 +516,6 @@ defineExpose({
 	setTableData,
 	getTableData,
 	setTableExpend,
-	table
+	table,
 })
 </script>

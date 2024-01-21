@@ -26,8 +26,8 @@ export function wavesDirective(app: App) {
 					top: `${e.layerY}px`,
 					opacity: 1,
 					transform: `scale(${(el.clientWidth / 100) * 10})`,
-					'transition-duration': `750ms`,
-					'transition-timing-function': `cubic-bezier(0.250, 0.460, 0.450, 0.940)`
+					'transition-duration': '750ms',
+					'transition-timing-function': 'cubic-bezier(0.250, 0.460, 0.450, 0.940)',
 				}
 				elDiv.setAttribute('style', setConvertStyle(styles))
 				setTimeout(() => {
@@ -37,8 +37,8 @@ export function wavesDirective(app: App) {
 							opacity: 0,
 							transform: styles.transform,
 							left: styles.left,
-							top: styles.top
-						})
+							top: styles.top,
+						}),
 					)
 					setTimeout(() => {
 						elDiv && el.removeChild(elDiv)
@@ -49,7 +49,7 @@ export function wavesDirective(app: App) {
 		},
 		unmounted(el) {
 			el.addEventListener('mousedown', () => {})
-		}
+		},
 	})
 }
 
@@ -68,7 +68,7 @@ export function dragDirective(app: App) {
 			const dragDom = document.querySelector(binding.value[0]) as HTMLElement
 			const dragHeader = document.querySelector(binding.value[1]) as HTMLElement
 
-			dragHeader.onmouseover = () => (dragHeader.style.cursor = `move`)
+			dragHeader.onmouseover = () => (dragHeader.style.cursor = 'move')
 
 			function down(e: any, type: string) {
 				// 鼠标按下，计算当前元素距离可视区的距离
@@ -97,11 +97,11 @@ export function dragDirective(app: App) {
 
 				// 注意在ie中 第一次获取到的值为组件自带50% 移动之后赋值为px
 				if (styL.includes('%')) {
-					styL = +document.body.clientWidth * (+styL.replace(/\%/g, '') / 100)
-					styT = +document.body.clientHeight * (+styT.replace(/\%/g, '') / 100)
+					styL = Number(document.body.clientWidth) * (Number(styL.replace(/\%/g, '')) / 100)
+					styT = Number(document.body.clientHeight) * (Number(styT.replace(/\%/g, '')) / 100)
 				} else {
-					styL = +styL.replace(/\px/g, '')
-					styT = +styT.replace(/\px/g, '')
+					styL = Number(styL.replace(/\px/g, ''))
+					styT = Number(styT.replace(/\px/g, ''))
 				}
 
 				return {
@@ -112,7 +112,7 @@ export function dragDirective(app: App) {
 					minDragDomTop,
 					maxDragDomTop,
 					styL,
-					styT
+					styT,
 				}
 			}
 
@@ -173,6 +173,6 @@ export function dragDirective(app: App) {
 					document.ontouchend = null
 				}
 			}
-		}
+		},
 	})
 }

@@ -217,7 +217,7 @@ import {
 	verifyFullName,
 	verifyPostalCode,
 	verifyUrl,
-	verifyCarNum
+	verifyCarNum,
 } from '/@/utils/toolsValidate'
 
 // 定义变量内容
@@ -264,22 +264,22 @@ const state = reactive({
 		a20: '',
 		a21: '',
 		a22: '',
-		a23: ''
+		a23: '',
 	},
 	rules: {
 		a1: [
 			{
 				required: true,
 				message: '请输入小数或整数进行测试',
-				trigger: 'change'
-			}
+				trigger: 'change',
+			},
 		],
 		a2: [
 			{
 				required: true,
 				message: '请输入正整数进行测试',
-				trigger: 'change'
-			}
+				trigger: 'change',
+			},
 		],
 		a3: [{ required: true, message: '请输入内容进行测试', trigger: 'change' }],
 		a4: [{ required: true, message: '请输入内容进行测试', trigger: 'change' }],
@@ -288,8 +288,8 @@ const state = reactive({
 			{
 				required: true,
 				message: '请输入小数或整数进行测试',
-				trigger: 'change'
-			}
+				trigger: 'change',
+			},
 		],
 		a7: [{ required: true, message: '请输入内容进行测试', trigger: 'change' }],
 		a8: [{ required: true, message: '请输入金额进行测试', trigger: 'change' }],
@@ -297,15 +297,15 @@ const state = reactive({
 			{
 				required: true,
 				message: '请输入手机号进行测试',
-				trigger: 'change'
-			}
+				trigger: 'change',
+			},
 		],
 		a10: [
 			{
 				required: true,
 				message: '请输入国内电话号码进行测试',
-				trigger: 'change'
-			}
+				trigger: 'change',
+			},
 		],
 		a11: [{ required: true, message: '请输入账号进行测试', trigger: 'change' }],
 		a12: [{ required: true, message: '请输入密码进行测试', trigger: 'change' }],
@@ -315,36 +315,36 @@ const state = reactive({
 			{
 				required: true,
 				message: '请输入IP地址进行测试',
-				trigger: 'change'
-			}
+				trigger: 'change',
+			},
 		],
 		a16: [{ required: true, message: '请输入邮箱进行测试', trigger: 'change' }],
 		a17: [
 			{
 				required: true,
 				message: '请输入身份证进行测试',
-				trigger: 'change'
-			}
+				trigger: 'change',
+			},
 		],
 		a18: [{ required: true, message: '请输入姓名进行测试', trigger: 'change' }],
 		a19: [
 			{
 				required: true,
 				message: '请输入邮政编码进行测试',
-				trigger: 'change'
-			}
+				trigger: 'change',
+			},
 		],
 		a20: [{ required: true, message: '请输入内容进行测试', trigger: 'change' }],
 		a21: [
 			{
 				required: true,
 				message: '请输入车牌号进行测试',
-				trigger: 'change'
-			}
+				trigger: 'change',
+			},
 		],
 		a22: [{ required: true, message: '请输入数字进行测试', trigger: 'change' }],
-		a23: [{ required: true, message: '请输入数字进行测试', trigger: 'change' }]
-	}
+		a23: [{ required: true, message: '请输入数字进行测试', trigger: 'change' }],
+	},
 })
 
 // 验证百分比（不可以小数）
@@ -382,7 +382,7 @@ const onVerifyNumberComma = (val: string) => {
 // 匹配文字变色（搜索时）
 const onVerifyTextColor = (val: string) => {
 	state.ruleForm.a7 = verifyAndSpace(val)
-	if (state.ruleForm.a7 === '') state.text = `世间美好，与你环环相扣，祝你开心每一天！`
+	if (state.ruleForm.a7 === '') state.text = '世间美好，与你环环相扣，祝你开心每一天！'
 	else state.text = verifyTextColor(state.ruleForm.a7, state.text)
 }
 // 数字转中文大写

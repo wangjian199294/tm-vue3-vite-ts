@@ -109,8 +109,8 @@ const state = reactive<WorkflowState>({
 	jsplumbConnect,
 	jsplumbData: {
 		nodeList: [],
-		lineList: []
-	}
+		lineList: [],
+	},
 })
 
 // 设置 宽度小于 768，不支持操
@@ -131,7 +131,7 @@ const initLeftNavList = () => {
 				class: 'workflow-right-clone',
 				icon: 'iconfont icon-shouye_dongtaihui',
 				name: '模版',
-				id: '12'
+				id: '12',
 			},
 			{
 				nodeId: 'nltskl6k4me',
@@ -140,13 +140,13 @@ const initLeftNavList = () => {
 				class: 'workflow-right-clone',
 				icon: 'iconfont icon-zhongduancanshuchaxun',
 				name: '名称',
-				id: '13'
-			}
+				id: '13',
+			},
 		],
 		lineList: [
 			{ sourceId: 'huej738hbji', targetId: '52kcszzyxrd', label: '传送' },
-			{ sourceId: 'huej738hbji', targetId: 'nltskl6k4me', label: '' }
-		]
+			{ sourceId: 'huej738hbji', targetId: 'nltskl6k4me', label: '' },
+		],
 	}
 }
 // 左侧导航-初始化拖动
@@ -156,7 +156,7 @@ const initSortable = () => {
 			group: {
 				name: 'vue-next-admin-1',
 				pull: 'clone',
-				put: false
+				put: false,
 			},
 			animation: 0,
 			sort: false,
@@ -180,7 +180,7 @@ const initSortable = () => {
 						class: 'workflow-right-clone',
 						name,
 						icon,
-						id
+						id,
 					}
 					// 右侧视图内容数组
 					state.jsplumbData.nodeList.push(node)
@@ -201,20 +201,56 @@ const initSortable = () => {
 										v.top = `${el.pos[1]}px`
 									}
 								})
-							}
+							},
 						})
 					})
 				}
-			}
+			},
 		})
 	})
 }
+
+// 初始化节点、线的链接
+const initJsPlumbConnection = () => {
+	// 节点
+	state.jsplumbData.nodeList.forEach((v) => {
+		// 整个节点作为source或者target
+		state.jsPlumb.makeSource(v.nodeId, state.jsplumbMakeSource)
+		// 整个节点作为source或者target
+		state.jsPlumb.makeTarget(v.nodeId, state.jsplumbMakeTarget, jsplumbConnect)
+		// 设置节点可以拖拽（此处为id值，非class）
+		state.jsPlumb.draggable(v.nodeId, {
+			containment: 'parent',
+			stop: (el: any) => {
+				state.jsplumbData.nodeList.forEach((v) => {
+					if (v.nodeId === el.el.id) {
+						// 节点x, y重新赋值，防止再次从左侧导航中拖拽节点时，x, y恢复默认
+						v.left = `${el.pos[0]}px`
+						v.top = `${el.pos[1]}px`
+					}
+				})
+			},
+		})
+	})
+	// 线
+	state.jsplumbData.lineList.forEach((v) => {
+		state.jsPlumb.connect(
+			{
+				source: v.sourceId,
+				target: v.targetId,
+				label: v.label,
+			},
+			state.jsplumbConnect,
+		)
+	})
+}
+
 // 初始化 jsPlumb
 const initJsPlumb = () => {
 	jsPlumb.ready(() => {
 		state.jsPlumb = jsPlumb.getInstance({
 			detachable: false,
-			Container: 'workflow-right'
+			Container: 'workflow-right',
 		})
 		state.jsPlumb.fire('jsPlumbDemoLoaded', state.jsPlumb)
 		// 导入默认配置
@@ -253,7 +289,7 @@ const initJsPlumb = () => {
 			state.jsplumbData.lineList.push({
 				sourceId,
 				targetId,
-				label: ''
+				label: '',
 			})
 		})
 		// 删除连线时回调函数
@@ -268,40 +304,7 @@ const initJsPlumb = () => {
 		})
 	})
 }
-// 初始化节点、线的链接
-const initJsPlumbConnection = () => {
-	// 节点
-	state.jsplumbData.nodeList.forEach((v) => {
-		// 整个节点作为source或者target
-		state.jsPlumb.makeSource(v.nodeId, state.jsplumbMakeSource)
-		// 整个节点作为source或者target
-		state.jsPlumb.makeTarget(v.nodeId, state.jsplumbMakeTarget, jsplumbConnect)
-		// 设置节点可以拖拽（此处为id值，非class）
-		state.jsPlumb.draggable(v.nodeId, {
-			containment: 'parent',
-			stop: (el: any) => {
-				state.jsplumbData.nodeList.forEach((v) => {
-					if (v.nodeId === el.el.id) {
-						// 节点x, y重新赋值，防止再次从左侧导航中拖拽节点时，x, y恢复默认
-						v.left = `${el.pos[0]}px`
-						v.top = `${el.pos[1]}px`
-					}
-				})
-			}
-		})
-	})
-	// 线
-	state.jsplumbData.lineList.forEach((v) => {
-		state.jsPlumb.connect(
-			{
-				source: v.sourceId,
-				target: v.targetId,
-				label: v.label
-			},
-			state.jsplumbConnect
-		)
-	})
-}
+
 // 左侧导航-菜单标题点击
 const onTitleClick = (val: any) => {
 	val.isOpen = !val.isOpen
@@ -345,7 +348,7 @@ const onCurrentLineClick = (item: any, conn: any) => {
 	endpoints.forEach((v: any) => {
 		intercourse.push({
 			id: v.element.id,
-			innerText: v.element.innerText
+			innerText: v.element.innerText,
 		})
 	})
 	item.contact = `${intercourse[0].innerText}(${intercourse[0].id}) => ${intercourse[1].innerText}(${intercourse[1].id})`
@@ -357,7 +360,7 @@ const setLineLabel = (obj: any) => {
 	const { sourceId, targetId, label } = obj
 	const conn = state.jsPlumb.getConnections({
 		source: sourceId,
-		target: targetId
+		target: targetId,
 	})[0]
 	conn.setLabel(label)
 	if (!label || label === '') {
@@ -385,29 +388,7 @@ const setNodeContent = (obj: any) => {
 		state.jsPlumb.setSuspendDrawing(false, true)
 	})
 }
-// 顶部工具栏-当前项点击
-const onToolClick = (fnName: String) => {
-	switch (fnName) {
-		case 'help':
-			onToolHelp()
-			break
-		case 'download':
-			onToolDownload()
-			break
-		case 'submit':
-			onToolSubmit()
-			break
-		case 'copy':
-			onToolCopy()
-			break
-		case 'del':
-			onToolDel()
-			break
-		case 'fullscreen':
-			onToolFullscreen()
-			break
-	}
-}
+
 // 顶部工具栏-帮助
 const onToolHelp = () => {
 	nextTick(() => {
@@ -438,7 +419,7 @@ const onToolCopy = () => {
 const onToolDel = () => {
 	ElMessageBox.confirm('此操作将清空画布，是否继续？', '提示', {
 		confirmButtonText: '清空',
-		cancelButtonText: '取消'
+		cancelButtonText: '取消',
 	})
 		.then(() => {
 			state.jsplumbData.nodeList.forEach((v) => {
@@ -447,7 +428,7 @@ const onToolDel = () => {
 			nextTick(() => {
 				state.jsplumbData = {
 					nodeList: [],
-					lineList: []
+					lineList: [],
 				}
 				ElMessage.success('清空画布成功')
 			})
@@ -458,6 +439,31 @@ const onToolDel = () => {
 const onToolFullscreen = () => {
 	stores.setCurrenFullscreen(true)
 }
+
+// 顶部工具栏-当前项点击
+const onToolClick = (fnName: String) => {
+	switch (fnName) {
+		case 'help':
+			onToolHelp()
+			break
+		case 'download':
+			onToolDownload()
+			break
+		case 'submit':
+			onToolSubmit()
+			break
+		case 'copy':
+			onToolCopy()
+			break
+		case 'del':
+			onToolDel()
+			break
+		case 'fullscreen':
+			onToolFullscreen()
+			break
+	}
+}
+
 // 页面加载时
 onMounted(async () => {
 	await initLeftNavList()

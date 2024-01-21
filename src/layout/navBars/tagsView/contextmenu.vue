@@ -39,10 +39,10 @@ const props = defineProps({
 		default: () => {
 			return {
 				x: 0,
-				y: 0
+				y: 0,
 			}
-		}
-	}
+		},
+	},
 })
 
 // 定义子组件向父组件传值/事件
@@ -60,11 +60,11 @@ const state = reactive({
 			contextMenuClickId: 4,
 			txt: 'message.tagsView.fullscreen',
 			affix: false,
-			icon: 'iconfont icon-fullscreen'
-		}
+			icon: 'iconfont icon-fullscreen',
+		},
 	],
 	item: {},
-	arrowLeft: 10
+	arrowLeft: 10,
 })
 
 // 父级传过来的坐标 x,y 值
@@ -73,7 +73,7 @@ const dropdowns = computed(() => {
 	if (props.dropdown.x + 117 > document.documentElement.clientWidth) {
 		return {
 			x: document.documentElement.clientWidth - 117 - 5,
-			y: props.dropdown.y
+			y: props.dropdown.y,
 		}
 	} else {
 		return props.dropdown
@@ -83,6 +83,12 @@ const dropdowns = computed(() => {
 const onCurrentContextmenuClick = (contextMenuClickId: number) => {
 	emit('currentContextmenuClick', Object.assign({}, { contextMenuClickId }, state.item))
 }
+
+// 关闭右键菜单
+const closeContextmenu = () => {
+	state.isShow = false
+}
+
 // 打开右键菜单：判断是否固定，固定则不显示关闭按钮
 const openContextmenu = (item: RouteItem) => {
 	state.item = item
@@ -92,10 +98,7 @@ const openContextmenu = (item: RouteItem) => {
 		state.isShow = true
 	}, 10)
 }
-// 关闭右键菜单
-const closeContextmenu = () => {
-	state.isShow = false
-}
+
 // 监听页面监听进行右键菜单的关闭
 onMounted(() => {
 	document.body.addEventListener('click', closeContextmenu)
@@ -112,13 +115,13 @@ watch(
 		else state.arrowLeft = 10
 	},
 	{
-		deep: true
-	}
+		deep: true,
+	},
 )
 
 // 暴露变量
 defineExpose({
-	openContextmenu
+	openContextmenu,
 })
 </script>
 

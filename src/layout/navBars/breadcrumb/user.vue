@@ -108,7 +108,7 @@ const searchRef = ref()
 const state = reactive({
 	isScreenfull: false,
 	disabledI18n: 'zh-cn',
-	disabledSize: 'large'
+	disabledSize: 'large',
 })
 
 // 设置分割样式
@@ -161,7 +161,7 @@ const onHandleCommandClick = (path: string) => {
 				} else {
 					done()
 				}
-			}
+			},
 		})
 			.then(async () => {
 				// 清除缓存/token等
@@ -180,6 +180,12 @@ const onHandleCommandClick = (path: string) => {
 const onSearchClick = () => {
 	searchRef.value.openSearch()
 }
+
+// 初始化组件大小/i18n
+const initI18nOrSize = (value: string, attr: string) => {
+	state[attr] = Local.get('themeConfig')[value]
+}
+
 // 组件大小改变
 const onComponentSizeChange = (size: string) => {
 	Local.remove('themeConfig')
@@ -197,10 +203,7 @@ const onLanguageChange = (lang: string) => {
 	other.useTitle()
 	initI18nOrSize('globalI18n', 'disabledI18n')
 }
-// 初始化组件大小/i18n
-const initI18nOrSize = (value: string, attr: string) => {
-	state[attr] = Local.get('themeConfig')[value]
-}
+
 // 页面加载时
 onMounted(() => {
 	if (Local.get('themeConfig')) {
